@@ -6,7 +6,57 @@
 
 <c:import url="template/header.jsp" />
 
-<h1>Search</h1>
+<html>
+<head>
+<title>Search for a Tutor</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" href="/Skeleton/css/style.css" />
+</head>
+<body>
+
+<h1>Search for a Tutor</h1>
+
+<form:form method="post" modelAttribute="SearchForm" action="create" id="SearchForm" cssClass="form-horizontal"  autocomplete="off">
+    <fieldset>
+
+        <c:set var="UniversityErrors"><form:errors path="University"/></c:set>
+        <div class="control-group<c:if test="${not empty UniversityErrors}"> error</c:if>">
+            <label class="control-label" for="field-University">University</label>
+            <div class="controls">
+                <form:select path="University" id="field-University" tabindex="4">
+                		<form:option value='None' label="Select University"/>
+                		<form:options items="${list}"/>
+                </form:select>
+                <form:errors path="University" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+         <c:set var="SubjectErrors"><form:errors path="Subject"/></c:set>
+        <div class="control-group<c:if test="${not empty SubjectErrors}"> error</c:if>">
+            <label class="control-label" for="field-Subject">Subject</label>
+            <div class="controls">
+                <form:select path="Subject" id="field-Subject" tabindex="4">
+                		<form:option value='None' label="Select Subject"/>
+                		<form:options items="${list}"/>
+                </form:select>
+                <form:errors path="Subject" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+         <c:set var="CourseErrors"><form:errors path="Course"/></c:set>
+        <div class="control-group<c:if test="${not empty CourseErrors}"> error</c:if>">
+            <label class="control-label" for="field-Course">Course</label>
+            <div class="controls">
+                <form:select path="Course" id="field-Course" tabindex="4">
+                		<form:option value='None' label="Select Course"/>
+                		<form:options items="${list}"/>
+                </form:select>
+                <form:errors path="Course" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+    </fieldset>
+</form:form>
+
 
 
 	<c:if test="${page_error != null }">

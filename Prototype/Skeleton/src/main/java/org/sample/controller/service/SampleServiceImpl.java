@@ -6,6 +6,9 @@ import org.sample.controller.pojos.SignupForm;
 import org.sample.model.Address;
 import org.sample.model.User;
 import org.sample.model.dao.AddressDao;
+import org.sample.model.dao.CourseDao;
+import org.sample.model.dao.SubjectDao;
+import org.sample.model.dao.UniversityDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +19,11 @@ import org.springframework.util.StringUtils;
 @Service
 public class SampleServiceImpl implements SampleService {
 
-    @Autowired    UserDao userDao;
-    @Autowired    AddressDao addDao;
+    @Autowired	UserDao userDao;
+    @Autowired	AddressDao addDao;
+    @Autowired	UniversityDao universityDao;
+    @Autowired	SubjectDao subjectDao;
+    @Autowired	CourseDao courseDao;
     
     /*
     @Transactional
