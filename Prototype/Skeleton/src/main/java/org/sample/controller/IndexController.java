@@ -4,8 +4,10 @@ import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.LoginForm;
+import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.SampleService;
+import org.sample.controller.service.SampleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -79,11 +81,29 @@ public class IndexController {
         return model;
     }
     
-    @RequestMapping(value = "/search")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView search() {
     	ModelAndView model = new ModelAndView("search");
+    	model.addObject("searchForm", new SearchForm());
     	
         return model;
+    }
+    
+    @RequestMapping(value = "/createSearch", method = RequestMethod.POST)
+    public ModelAndView create(@Valid SearchForm searchForm, BindingResult result, RedirectAttributes redirectAttributes) {
+    	ModelAndView model;
+    	if (!result.hasErrors()) {
+            try {
+            	((SampleServiceImpl) sampleService).saveFrom(searchForm);
+            	model = new ModelAndView(new RedirectView("result"));
+            } catch (InvalidUserException e) {
+            	model = new ModelAndView("search");
+            	model.addObject("page_error", e.getMessage());
+            }
+        } else {
+        	model = new ModelAndView("search");
+        }   	
+    	return model;
     }
     
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)

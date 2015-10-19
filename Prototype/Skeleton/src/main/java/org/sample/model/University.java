@@ -4,7 +4,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -12,21 +14,21 @@ public class University {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long UId;
 
+    @NotNull
     private String universityName;
     private String city;
     private String country;
-    
-    @OneToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     private Address address; 
     
-    public Long getId() {
-        return id;
+    public Long getUId() {
+        return UId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUId(Long UId) {
+        this.UId = UId;
     }
 
     public String getUniversityName() {
@@ -59,5 +61,9 @@ public class University {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	
+	public String toString(){
+		return universityName;
 	}
 }

@@ -3,6 +3,9 @@ package org.sample.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -12,11 +15,13 @@ public class Course {
     @GeneratedValue
     private Long id;
 
+    @NotNull
     private String courseName;
     private int year;
-    private String semester; 
-    
-    private University university;
+    private String semester;
+
+    @NotNull
+    @ManyToOne
     private Subject subject;
     
     public Long getId() {
@@ -49,14 +54,6 @@ public class Course {
 
 	public void setSemester(String semester) {
 		this.semester = semester;
-	}
-
-	public University getUniversity() {
-		return university;
-	}
-
-	public void setUniversity(University university) {
-		this.university = university;
 	}
 
 	public Subject getSubject() {

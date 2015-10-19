@@ -3,6 +3,9 @@ package org.sample.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -12,9 +15,11 @@ public class Subject {
     @GeneratedValue
     private Long id;
 
+    @NotNull
     private String subjectName;
     private String degreeLevel; 
-    
+    @NotNull
+    @ManyToOne
     private University university;
     
     public Long getId() {
