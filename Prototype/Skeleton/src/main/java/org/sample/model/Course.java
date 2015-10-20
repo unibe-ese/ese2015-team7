@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 
@@ -62,5 +61,13 @@ public class Course {
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+	
+	public String toString(){
+		return this.courseName;
+	}
+
+	public boolean equals(Course otherCourse){
+		return (this.id==otherCourse.id);
 	}
 }

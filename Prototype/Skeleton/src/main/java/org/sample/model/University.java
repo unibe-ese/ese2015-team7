@@ -66,4 +66,8 @@ public class University {
 	public String toString(){
 		return universityName;
 	}
+	
+	public boolean equals(University otherUni){
+		return (this.UId==otherUni.UId);
+	}
 }

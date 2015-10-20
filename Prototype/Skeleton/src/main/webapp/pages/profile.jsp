@@ -8,7 +8,6 @@
 
 <h1>Profile</h1>
 
-
 	<c:if test="${page_error != null }">
         <div class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

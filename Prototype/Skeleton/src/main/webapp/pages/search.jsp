@@ -24,30 +24,27 @@
 <form:form method="post" modelAttribute="searchForm" action="createSearch" id="searchForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     
-		<jsp:scriptlet>
-			SampleServiceImpl service = new SampleServiceImpl();
-            ArrayList browsers = new ArrayList(); 
-            browsers = service.getUniversities();
-            pageContext.setAttribute("browsers", browsers);
-        </jsp:scriptlet>
         <c:set var="UniversityErrors"><form:errors path="University"/></c:set>
         <div class="control-group<c:if test="${not empty UniversityErrors}"> error</c:if>">
             <label class="control-label" for="field-University">University</label>
             <div class="controls">
                 <form:select path="University" id="field-University" tabindex="4">
                 <form:option value='None' label="Select University"/>
-                		<form:options items="${pageScope.browsers}"/>
+                		<form:options items="${universities}"/>
                 </form:select>
                 <form:errors path="University" cssClass="help-inline" element="span"/>
             </div>
         </div>
+       <!-- <div class="form-actions">
+            <button type="button" class="btn" onclick="location.href='/Skeleton/searchSubjects'">Search University Subjects</button>
+        </div>-->
          <c:set var="SubjectErrors"><form:errors path="Subject"/></c:set>
         <div class="control-group<c:if test="${not empty SubjectErrors}"> error</c:if>">
             <label class="control-label" for="field-Subject">Subject</label>
             <div class="controls">
                 <form:select path="Subject" id="field-Subject" tabindex="4">
                 		<form:option value='None' label="Select Subject"/>
-                		<form:options items="${list}"/>
+                		<form:options items="${subjects}"/>
                 </form:select>
                 <form:errors path="Subject" cssClass="help-inline" element="span"/>
             </div>
@@ -58,13 +55,12 @@
             <div class="controls">
                 <form:select path="Course" id="field-Course" tabindex="4">
                 		<form:option value='None' label="Select Course"/>
-                		<form:options items="${list}"/>
+                		<form:options items="${courses}"/>
                 </form:select>
                 <form:errors path="Course" cssClass="help-inline" element="span"/>
             </div>
         </div>
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Login</button>
             <button type="button" class="btn" onclick="location.href='/Skeleton/results'">Search</button>
         </div>
     </fieldset>

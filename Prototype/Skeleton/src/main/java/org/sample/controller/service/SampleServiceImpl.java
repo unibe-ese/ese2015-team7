@@ -38,21 +38,20 @@ public class SampleServiceImpl implements SampleService {
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
 
-        String firstName = signupForm.getFirstName();
+        String name = signupForm.getName();
 
-        if(!StringUtils.isEmpty(firstName) && "ESE".equalsIgnoreCase(firstName)) {
+        if(!StringUtils.isEmpty(name) && "ESE".equalsIgnoreCase(name)) {
             throw new InvalidUserException("Sorry, ESE is not a valid name");   // throw exception
         }
 
 
         Address address = new Address();
         address.setStreet("TestStreet-foo");
+        address = addDao.save(address);
         
         User user = new User();
-        user.setFirstName(signupForm.getFirstName());
+        user.setFirstName(signupForm.getName());
         user.setEmail(signupForm.getEmail());
-        user.setLastName(signupForm.getLastName());
-        user.setTeam(signupForm.getTeam());
         user.setAddress(address);
         
         user = userDao.save(user);   // save object to DB
@@ -67,91 +66,7 @@ public class SampleServiceImpl implements SampleService {
         return signupForm;
 
     }
-    */
-    
-    @Transactional
-    public ArrayList<University> getUniversities()
-    {
-    	ArrayList<University> universityList = new ArrayList<University>();
-    	/*
-    	Iterator<University> universitiesIter = universityDao.findAll().iterator();
-    	while(universitiesIter.hasNext())
-    	{
-        	universityList.add(universitiesIter.next());
-    	}
-    	*/
-    	University uni = new University();
-    	uni.setUniversityName("Bern");
-    	uni.setUId(1l);
-    	universityList.add(uni);
-    	return universityList;
-    }
-    
-    @Transactional
-    public ArrayList<Subject> getSubjectsFromUniversity(University university) throws InvalidUserException
-    {
-    	Iterable<Subject> subjects = subjectDao.findAll();
-    	ArrayList<Subject> subjectsList = new ArrayList<Subject>();
-    	Iterator<Subject> subjectsIter = subjects.iterator();
-    	while(subjectsIter.hasNext())
-    	{
-    		Subject subject = subjectsIter.next();
-    		if(subject.getUniversity().equals(university))
-    			subjectsList.add(subject);
-    	}
-    	return subjectsList;
-    }
-    
-    @Transactional
-    public ArrayList<Course> getCourseFromSubject(Subject subject) throws InvalidUserException
-    {
-    	return null;
-    }
-    
-    @Transactional
-    public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException{
-    	
-        String university = searchForm.getUniversity();
-
-        if(!StringUtils.isEmpty(university) && "Select University".equalsIgnoreCase(university)) {
-            throw new InvalidUserException("Sorry, Select University is not a valid name");   // throw exception
-        }
-        
-        ArrayList<Tutor> tutorsList = new ArrayList<Tutor>();
-		
-        Tutor tutor = new Tutor();
-        tutor.setTutorsName("Luke Skywalker");
-        
-        tutorsList.add(tutor);
-
-        return tutorsList;
-
-    }
-    
-    @Transactional
-    public SearchForm saveFrom(SearchForm searchForm) throws InvalidUserException{
-
-        String universityName = searchForm.getUniversity();
-
-        if(!StringUtils.isEmpty(universityName) && "Select University".equalsIgnoreCase(universityName)) {
-            throw new InvalidUserException("Sorry, Select University is not a valid name");   // throw exception
-        }
-
-        University university = new University();
-        university.setUniversityName(universityName);
-        
-        university = universityDao.save(university);   // save object to DB
-        
-        
-        // Iterable<Address> addresses = addDao.findAll();  // find all 
-        // Address anAddress = addDao.findOne((long)3); // find by ID
-        
-        
-        searchForm.setId(university.getUId());
-
-        return searchForm;
-
-    }
+     */
     
 	public User getUserById(long id) {
 		return userDao.findOne(id);

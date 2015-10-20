@@ -53,4 +53,12 @@ public class Subject {
 	public void setUniversity(University university) {
 		this.university = university;
 	}
+	
+	public String toString(){
+		return this.subjectName;
+	}
+
+	public boolean equals(Subject otherSubj){
+		return (this.id==otherSubj.id);
+	}
 }
