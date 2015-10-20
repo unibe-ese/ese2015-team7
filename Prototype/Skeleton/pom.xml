@@ -218,6 +218,7 @@
 							<useTestClasspath>true</useTestClasspath>
 							<contextPath>/Skeleton</contextPath>
 							<stopKey>1</stopKey>
+							 <scanIntervalSeconds>5</scanIntervalSeconds>
 							<stopPort>9999</stopPort>
 						</configuration>
 						<executions>
