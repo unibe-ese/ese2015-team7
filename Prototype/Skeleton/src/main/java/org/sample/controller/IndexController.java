@@ -29,6 +29,18 @@ public class IndexController {
     	
         return model;
     }
+    /**
+     * this maping method redirects the user to the signup form
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login() {
+	
+	ModelAndView model = new ModelAndView("login");
+	model.addObject("loginForm", new SignupForm());
+	return model;
+    }
     
     @RequestMapping(value = "/signUp", method = RequestMethod.GET)
     public ModelAndView signUp() {
@@ -71,14 +83,14 @@ public class IndexController {
         }   	
     	return model;
     }
-    
+    /*
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView profile() {
     	ModelAndView model = new ModelAndView("profile");
     	
         return model;
     }
-    
+    */
     @RequestMapping(value = "/search")
     public ModelAndView search() {
     	ModelAndView model = new ModelAndView("search");

@@ -18,6 +18,15 @@
 <div class="inner">
 <div class="login-page" >
 
+
+
+<c:import url="login.jsp" />
+
+
+
+
+
+<!--
 <form:form method="post" modelAttribute="loginForm" action="validate" id="loginForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
 
@@ -43,6 +52,7 @@
         </div>
     </fieldset>
 </form:form>
+-->
 
 </div>
 </div>

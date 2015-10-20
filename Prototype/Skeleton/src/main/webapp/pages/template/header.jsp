@@ -38,7 +38,7 @@
 								<li>
 									<a href="/Skeleton/profile">My Profile</a>
 								</li>
-								<li><a href="/Skeleton/">Logout</a></li>
+								<li><a href="<c:url value='/logout'/>">Logout</a></li>
 							</ul>
 						</nav>
 					
