@@ -18,7 +18,5 @@ public interface SearchService {
 	 public ArrayList<Course> getCourses();
 	 
 	 public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException;
-	    
-	 public SearchForm saveFrom(SearchForm searchForm) throws InvalidUserException;
 
 }

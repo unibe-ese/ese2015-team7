@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@page import="java.util.ArrayList" %>
-<%@page import="org.sample.model.University" %>
 
 
 <c:import url="template/header.jsp" />
@@ -21,7 +19,7 @@
 
 <h1>Search for a Tutor</h1>
 
-<form:form method="post" modelAttribute="searchForm" action="createSearch" id="searchForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" modelAttribute="searchForm" action="results" id="searchForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     
         <c:set var="UniversityErrors"><form:errors path="University"/></c:set>
@@ -61,7 +59,7 @@
             </div>
         </div>
         <div class="form-actions">
-            <button type="button" class="btn" onclick="location.href='/Skeleton/results'">Search</button>
+            <button type="submit" class="btn btn-primary">Search</button> 
         </div>
     </fieldset>
 </form:form>
@@ -76,6 +74,5 @@
         </div>
     </c:if>
 
-<c:import url="results.jsp"/>
 
 <c:import url="template/footer.jsp" />

@@ -4,19 +4,18 @@ import java.util.ArrayList;
 
 import javax.validation.Valid;
 
+import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.service.SampleService;
-import org.sample.controller.service.SampleServiceImpl;
 import org.sample.controller.service.SearchService;
 import org.sample.model.Course;
 import org.sample.model.Subject;
+import org.sample.model.Tutor;
 import org.sample.model.University;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -38,7 +37,7 @@ public class SearchController {
 
     	ArrayList<Subject> subjects = new ArrayList<Subject>();
     	subjects = searchService.getSubjects();
-    	model.addObject("subjects", subjects);    	
+    	model.addObject("subjects", subjects);
 
     	ArrayList<Course> courses = new ArrayList<Course>();
     	courses = searchService.getCourses();
@@ -90,22 +89,18 @@ public class SearchController {
     	
         return model;
     }
-    
-    @RequestMapping(value = "/createSearch", method = RequestMethod.POST)
-    public ModelAndView create(@Valid SearchForm searchForm, BindingResult result, RedirectAttributes redirectAttributes) {
-    	ModelAndView model;
-    	if (!result.hasErrors()) {
+    */
+    @RequestMapping(value = "/results", method = RequestMethod.POST)
+    public ModelAndView results(@Valid SearchForm searchForm) {
+    	ModelAndView model = new ModelAndView();
             try {
-            	//((SampleServiceImpl) sampleService).saveFrom(searchForm);
-            	model = new ModelAndView(new RedirectView("result"));
+            	model = new ModelAndView("results");
+            	ArrayList<Tutor> tutors = searchService.getTutorsFromSearchForm(searchForm); 	
+            	model.addObject("tutors", tutors);
+            	
             } catch (InvalidUserException e) {
-            	model = new ModelAndView("search");
-            	model.addObject("page_error", e.getMessage());
+            	e.printStackTrace();
             }
-        } else {
-        	model = new ModelAndView("search");
-        }   	
     	return model;
     }
-    */
 }

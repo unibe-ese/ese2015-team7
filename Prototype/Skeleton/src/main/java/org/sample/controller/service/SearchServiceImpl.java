@@ -5,13 +5,10 @@ import java.util.Iterator;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.pojos.SignupForm;
-import org.sample.model.Address;
 import org.sample.model.Course;
 import org.sample.model.Subject;
 import org.sample.model.Tutor;
 import org.sample.model.University;
-import org.sample.model.User;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.CourseDao;
 import org.sample.model.dao.SubjectDao;
@@ -105,47 +102,78 @@ public class SearchServiceImpl implements SearchService {
     
     
     @Transactional
-    public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException{
+    public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException
+    {
     	
-        String university = searchForm.getUniversity();
+    	String courseName = searchForm.getCourse();
 
-        if(!StringUtils.isEmpty(university) && "Select University".equalsIgnoreCase(university)) {
-            throw new InvalidUserException("Sorry, Select University is not a valid name");   // throw exception
+        if(!StringUtils.isEmpty(courseName) && "Select Course".equalsIgnoreCase(courseName)) {
+            throw new InvalidUserException("Sorry, Select Course is not a valid name");
         }
         
+        Course course = getCourseByName(courseName);
+
         ArrayList<Tutor> tutorsList = new ArrayList<Tutor>();
-		
-        Tutor tutor = new Tutor();
-        tutor.setTutorsName("Luke Skywalker");
-        
-        tutorsList.add(tutor);
+        Iterator<Tutor> tutorsIter	= tutorDao.findAll().iterator();
+        while(tutorsIter.hasNext())
+        {
+        	Tutor tutor = tutorsIter.next();
+        	if(tutor.getCourse().equals(course))
+        		tutorsList.add(tutor);
+        }
 
         return tutorsList;
     }
     
     @Transactional
-    public SearchForm saveFrom(SearchForm searchForm) throws InvalidUserException{
-
-        String universityName = searchForm.getUniversity();
-
-        if(!StringUtils.isEmpty(universityName) && "Select University".equalsIgnoreCase(universityName)) {
-            throw new InvalidUserException("Sorry, Select University is not a valid name");   // throw exception
-        }
-
-        University university = new University();
-        university.setUniversityName(universityName);
-        
-        university = universityDao.save(university);   // save object to DB
-        
-        
-        // Iterable<Address> addresses = addDao.findAll();  // find all 
-        // Address anAddress = addDao.findOne((long)3); // find by ID
-        
-        
-        searchForm.setId(university.getUId());
-
-        return searchForm;
-
+    public University getUniversityByName(String universityName)
+    {
+    	University university = new University();
+    	Iterator<University> universities = universityDao.findAll().iterator();
+    	while(universities.hasNext())
+    	{
+    		University universityTmp = universities.next();
+    		if(universityTmp.getUniversityName().equalsIgnoreCase(universityName))
+    		{
+    			university = universityTmp;
+    			break;
+    		}
+    	}
+    	return university;
+    }
+    
+    @Transactional
+    public Subject getSubjectByName(String subjectName)
+    {
+    	Subject subject = new Subject();
+    	Iterator<Subject> subjects = subjectDao.findAll().iterator();
+    	while(subjects.hasNext())
+    	{
+    		Subject subjectTmp = subjects.next();
+    		if(subjectTmp.getSubjectName().equalsIgnoreCase(subjectName))
+    		{
+    			subject = subjectTmp;
+    			break;
+    		}
+    	}
+    	return subject;
+    }
+    
+    @Transactional
+    public Course getCourseByName(String courseName)
+    {
+    	Course course = new Course();
+    	Iterator<Course> courses = courseDao.findAll().iterator();
+    	while(courses.hasNext())
+    	{
+    		Course courseTmp = courses.next();
+    		if(courseTmp.getCourseName().equalsIgnoreCase(courseName))
+    		{
+    			course = courseTmp;
+    			break;
+    		}
+    	}
+    	return course;
     }
 }
     

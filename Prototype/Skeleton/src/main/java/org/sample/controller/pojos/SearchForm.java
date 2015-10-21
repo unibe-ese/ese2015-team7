@@ -1,7 +1,10 @@
 package org.sample.controller.pojos;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+
+import org.sample.model.Tutor;
 
 public class SearchForm 
 {
@@ -13,12 +16,16 @@ public class SearchForm
     private String subject;
     //@NotNull
     private String course;
+    
+    private ArrayList<Tutor> tutors;
 
+	public ArrayList<Tutor> getTutors() {
+		return tutors;
+	}
 
-    @NotNull
-    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", 
-    message = "Must be valid email address")
-
+	public void setTutors(ArrayList<Tutor> tutors) {
+		this.tutors = tutors;
+	}
 
 	public Long getId() {
         return id;
