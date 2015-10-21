@@ -4,9 +4,12 @@
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <h1>Login</h1>
 
-<form name='loginForm' action="j_spring_security_check" method='POST'>
+<form:form name='loginForm' action="j_spring_security_check" method='POST'>
     <fieldset>
 
 
@@ -45,7 +48,7 @@
         
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Login</button>
-            <button type="button" class="btn" onclick="location.href='/Skeleton/signUp'">SignUp</button>
+            <button type="button" class="btn" onclick="location.href='/Skeleton/signup'">SignUp</button>
         </div>
     </fieldset>
 </form:form>

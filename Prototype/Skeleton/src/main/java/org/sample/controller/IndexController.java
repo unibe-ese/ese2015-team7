@@ -42,13 +42,6 @@ public class IndexController {
 	return model;
     }
     
-    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
-    public ModelAndView signUp() {
-    	ModelAndView model = new ModelAndView("signUp");
-    	model.addObject("signupForm", new SignupForm());
-    	
-        return model;
-    }
     /*
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
