@@ -6,11 +6,14 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.LoginForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.SampleService;
+import org.sample.controller.service.SampleServiceImpl;
+import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -43,7 +46,7 @@ public class IndexController {
     	ModelAndView model;
     	if (!result.hasErrors()) {
             try {
-            	// sampleService.saveFrom(signupForm);
+            	//sampleService.saveFrom(signupForm);
             	model = new ModelAndView(new RedirectView("profile"));
             } catch (InvalidUserException e) {
             	model = new ModelAndView("signUp");
@@ -73,19 +76,13 @@ public class IndexController {
     }
     
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile() {
+    public ModelAndView profile(@RequestParam("userId") long userId) {
     	ModelAndView model = new ModelAndView("profile");
-    	
+    	User user = (User) sampleService.getUserById(userId);
+    	model.addObject(user);
         return model;
     }
-    
-    @RequestMapping(value = "/search")
-    public ModelAndView search() {
-    	ModelAndView model = new ModelAndView("search");
-    	
-        return model;
-    }
-    
+        
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)
     public String securityError(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("page_error", "You do have have permission to do that!");
