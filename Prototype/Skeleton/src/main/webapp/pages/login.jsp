@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="/Skeleton/css/style.css" />
 </head>
 <body>
-
 <div class="outer">
 <div class="middle">
 <div class="inner">

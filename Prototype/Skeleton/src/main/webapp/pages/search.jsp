@@ -7,6 +7,7 @@
 
 <c:import url="template/header.jsp" />
 
+
 <html>
 <head>
 <title>Search for a Tutor</title>
@@ -63,6 +64,10 @@
         </div>
     </fieldset>
 </form:form>
+
+
+
+
 
 
 
