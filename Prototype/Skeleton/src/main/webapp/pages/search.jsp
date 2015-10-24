@@ -7,7 +7,7 @@
 <c:import url="template/header.jsp" />
 
 <h1>Search</h1>
-
+<h3>Username : ${username}</h3>	
 
 	<c:if test="${page_error != null }">
         <div class="alert alert-error">

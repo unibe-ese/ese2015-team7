@@ -30,7 +30,8 @@
 
 		<!-- Header -->
 			<div id="header-wrapper">
-				<header id="header" class="container">					
+				<header id="header" class="container">
+				<sec:authentication property="principal"/>					
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>

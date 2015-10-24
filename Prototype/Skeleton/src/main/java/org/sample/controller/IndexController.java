@@ -7,6 +7,8 @@ import org.sample.controller.pojos.LoginForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,10 +86,12 @@ public class IndexController {
         return model;
     }
     */
-    @RequestMapping(value = "/search")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView search() {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String username = auth.getName(); 
     	ModelAndView model = new ModelAndView("search");
-    	
+    	model.addObject("username", username);
         return model;
     }
     
