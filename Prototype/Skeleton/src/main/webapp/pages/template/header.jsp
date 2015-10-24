@@ -1,5 +1,5 @@
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE HTML>
 <!--
@@ -29,9 +29,11 @@
 	<body class="no-sidebar">
 
 		<!-- Header -->
+
+		
 			<div id="header-wrapper">
 				<header id="header" class="container">
-				<sec:authentication property="principal"/>					
+						
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
@@ -39,7 +41,7 @@
 								<li>
 									<a href="/Skeleton/profile">My Profile</a>
 								</li>
-								<li><a href="<c:url value='/logout'/>">Logout</a></li>
+								<li><a href="<c:url value="j_spring_security_logout" />">Logout</a></li>
 							</ul>
 						</nav>
 					
