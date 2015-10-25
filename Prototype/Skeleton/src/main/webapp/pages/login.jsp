@@ -36,6 +36,11 @@
                 <div>You've been logged out due to inactivity.</div>
             </c:if>
             
+          
+            
+             <c:if test="${not empty infoMessage}">
+                <div>${infoMessage}</div>
+            </c:if>
             
             
         <c:set var="nameErrors"><form:errors path="name"/></c:set>

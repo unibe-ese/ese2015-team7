@@ -20,6 +20,10 @@
 
 <form:form method="post" modelAttribute="signupForm" action="create" id="signupForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
+    
+       <c:if test="${not empty infoMessage}">
+                <div>${infoMessage}</div>
+            </c:if>
 
         <c:set var="nameErrors"><form:errors path="name"/></c:set>
         <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">

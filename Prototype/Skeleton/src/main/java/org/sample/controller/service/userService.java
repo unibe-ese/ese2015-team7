@@ -53,4 +53,8 @@ public class userService implements IUserDataService{
 		
 	}
 
+	public User getUserByEmail(String email) {
+		return userDao.findByEmail(email);
+	}
+
 }

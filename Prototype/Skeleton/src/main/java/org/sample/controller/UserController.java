@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.IUserDataService;
-import org.sample.controller.service.SampleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -43,24 +43,24 @@ public class UserController {
 	
 	ModelAndView model;
 	
-	/*
+	
 	try {
 	    if (userService.validatePassword(signupForm.getPassword(), signupForm.getPasswordVerify()) == false) {
 		    redirectAttributes.addFlashAttribute("infoMessage", "Deine Passwörter stimmen nicht überein");
-		    return new ModelAndView("redirect:/register");
+		    return new ModelAndView("redirect:/signup");
 		}
 	} catch (Exception d) {}
-		*/
-	
+		
+
 	if (!result.hasErrors()) {
 	    try {
 	
-	    /*
+	    
 		if ( userService.getUserByEmail(signupForm.getEmail()) != null) {
-		    redirectAttributes.addFlashAttribute("infoMessage", "Ein user mit diesem Account existiert schon!");
-		    return new ModelAndView("redirect:/register");
+		    redirectAttributes.addFlashAttribute("infoMessage", "Ein User mit dieser E-Mail-Adressse existiert schon!");
+		    return new ModelAndView("redirect:/signup");
 		}
-		*/
+		
 	
 		userService.saveFrom(signupForm);
 		redirectAttributes.addFlashAttribute("infoMessage", "Du hast dich erfolgreich registriert. Du kannst dich nun einloggen.");
