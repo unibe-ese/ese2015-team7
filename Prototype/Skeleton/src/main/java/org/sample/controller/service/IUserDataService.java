@@ -9,4 +9,6 @@ public interface IUserDataService {
 
 	User getUserByEmail(String email);
 
+	boolean validatePassword(String password, String passwordVarify);
+
 }

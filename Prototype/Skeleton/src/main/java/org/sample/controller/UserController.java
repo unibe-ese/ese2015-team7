@@ -27,8 +27,6 @@ public class UserController {
 	@Autowired
 	IUserDataService userService;
 	
-	
-	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView register(@ModelAttribute("infoMessage") String message) {
 	ModelAndView model = new ModelAndView("signUp");
@@ -36,16 +34,14 @@ public class UserController {
 	model.addObject("message", message);
 	return model;
     }
-	
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
 	
 	ModelAndView model;
-	
-	
+
 	try {
-	    if (userService.validatePassword(signupForm.getPassword(), signupForm.getPasswordVerify()) == false) {
+	    if (!userService.validatePassword(signupForm.getPassword(), signupForm.getPasswordVerify())) {
 		    redirectAttributes.addFlashAttribute("infoMessage", "Deine Passwörter stimmen nicht überein");
 		    return new ModelAndView("redirect:/signup");
 		}

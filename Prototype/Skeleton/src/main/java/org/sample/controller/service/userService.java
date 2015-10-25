@@ -57,4 +57,11 @@ public class userService implements IUserDataService{
 		return userDao.findByEmail(email);
 	}
 
+	public boolean validatePassword(String password, String passwordVarify) {
+		if (password.equals(passwordVarify))
+			return true;
+		else
+		return false;
+	}
+
 }

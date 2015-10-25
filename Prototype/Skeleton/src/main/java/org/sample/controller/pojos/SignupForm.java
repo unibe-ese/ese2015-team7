@@ -2,13 +2,18 @@ package org.sample.controller.pojos;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class SignupForm {
 
 
     private Long id;
     private String name;
+    
+    @Size(min = 6, max = 20, message = "Bitte wähle ein passwort mit mindestens 6 Zeichen.")
     private String password;
+    
+    private String passwordVerify;
 
 
     @NotNull
@@ -47,4 +52,12 @@ public class SignupForm {
     public void setId(Long id) {
         this.id = id;
     }
+
+	public String getPasswordVerify() {
+		return passwordVerify;
+	}
+
+	public void setPasswordVerify(String passwordVerify) {
+		this.passwordVerify = passwordVerify;
+	}
 }

@@ -50,6 +50,16 @@
                 <form:errors path="password" cssClass="help-inline" element="span"/>
             </div>
         </div>
+        
+        <c:set var="passwordErrors"><form:errors path="password"/></c:set>
+        <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
+        
+            <label class="control-label" for="field-password">confirm Password</label>
+            <div class="controls">
+                <form:password path="passwordVerify" id="field-passwordVerify" tabindex="1" maxlength="35" placeholder="Password"/>
+                <form:errors path="password" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">SignUp</button>
         </div>
