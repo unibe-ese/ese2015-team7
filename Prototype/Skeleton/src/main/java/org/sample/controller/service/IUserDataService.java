@@ -5,10 +5,12 @@ import org.sample.model.User;
 
 public interface IUserDataService {
 
-	SignupForm saveFrom(SignupForm signupForm);
+	public SignupForm saveFrom(SignupForm signupForm);
+	
+	public User getUserById(Long userId);
 
-	User getUserByEmail(String email);
-
-	boolean validatePassword(String password, String passwordVarify);
+	public User getUserByEmail(String email);
+	
+	public boolean validatePassword(String password, String passwordVarify);
 
 }

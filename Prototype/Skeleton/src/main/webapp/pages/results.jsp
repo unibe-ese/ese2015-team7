@@ -1,4 +1,3 @@
-<%@page import="org.sample.controller.service.SampleServiceImpl"%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -22,9 +21,15 @@
 
 <h1>Search Results</h1>
 
-<form:form method="post" modelAttribute="searchForm"  id="results" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-    
+    <c:forEach items="${tutors}" var="item">
+    <p>
+	    <c:out value="${item.tutorsName}" />
+	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
+    </p>
+    </c:forEach>
+<!--   
         <c:set var="tutorsErrors"><form:errors path="tutors"/></c:set>
         <div class="control-group<c:if test="${not empty TutorsErrors}"> error</c:if>">
             <label class="control-label" for="field-tutors">Tutors</label>
@@ -36,7 +41,7 @@
                 <form:errors path="tutors" cssClass="help-inline" element="span"/>
             </div>
         </div>
-        
+ -->        
     </fieldset>
 </form:form>
 

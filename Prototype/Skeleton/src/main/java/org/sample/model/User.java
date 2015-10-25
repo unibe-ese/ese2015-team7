@@ -1,8 +1,9 @@
 package org.sample.model;
 
-
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,12 @@ public class User {
 
     private String name;
     
+    private String biography;
+    @ElementCollection
+    private List<String> grades;
+    @ElementCollection
+    private List<String> timeSlots;
+
     @NaturalId(mutable=false)
     @Column(name="EMAIL", unique = true, nullable = false, length = 111)
     private String email;
@@ -59,12 +66,36 @@ public class User {
     }
 
     public String getName() {
-        return name;
-    }
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	public List<String> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<String> grades) {
+		this.grades = grades;
+	}
+
+	public List<String> getTimeSlots() {
+		return timeSlots;
+	}
+
+	public void setTimeSlots(List<String> timeSlots) {
+		this.timeSlots = timeSlots;
+	}
 
     public String getPassword() {
         return password;

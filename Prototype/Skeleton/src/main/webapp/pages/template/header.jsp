@@ -1,12 +1,7 @@
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE HTML>
-<!--
-	Verti by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Awesome Website</title>
@@ -34,6 +29,8 @@
 			<div id="header-wrapper">
 				<header id="header" class="container">
 						<h5>Username : ${username}</h5>	
+<!--						<h5>Username : <security:authentication property="principal.username" /></h5>   -->
+
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>

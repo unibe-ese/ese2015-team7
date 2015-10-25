@@ -34,7 +34,7 @@ public class UserController {
 	model.addObject("message", message);
 	return model;
     }
-
+	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
 	
@@ -56,7 +56,6 @@ public class UserController {
 		    redirectAttributes.addFlashAttribute("infoMessage", "Ein User mit dieser E-Mail-Adressse existiert schon!");
 		    return new ModelAndView("redirect:/signup");
 		}
-		
 	
 		userService.saveFrom(signupForm);
 		redirectAttributes.addFlashAttribute("infoMessage", "Du hast dich erfolgreich registriert. Du kannst dich nun einloggen.");

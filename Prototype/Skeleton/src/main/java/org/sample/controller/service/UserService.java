@@ -1,6 +1,5 @@
 package org.sample.controller.service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,10 +51,14 @@ public class UserService implements IUserDataService{
 		return signupForm;
 		
 	}
+	
+	public User getUserById(Long userId) {
+		return userDao.findOne(userId);
+	    }
 
-	public User getUserByEmail(String email) {
-		return userDao.findByEmail(email);
-	}
+    public User getUserByEmail(String email) {
+    	return userDao.findByEmail(email);
+    }
 
 	public boolean validatePassword(String password, String passwordVarify) {
 		if (password.equals(passwordVarify))
@@ -63,5 +66,5 @@ public class UserService implements IUserDataService{
 		else
 		return false;
 	}
-
+    
 }

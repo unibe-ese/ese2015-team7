@@ -34,12 +34,7 @@
             </c:if>
             <c:if test="${not empty param.time}">
                 <div>You've been logged out due to inactivity.</div>
-            </c:if>
-            
-          
-            
-          
-            
+            </c:if> 
             
         <c:set var="emailErrors"><form:errors path="email"/></c:set>
         
