@@ -1,5 +1,6 @@
 package org.sample.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import javax.validation.Valid;
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.service.SearchService;
+import org.sample.controller.service.UserService;
 import org.sample.model.Course;
 import org.sample.model.Subject;
 import org.sample.model.Tutor;
@@ -27,6 +29,9 @@ public class SearchController {
 
     @Autowired
     SearchService searchService;
+    
+    @Autowired
+    UserService	userService;	
 
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -47,9 +52,10 @@ public class SearchController {
 
     	model.addObject("searchForm", new SearchForm());
     	
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String username = auth.getName(); 
+    	
+    	String username = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username);
+    	
         return model;
     }
     

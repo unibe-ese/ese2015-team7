@@ -6,6 +6,7 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.LoginForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.SampleService;
+import org.sample.controller.service.UserService;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,8 @@ public class IndexController {
     @Autowired
     SampleService sampleService;
 
+    @Autowired
+    UserService	userService;	
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
@@ -65,11 +68,11 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile(@RequestParam("userId") long userId) {
+    public ModelAndView profile() {
     	ModelAndView model = new ModelAndView("profile");
-
-    	User user = (User) sampleService.getUserById(userId);
-    	model.addObject(user);
+    	
+    	String username = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getName(); //gets principal and loads user from Database and gets his name
+    	model.addObject("username", username);
 
     	
         return model;
