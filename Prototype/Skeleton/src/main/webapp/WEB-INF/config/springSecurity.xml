@@ -23,22 +23,13 @@
 	<!-- Declare an authentication-manager to use a custom userDetailsService -->
 	<security:authentication-manager>
 		<security:authentication-provider>
-		
-<!--
-	<security:user-service>
-		<security:user name="m@m.m" password="1" authorities="ROLE_USER" />
-	</security:user-service>
--->
 	
 	<security:password-encoder hash="bcrypt" />
 	<security:jdbc-user-service data-source-ref="mainDataSource" 
-								users-by-username-query="select EMAIL,password,enabled from user where EMAIL=?" 
-								authorities-by-username-query="select u.EMAIL, r.role from user u inner join `user_roles` r on (u.id = r.user_id) where EMAIL = ?" />
-	
+								users-by-username-query="select EMAIL,password,enabled from User where EMAIL=?" 
+								authorities-by-username-query="select u.EMAIL, r.role from User u inner join `user_roles` r on (u.id = r.user_id) where EMAIL = ?" />
+
 	</security:authentication-provider>
 	</security:authentication-manager>
-
-	
-	
 
 </beans>
