@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="/Skeleton/css/style.css" />
 </head>
 <body>
-
 <div class="outer">
 <div class="middle">
 <div class="inner">
@@ -35,18 +34,15 @@
             </c:if>
             <c:if test="${not empty param.time}">
                 <div>You've been logged out due to inactivity.</div>
-            </c:if>
+            </c:if> 
             
-            
-            
-        <c:set var="nameErrors"><form:errors path="name"/></c:set>
+        <c:set var="emailErrors"><form:errors path="email"/></c:set>
         
-        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
-            <label for="field-username">E-mail:</label>
+        <div class="control-group<c:if test="${not empty emailErrors}"> error</c:if>">
+            <label for="field-email">E-mail:</label>
             <div class="controls">
-            	<input name="j_username" id="field-username" type="email"/>
-                
-                <form:errors path="name" cssClass="help-inline" element="span"/>
+            	<input name="j_email" id="field-email" type="email"/>
+                <form:errors path="email" cssClass="help-inline" element="span"/>
             </div>
         </div>
         

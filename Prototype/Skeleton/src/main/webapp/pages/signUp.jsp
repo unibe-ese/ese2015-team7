@@ -20,6 +20,10 @@
 
 <form:form method="post" modelAttribute="signupForm" action="create" id="signupForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
+    
+       <c:if test="${not empty infoMessage}">
+                <div>${infoMessage}</div>
+            </c:if>
 
         <c:set var="nameErrors"><form:errors path="name"/></c:set>
         <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
@@ -43,6 +47,16 @@
             <label class="control-label" for="field-password">Password</label>
             <div class="controls">
                 <form:password path="password" id="field-password" tabindex="1" maxlength="35" placeholder="Password"/>
+                <form:errors path="password" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        
+        <c:set var="passwordErrors"><form:errors path="password"/></c:set>
+        <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
+        
+            <label class="control-label" for="field-password">confirm Password</label>
+            <div class="controls">
+                <form:password path="passwordVerify" id="field-passwordVerify" tabindex="1" maxlength="35" placeholder="Password"/>
                 <form:errors path="password" cssClass="help-inline" element="span"/>
             </div>
         </div>
