@@ -26,7 +26,7 @@
         <div class="control-group<c:if test="${not empty UniversityErrors}"> error</c:if>">
             <label class="control-label" for="field-University">University</label>
             <div class="controls">
-                <form:select path="University" id="field-University" tabindex="4">
+                <form:select path="University" id="field-University" tabindex="1">
                 <form:option value='None' label="Select University"/>
                 		<form:options items="${universities}"/>
                 </form:select>
@@ -40,7 +40,7 @@
         <div class="control-group<c:if test="${not empty SubjectErrors}"> error</c:if>">
             <label class="control-label" for="field-Subject">Subject</label>
             <div class="controls">
-                <form:select path="Subject" id="field-Subject" tabindex="4">
+                <form:select path="Subject" id="field-Subject" tabindex="2">
                 		<form:option value='None' label="Select Subject"/>
                 		<form:options items="${subjects}"/>
                 </form:select>
@@ -51,7 +51,7 @@
         <div class="control-group<c:if test="${not empty CourseErrors}"> error</c:if>">
             <label class="control-label" for="field-Course">Course</label>
             <div class="controls">
-                <form:select path="Course" id="field-Course" tabindex="4">
+                <form:select path="Course" id="field-Course" tabindex="3">
                 		<form:option value='None' label="Select Course"/>
                 		<form:options items="${courses}"/>
                 </form:select>

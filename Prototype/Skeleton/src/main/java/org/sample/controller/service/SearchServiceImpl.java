@@ -44,7 +44,6 @@ public class SearchServiceImpl implements SearchService {
     	return universityList;
     }
     
-    /*
     @Transactional
     public ArrayList<Subject> getSubjectsFromUniversity(String university) throws InvalidUserException
     {
@@ -58,7 +57,6 @@ public class SearchServiceImpl implements SearchService {
     	}
     	return subjectsList;
     }
-    */
     
     @Transactional
     public ArrayList<Subject> getSubjects()
@@ -72,9 +70,8 @@ public class SearchServiceImpl implements SearchService {
     	return subjectsList;
     }
     
-    /*
     @Transactional
-    public ArrayList<Course> getCourseFromSubject(Subject subject) throws InvalidUserException
+    public ArrayList<Course> getCourseFromSubject(String subject) throws InvalidUserException
     {
     	ArrayList<Course> coursesList = new ArrayList<Course>();
     	Iterator<Course> coursesIter = courseDao.findAll().iterator();
@@ -86,7 +83,6 @@ public class SearchServiceImpl implements SearchService {
     	}
     	return coursesList;
     }
-    */
     
     @Transactional
     public ArrayList<Course> getCourses()
