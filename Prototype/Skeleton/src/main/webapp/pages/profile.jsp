@@ -10,7 +10,7 @@
 <div class="profile-page" >
 <h2>Profile</h2>
 
-<c:if test="${user.email == principal.username}">
+<c:if test="${user.email == principalName}">
 	<button type="button" class="btn-edit" onclick="">Edit</button>
 </c:if>
 
