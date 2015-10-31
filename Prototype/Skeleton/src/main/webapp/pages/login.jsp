@@ -24,7 +24,9 @@
 
 <form:form name='loginForm' action="j_spring_security_check" method='POST'>
     <fieldset>
-
+	<c:if test="${not empty infoMessage}">
+                <div>${infoMessage}</div>
+            </c:if>
 
 			<c:if test="${not empty param.err}">
                 <div><c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/></div>
