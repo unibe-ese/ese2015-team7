@@ -3,14 +3,24 @@ package org.sample.controller.pojos;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+
+import org.sample.model.Grade;
+import org.sample.model.GradeFactory;
+import org.springframework.util.AutoPopulatingList;
+
 
 public class SignupForm {
 
+	public interface SignupValidatorGroup {}
 
     private Long id;
     private String name;
     
-    @Size(min = 6, max = 20, message = "Bitte wähle ein passwort mit mindestens 6 Zeichen.")
+    private String biography;
+    private AutoPopulatingList<Grade> grades = new AutoPopulatingList<Grade>(new GradeFactory());
+    
+    @Size(groups= {SignupValidatorGroup.class, Default.class}, min = 6, max = 20, message = "Bitte wähle ein passwort mit mindestens 6 Zeichen.")
     private String password;
     
     private String passwordVerify;
@@ -27,6 +37,22 @@ public class SignupForm {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public AutoPopulatingList<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(AutoPopulatingList<Grade> grades) {
+		this.grades = grades;
+	}
+
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
 	}
 
 	public String getPassword() {

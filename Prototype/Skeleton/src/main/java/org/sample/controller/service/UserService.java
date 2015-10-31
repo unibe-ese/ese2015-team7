@@ -1,10 +1,13 @@
 package org.sample.controller.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.ListIterator;
 import java.util.Set;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
+import org.sample.model.Grade;
 import org.sample.model.User;
 import org.sample.model.UserRole;
 import org.sample.model.dao.UserDao;
@@ -16,10 +19,9 @@ import org.springframework.util.StringUtils;
 @Service
 public class UserService implements IUserDataService{
 	
-	@Autowired
-	UserDao userDao;
+	@Autowired	UserDao userDao;
 
-	public SignupForm saveFrom(SignupForm signupForm) {
+	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
 		String name = signupForm.getName();
 
 		if (!StringUtils.isEmpty(name) && "ESE".equalsIgnoreCase(name)) {
@@ -28,9 +30,19 @@ public class UserService implements IUserDataService{
 
 		BCryptPasswordEncoder password = new BCryptPasswordEncoder();
 
-		User user = new User();
+		User user = (userToUpdate == null) ? new User() : userToUpdate;
 		user.setName(signupForm.getName());
 		user.setEmail(signupForm.getEmail());
+		
+		user.setBiography(signupForm.getBiography());
+		
+		ArrayList<Grade> arrayList = new ArrayList<Grade>();
+		ListIterator<Grade> itr = signupForm.getGrades().listIterator();
+		while(itr.hasNext())
+		{  
+			arrayList.add(itr.next());
+		}
+		user.setGrades(arrayList);
 
 		user.setPassword(password.encode(signupForm.getPassword()));
 
@@ -49,7 +61,10 @@ public class UserService implements IUserDataService{
 		signupForm.setId(user.getId());
 
 		return signupForm;
-		
+	}
+	
+	public SignupForm saveFrom(SignupForm signupForm){
+		return saveFrom(signupForm, null);
 	}
 	
 	public User getUserById(Long userId) {
@@ -60,8 +75,8 @@ public class UserService implements IUserDataService{
     	return userDao.findByEmail(email);
     }
 
-	public boolean validatePassword(String password, String passwordVarify) {
-		if (password.equals(passwordVarify))
+	public boolean validatePassword(String password, String passwordVerify) {
+		if (password.equals(passwordVerify))
 			return true;
 		else
 		return false;

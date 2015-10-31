@@ -8,60 +8,56 @@
 <c:import url="template/header.jsp" />
 
 <div class="profile-page" >
-<h2>Profile</h2>
 
-<c:if test="${user.email == principalName}">
-	<button type="button" class="btn-edit" onclick="">Edit</button>
-</c:if>
-
-<!-- <img src="image/1212" height="75px" width="75px" align="left" /> -->
-<h3><c:out value="${user.name}"/></h3>
-<h4><c:out value="${user.email}"/></h4>
-
-<p>
-<button type="button" class="btn" onclick="switchDisplay('profile-frontpage', 'profile-timeslots')">Front Page</button>
-<button type="button" class="btn" onclick="switchDisplay('profile-timeslots', 'profile-frontpage')">Timeslots</button>
-</p>
-
-<div id="profile-frontpage">
-<h3>Grades</h3>
-<table class = "default">
-  <tr>
-    <td><c:out value="hallo" /></td>
-  </tr>
-</table>
-
-<h3>Biography</h3>
-<p><c:out value="${user.biography}"/></p>
-</div>
-
-<div id="profile-timeslots" style="display: none;">
-<h3>Timeslots</h3>
-<p><c:out value=""/></p>
-</div>
-
-<p><button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>
-<p><button type="button" class="btn" onclick="location.href='/Skeleton/profile'">Handle Requests</button></p>
-
-<!--
-	<c:if test="${page_error != null }">
-        <div class="alert alert-error">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Error!</h4>
-                ${page_error}
-        </div>
-    </c:if>
-  -->
+	<h2>Profile</h2>
+	
+	<c:if test="${user.email == principalName}">
+		<button type="button" class="btn-edit" onclick="location.href='/Skeleton/editProfile'">Edit</button>
+	</c:if>
+	
+	<!-- <img src="image/1212" height="75px" width="75px" align="left" /> -->
+	<h3><c:out value="${user.name}"/></h3>
+	<h4><c:out value="${user.email}"/></h4>
+	
+	<p>
+		<button type="button" class="btn" onclick="switchDisplay('profile-frontpage', 'profile-timeslots')">Front Page</button>
+		<button type="button" class="btn" onclick="switchDisplay('profile-timeslots', 'profile-frontpage')">Timeslots</button>
+	</p>
+	
+	<div id="profile-frontpage">
+		<h3>Grades</h3>
+		<table class="default">
+		<c:forEach items="${user.grades}" var="item">
+		  <tr>
+		    	<td><c:out value="${item.university}" /></td>
+		    	<td><c:out value="${item.subject}" /></td>
+		    	<td><c:out value="${item.course}" /></td>
+		    	<td><c:out value="${item.grade}" /></td>
+		  </tr>
+		  </c:forEach>
+		</table>
+		
+		<h3>Biography</h3>
+		<p><c:out value="${user.biography}"/></p>
+	</div>
+	
+	<div id="profile-timeslots" style="display: none;">
+		<h3>Timeslots</h3>
+		<p><c:out value=""/></p>
+	</div>
+	
+	<p><button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>
+	<p><button type="button" class="btn" onclick="location.href='/Skeleton/profile'">Handle Requests</button></p>
     
 </div>
 
 <c:import url="template/footer.jsp" />
 
 <script type="text/javascript">
-function switchDisplay(id1,id2)
-{
-	document.getElementById(id1).style.display = 'none';
-	document.getElementById(id2).style.display = 'none';
-	document.getElementById(id1).style.display = 'block';
-}
+	function switchDisplay(id1,id2)
+	{
+		document.getElementById(id1).style.display = 'none';
+		document.getElementById(id2).style.display = 'none';
+		document.getElementById(id1).style.display = 'block';
+	}
 </script>

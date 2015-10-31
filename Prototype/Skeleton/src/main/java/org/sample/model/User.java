@@ -1,5 +1,6 @@
 package org.sample.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -10,10 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.NaturalId;
+import org.springframework.util.AutoPopulatingList;
 
 
 @Entity
@@ -26,8 +27,10 @@ public class User {
     private String name;
     
     private String biography;
-    @ElementCollection
-    private List<String> grades;
+    
+    @Column(columnDefinition = "LONGBLOB") // to store large data
+    private ArrayList<Grade> grades = new ArrayList<Grade>();
+    @Column(columnDefinition = "LONGBLOB") // to store large data
     @ElementCollection
     private List<String> timeSlots;
 
@@ -81,11 +84,11 @@ public class User {
 		this.biography = biography;
 	}
 
-	public List<String> getGrades() {
+	public ArrayList<Grade> getGrades() {
 		return grades;
 	}
 
-	public void setGrades(List<String> grades) {
+	public void setGrades(ArrayList<Grade> grades) {
 		this.grades = grades;
 	}
 
