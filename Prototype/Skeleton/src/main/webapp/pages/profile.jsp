@@ -41,12 +41,8 @@
 </div>
 
 <p><button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>
+<p><button type="button" class="btn" onclick="location.href='/Skeleton/profile'">Handle Requests</button></p>
 
-<c:if test="${user.email != principalName}">
-	<form:form method="post" action="myRequests" modelAttribute="searchForm" id="profile" cssClass="form-horizontal"  autocomplete="off">
-    	<p><button type=submit name=requestedUser value="${item.user.email}">Send Request</button></p>    
-	</form:form>
-</c:if>
 <!--
 	<c:if test="${page_error != null }">
         <div class="alert alert-error">

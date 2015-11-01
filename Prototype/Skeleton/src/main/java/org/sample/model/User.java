@@ -37,7 +37,6 @@ public class User {
     private String password;
     private boolean enabled;
     
-    @ElementCollection
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserRole> userRole;
     
