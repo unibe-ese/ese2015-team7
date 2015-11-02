@@ -13,4 +13,12 @@ public interface IRequestService {
 
 	ArrayList<Request> getAllRequests(User principal);
 
+	void deleteRequest(User user);
+
+	void acceptRequest(User student);
+
+	void declineRequest(User student);
+
+	
+
 }

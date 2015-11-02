@@ -72,6 +72,33 @@ public class RequestService implements IRequestService{
 	}
 
 
+	public void deleteRequest(User tutor) {
+		
+		Request request=requestDao.findByTutor(tutor);
+		request.setIsDeleted(true);
+		request.setIsActiv(false);
+		requestDao.save(request);
+	}
+
+
+	public void acceptRequest(User student) {
+		Request request=requestDao.findByTutor(student);
+		request.setIsAccepted(true);
+		request.setIsActiv(false);
+		requestDao.save(request);
+		
+	}
+
+
+	public void declineRequest(User student) {
+		Request request=requestDao.findByTutor(student);
+		request.setIsDeclined(true);
+		request.setIsActiv(false);
+		requestDao.save(request);
+		
+	}
+
+
 
 
 }

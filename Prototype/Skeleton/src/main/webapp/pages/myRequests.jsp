@@ -23,16 +23,16 @@
 
 <h1>myRequestPage</h1>
 
-<form:form method="post" action="myRequests" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
     
     <fieldset>
-    <c:out value="${item}" />
+    
     
    		 <c:forEach items="${myRequests}" var="item">
 
     		<p>
 	  			<c:out value="${item.tutor.name}" />
-	  			<button type=submit name=itemUser value="${item.tutor.email}">delete</button>
+	  			<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
    			</p>
     	</c:forEach> 
       

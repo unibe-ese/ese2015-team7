@@ -20,13 +20,17 @@
 
 <h1>RequestPage</h1>
 
-<form:form method="post" action="requests" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     
    		 <c:forEach items="${requests}" var="item">
 
     		<p>
-	  			<c:out value="${item.student.name}" />
+	  			<c:out value="${item.student.name}" />	
+	  			<button type=submit name=visitProfile value="${item.student.email}">Visit Profile</button>
+	  			<button type=submit name=acceptRequest value="${item.student.email}">Accept Request</button>
+	  			<button type=submit name=declineRequest value="${item.student.email}">Decline Request</button>
+	  		
    			</p>
     	</c:forEach> 
       

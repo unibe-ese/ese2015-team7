@@ -79,4 +79,57 @@ public class RequestController {
     	
         return model;
     }
+	
+	@RequestMapping(value = "/myRequests/action", method = RequestMethod.POST)
+    public ModelAndView myRequestAction(@RequestParam("deleteRequest") String tutorEmail){
+    	ModelAndView model = new ModelAndView("redirect:/myRequests");
+    	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
+    	User principal = userDao.findByEmail(principalEmail);
+	
+    	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail));
+  
+    	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
+    	model.addObject("requests", requests);
+    	
+    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+    	model.addObject("username", username);
+    	
+        return model;
+    }
+	
+	@RequestMapping(value = "/requests/action", method = RequestMethod.POST)
+    public ModelAndView requestAction(@RequestParam(required=false,name="visitProfile") String studentEmail, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail){
+    	ModelAndView model = new ModelAndView("redirect:/myRequests");
+    	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
+    	User principal = userDao.findByEmail(principalEmail);
+    	
+    	
+    	if (studentEmail != null){
+    		model = new ModelAndView("redirect:/profile");
+        	User user = userService.getUserByEmail(studentEmail);
+        	model.addObject(user);
+        	
+        	String username = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getName(); //gets principal and loads user from Database and gets his name
+        	model.addObject("username", username);
+        	
+            return model;
+    	}
+    	else if (acceptStudentEmail != null){
+    		User student = userDao.findByEmail(acceptStudentEmail);
+    		iRequestService.acceptRequest(student);
+    	}
+    	else if (declineStudentEmail != null){
+    		User student = userDao.findByEmail(declineStudentEmail);
+    		iRequestService.declineRequest(student);
+    	}
+    	
+  
+    	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
+    	model.addObject("requests", requests);
+    	
+    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+    	model.addObject("username", username);
+    	
+        return model;
+    }
 }
