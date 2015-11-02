@@ -21,12 +21,21 @@
 	
 	<p>
 		<button type="button" class="btn" onclick="switchDisplay('profile-frontpage', 'profile-timeslots')">Front Page</button>
-		<button type="button" class="btn" onclick="switchDisplay('profile-timeslots', 'profile-frontpage')">Timeslots</button>
+		<button type="button" class="btn" onclick="switchDisplay('profile-timeslots', 'profile-frontpage')">Time slots</button>
 	</p>
 	
 	<div id="profile-frontpage">
 		<h3>Grades</h3>
 		<table class="default">
+		<thead>
+                	<tr>
+                    	<th>University</th>
+                        <th>Subject</th>
+                        <th>Course</th>
+                        <th>Grade</th>
+                        <th></th>
+                    </tr>
+                </thead>
 		<c:forEach items="${user.grades}" var="item">
 		  <tr>
 		    	<td><c:out value="${item.university}" /></td>
@@ -42,8 +51,26 @@
 	</div>
 	
 	<div id="profile-timeslots" style="display: none;">
-		<h3>Timeslots</h3>
-		<p><c:out value=""/></p>
+		<h3>Time slots</h3>
+		<table class="default">
+		<thead>
+                	<tr>
+                    	<th>Period</th>
+                        <th>Day</th>
+                        <th>From</th>
+                        <th>Till</th>
+                        <th></th>
+                    </tr>
+                </thead>
+		<c:forEach items="${user.timeSlots}" var="item">
+		  <tr>
+		    	<td><c:out value="${item.semesterOrSemesterBreak}" /></td>
+		    	<td><c:out value="${item.day}" /></td>
+		    	<td><c:out value="${item.startTime}" /></td>
+		    	<td><c:out value="${item.endTime}" /></td>
+		  </tr>
+		  </c:forEach>
+		</table>
 	</div>
 	
 	<p><button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>

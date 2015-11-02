@@ -65,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                	<tr><input type="button" id="addGradeButton" value="Add" /></tr>
+                	<tr><input type="button" id="addGradeButton" value="Add Grade Row" /></tr>
                 	<tr>
 							<c:if test="${fn:length(signupForm.grades) == 0}" >
 	                            <td>
@@ -136,11 +136,170 @@
 							</c:forEach>
 							</c:if>
 					</tr>
-					<tr id="submitRow" /> <!-- Hier wird neue Zeile eingefügt -->
+					<tr id="submitRowGrades" /> <!-- Hier wird neue Zeile eingefügt -->
                 </tbody>
 			</table>
 	        
 			<button type="submit" class="btn btn-primary">Update</button>
+			
+			<br>
+			<br>
+			
+			<table>
+				<thead>
+                	<tr>
+                    	<th>Period</th>
+                        <th>Day</th>
+                        <th>From</th>
+                        <th>Till</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<tr><input type="button" id="addTimeSlotButton" value="Add Time Slot Row" /></tr>
+                	<tr>
+							<c:if test="${fn:length(signupForm.timeSlots) == 0}" >
+	                            <td>
+	                            	<form:select path="timeSlots[0].semesterOrSemesterBreak" tabindex="1">
+						           		<form:option value='None' label="Select Time Period"/>
+						           		<form:option value="Herbstsemester 2015"/>
+						           		<form:option value="Semesterferien im Winter"/>
+						           		<form:option value="Frühjahrssemester 2016"/>
+						           		<form:option value="Semesterferien im Sommer"/>
+				            		</form:select>
+				            	</td>
+				            	<td>
+				            		<form:select path="timeSlots[0].day" tabindex="1">
+						           		<form:option value='None' label="Select Day"/>
+						           		<form:option value="Montag"/>
+						           		<form:option value="Dienstag"/>
+						           		<form:option value="Mittwoch"/>
+						           		<form:option value="Donnerstag"/>
+						           		<form:option value="Freitag"/>
+						           		<form:option value="Samstag"/>
+						           		<form:option value="Sonntag"/>
+				            		</form:select>
+				            	</td>
+				            	<td>
+				            		<form:select path="timeSlots[0].startTime" tabindex="1">
+						           		<form:option value='None' label="Select Start Time"/>
+						           		<form:option value="07:00"/>
+						           		<form:option value="08:00"/>
+						           		<form:option value="09:00"/>
+						           		<form:option value="10:00"/>
+						           		<form:option value="11:00"/>
+						           		<form:option value="12:00"/>
+						           		<form:option value="13:00"/>
+						           		<form:option value="14:00"/>
+						           		<form:option value="15:00"/>
+						           		<form:option value="16:00"/>
+						           		<form:option value="17:00"/>
+						           		<form:option value="18:00"/>
+						           		<form:option value="19:00"/>
+						           		<form:option value="20:00"/>
+						           		<form:option value="21:00"/>
+						           		<form:option value="22:00"/>
+				            		</form:select>
+				            	</td>
+				            	<td>
+				            		<form:select path="timeSlots[0].endTime" tabindex="1">
+						           		<form:option value='None' label="Select End Time"/>
+						           		<form:option value="08:00"/>
+						           		<form:option value="09:00"/>
+						           		<form:option value="10:00"/>
+						           		<form:option value="11:00"/>
+						           		<form:option value="12:00"/>
+						           		<form:option value="13:00"/>
+						           		<form:option value="14:00"/>
+						           		<form:option value="15:00"/>
+						           		<form:option value="16:00"/>
+						           		<form:option value="17:00"/>
+						           		<form:option value="18:00"/>
+						           		<form:option value="19:00"/>
+						           		<form:option value="20:00"/>
+						           		<form:option value="21:00"/>
+						           		<form:option value="22:00"/>
+						           		<form:option value="22:00"/>
+				            		</form:select>
+				            	</td>
+				            		<!-- Remove button missing -->
+		                	</c:if>
+		                	<c:if test="${fn:length(signupForm.timeSlots) > 0}" >
+		                	<c:forEach items="${signupForm.timeSlots}" var="element" varStatus="j" begin="0">
+		                		<tr>
+									<td>
+										<form:select path="timeSlots[${j.index}].semesterOrSemesterBreak" tabindex="1">
+								    		<form:option value='None' label="Select Time Period"/>
+						           			<form:option value="Herbstsemester 2015"/>
+						           			<form:option value="Semesterferien im Winter"/>
+						           			<form:option value="Frühjahrssemester 2016"/>
+						           			<form:option value="Semesterferien im Sommer"/>
+								    	</form:select>
+									</td>
+									<td>
+								   		<form:select path="timeSlots[${j.index}].day" tabindex="1">
+								    		<form:option value='None' label="Select Day"/>
+						           			<form:option value="Montag"/>
+						           			<form:option value="Dienstag"/>
+						           			<form:option value="Mittwoch"/>
+						           			<form:option value="Donnerstag"/>
+						           			<form:option value="Freitag"/>
+						           			<form:option value="Samstag"/>
+						           			<form:option value="Sonntag"/>
+								   		</form:select>
+								   	</td>
+								   	<td>
+								   		<form:select path="timeSlots[${j.index}].startTime" tabindex="1">
+								    		<form:option value='None' label="Select Start Time"/>
+						          	 		<form:option value="07:00"/>
+						        	   		<form:option value="08:00"/>
+						         	  		<form:option value="09:00"/>
+							           		<form:option value="10:00"/>
+							           		<form:option value="11:00"/>
+							           		<form:option value="12:00"/>
+							           		<form:option value="13:00"/>
+							           		<form:option value="14:00"/>
+							           		<form:option value="15:00"/>
+							           		<form:option value="16:00"/>
+							           		<form:option value="17:00"/>
+							           		<form:option value="18:00"/>
+							           		<form:option value="19:00"/>
+							           		<form:option value="20:00"/>
+							           		<form:option value="21:00"/>
+							           		<form:option value="22:00"/>
+								   		</form:select>
+								   	</td>
+								   	<td>
+								   		<form:select path="timeSlots[${j.index}].endTime" tabindex="1">
+								    		<form:option value="08:00"/>
+							           		<form:option value="09:00"/>
+							           		<form:option value="10:00"/>
+							           		<form:option value="11:00"/>
+							           		<form:option value="12:00"/>
+							           		<form:option value="13:00"/>
+							           		<form:option value="14:00"/>
+							           		<form:option value="15:00"/>
+							           		<form:option value="16:00"/>
+							           		<form:option value="17:00"/>
+							           		<form:option value="18:00"/>
+							           		<form:option value="19:00"/>
+							           		<form:option value="20:00"/>
+							           		<form:option value="21:00"/>
+							           		<form:option value="22:00"/>
+							           		<form:option value="22:00"/>
+								   		</form:select>
+								   	</td>
+								   		<!-- Remove button missing -->
+								</tr>
+							</c:forEach>
+							</c:if>
+					</tr>
+					<tr id="submitRowTimeSlots" /> <!-- Hier wird neue Zeile eingefügt -->
+                </tbody>
+			</table>
+			
+			<button type="submit" class="btn btn-primary">Update</button>
+			
 	    </fieldset>
 	</form:form>
 	
@@ -165,7 +324,28 @@ $(document).ready(function() {
  
 		$.get("<%=request.getContextPath()%>/editProfileAppend", { fieldId: gradePosition},
 			function(data){
-				$("#submitRow").before(data);
+				$("#submitRowGrades").before(data);
+		});
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function addTS() {
+	
+	var countTimeSlotsList = new Array();
+	<c:forEach items="${signupForm.timeSlots}">
+	    var thickie= new Object();
+	    countTimeSlotsList.push(thickie);
+	</c:forEach>
+	
+	var timeSlotPosition = countTimeSlotsList.length - 1;
+	
+	$("#addTimeSlotButton").click(function tSP() {
+		timeSlotPosition++;
+ 
+		$.get("<%=request.getContextPath()%>/editProfileAttach", { fieldId: timeSlotPosition},
+			function oneRowMore(data){
+				$("#submitRowTimeSlots").before(data);
 		});
 	});
 });

@@ -8,6 +8,7 @@ import java.util.Set;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.model.Grade;
+import org.sample.model.TimeSlot;
 import org.sample.model.User;
 import org.sample.model.UserRole;
 import org.sample.model.dao.UserDao;
@@ -43,6 +44,14 @@ public class UserService implements IUserDataService{
 			arrayList.add(itr.next());
 		}
 		user.setGrades(arrayList);
+		
+		ArrayList<TimeSlot> timeSlotList = new ArrayList<TimeSlot>();
+		ListIterator<TimeSlot> iter = signupForm.getTimeSlots().listIterator();
+		while(iter.hasNext())
+		{
+			timeSlotList.add(iter.next());
+		}
+		user.setTimeSlots(timeSlotList);
 
 		user.setPassword(password.encode(signupForm.getPassword()));
 
