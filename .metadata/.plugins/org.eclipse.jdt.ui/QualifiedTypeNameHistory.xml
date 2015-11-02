@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.sample.model.TimeSlots"/>
+<fullyQualifiedTypeName name="org.sample.model.TimeSlotsFactory"/>
+<fullyQualifiedTypeName name="org.sample.model.TimeSlotFactory"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="org.sample.model.TimeSlot"/>
+<fullyQualifiedTypeName name="java.util.ListIterator"/>
+</qualifiedTypeNameHistroy>

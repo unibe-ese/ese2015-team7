@@ -12,6 +12,8 @@ import org.sample.model.Course;
 import org.sample.model.Grade;
 import org.sample.model.GradeFactory;
 import org.sample.model.Subject;
+import org.sample.model.TimeSlot;
+import org.sample.model.TimeSlotFactory;
 import org.sample.model.University;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +88,14 @@ public class ProfileController {
     	}
 		form.setGrades(gradeList);
 		
+		AutoPopulatingList<TimeSlot> timeSlotList = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
+    	ListIterator<TimeSlot> iter = user.getTimeSlots().listIterator();
+    	while(iter.hasNext())
+    	{
+    		timeSlotList.add(iter.next());
+    	}
+		form.setTimeSlots(timeSlotList);
+		
 		return form;
 	}
 	
@@ -104,7 +114,7 @@ public class ProfileController {
 	
 	/**
 	 * Serve model with subjects.
-	 * @return the subjectss from the database.
+	 * @return the subjects from the database.
 	 */
 	@ModelAttribute("subjects")
 	public ArrayList<Subject> getSubjects()
@@ -148,6 +158,13 @@ public class ProfileController {
 	{	
 		model.addAttribute("gradeNumber", fieldId);
 		return "template/gradeRow";
+	}
+	
+	@RequestMapping(value="/editProfileAttach", method = RequestMethod.GET)
+	protected String attachTimeSlotField(@RequestParam Integer fieldId, ModelMap model)
+	{	
+		model.addAttribute("timeSlotNumber", fieldId);
+		return "template/timeSlotRow";
 	}
 	
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
