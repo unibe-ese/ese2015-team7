@@ -19,16 +19,20 @@ public class ProfileController {
     IUserDataService userService;
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile(Principal principal){
+    public ModelAndView profile(@RequestParam(required=false,name="user") User theUser){
     	ModelAndView model = new ModelAndView("profile");
+    	User principal =userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     	
-    	User user = userService.getUserByEmail(principal.getName());
+    		
+    	User user = principal;
+    		if (theUser!=null)
+    			user = theUser;
     	model.addObject(user);
     	model.addObject(principal);
     	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
     	model.addObject("principalName", principalName);
     	
-    	String username = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username);
     	
         return model;

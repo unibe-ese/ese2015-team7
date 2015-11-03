@@ -82,7 +82,7 @@ public class RequestService implements IRequestService{
 
 
 	public void acceptRequest(User student) {
-		Request request=requestDao.findByTutor(student);
+		Request request=requestDao.findByStudent(student);
 		request.setIsAccepted(true);
 		request.setIsActiv(false);
 		requestDao.save(request);
@@ -91,7 +91,7 @@ public class RequestService implements IRequestService{
 
 
 	public void declineRequest(User student) {
-		Request request=requestDao.findByTutor(student);
+		Request request=requestDao.findByStudent(student);
 		request.setIsDeclined(true);
 		request.setIsActiv(false);
 		requestDao.save(request);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RequestController {
@@ -98,29 +99,22 @@ public class RequestController {
     }
 	
 	@RequestMapping(value = "/requests/action", method = RequestMethod.POST)
-    public ModelAndView requestAction(@RequestParam(required=false,name="visitProfile") String studentEmail, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail){
-    	ModelAndView model = new ModelAndView("redirect:/myRequests");
+    public ModelAndView requestAction(@RequestParam(required=false,name="visitProfile") String studentEmail, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail,RedirectAttributes redirectAttrs){
+    	ModelAndView model = new ModelAndView("redirect:/requests");
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
     	User principal = userDao.findByEmail(principalEmail);
     	
     	
     	if (studentEmail != null){
-    		model = new ModelAndView("redirect:/profile");
         	User user = userService.getUserByEmail(studentEmail);
-        	model.addObject(user);
-        	
-        	String username = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getName(); //gets principal and loads user from Database and gets his name
-        	model.addObject("username", username);
-        	
-            return model;
+        	redirectAttrs.addFlashAttribute("user", user);
+            return new ModelAndView("redirect:/profile");
     	}
     	else if (acceptStudentEmail != null){
-    		User student = userDao.findByEmail(acceptStudentEmail);
-    		iRequestService.acceptRequest(student);
+    		iRequestService.acceptRequest(userDao.findByEmail(acceptStudentEmail));
     	}
     	else if (declineStudentEmail != null){
-    		User student = userDao.findByEmail(declineStudentEmail);
-    		iRequestService.declineRequest(student);
+    		iRequestService.declineRequest(userDao.findByEmail(declineStudentEmail));
     	}
     	
   
