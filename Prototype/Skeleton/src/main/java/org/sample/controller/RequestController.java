@@ -87,7 +87,7 @@ public class RequestController {
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
     	User principal = userDao.findByEmail(principalEmail);
 	
-    	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail));
+    	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail), principal);
   
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	model.addObject("requests", requests);
@@ -111,10 +111,10 @@ public class RequestController {
             return new ModelAndView("redirect:/profile");
     	}
     	else if (acceptStudentEmail != null){
-    		iRequestService.acceptRequest(userDao.findByEmail(acceptStudentEmail));
+    		iRequestService.acceptRequest(principal,userDao.findByEmail(acceptStudentEmail));
     	}
     	else if (declineStudentEmail != null){
-    		iRequestService.declineRequest(userDao.findByEmail(declineStudentEmail));
+    		iRequestService.declineRequest(principal, userDao.findByEmail(declineStudentEmail));
     	}
     	
   

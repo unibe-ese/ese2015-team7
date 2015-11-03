@@ -7,8 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RequestDao extends CrudRepository<Request,Long> {
 
-	Request findByTutor(User tutor);
-
-	Request findByStudent(User student);
+	Request findByTutorAndStudent(User tutor, User student);
 
 }

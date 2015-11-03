@@ -25,11 +25,18 @@ public class RequestService implements IRequestService{
 
 	@Transactional
 	public void saveRequest(String tutorEmail, String studentEmail) {
-	
-		Request request = new Request();
+		Request oldRequest= requestDao.findByTutorAndStudent(userDao.findByEmail(tutorEmail), userDao.findByEmail(studentEmail));
 		
-		request.setStudent(userDao.findByEmail(studentEmail));
-		request.setTutor(userDao.findByEmail(tutorEmail));
+		Request request;
+		if (oldRequest != null)
+			request=oldRequest;
+			else {
+				request= new Request();
+		
+				request.setStudent(userDao.findByEmail(studentEmail));
+				request.setTutor(userDao.findByEmail(tutorEmail));
+			}
+				
 		
 		//Date date = new Date();
 		//request.setDate(date);
@@ -40,6 +47,9 @@ public class RequestService implements IRequestService{
 		
 		requestDao.save(request);
 	}
+
+
+
 
 
 	public ArrayList<Request> getAllMyRequests(User principal) {
@@ -72,17 +82,17 @@ public class RequestService implements IRequestService{
 	}
 
 
-	public void deleteRequest(User tutor) {
+	public void deleteRequest(User tutor, User student) {
 		
-		Request request=requestDao.findByTutor(tutor);
+		Request request=requestDao.findByTutorAndStudent(tutor, student);
 		request.setIsDeleted(true);
 		request.setIsActiv(false);
 		requestDao.save(request);
 	}
 
 
-	public void acceptRequest(User student) {
-		Request request=requestDao.findByStudent(student);
+	public void acceptRequest(User tutor, User student) {
+		Request request=requestDao.findByTutorAndStudent(tutor, student);
 		request.setIsAccepted(true);
 		request.setIsActiv(false);
 		requestDao.save(request);
@@ -90,8 +100,8 @@ public class RequestService implements IRequestService{
 	}
 
 
-	public void declineRequest(User student) {
-		Request request=requestDao.findByStudent(student);
+	public void declineRequest(User student, User tutor) {
+		Request request=requestDao.findByTutorAndStudent(tutor, student);
 		request.setIsDeclined(true);
 		request.setIsActiv(false);
 		requestDao.save(request);

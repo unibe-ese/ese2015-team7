@@ -28,8 +28,7 @@
 		
 			<div id="header-wrapper">
 				<header id="header" class="container">
-						<h5>Username : ${username}</h5>	
-<!--						<h5>Username : <security:authentication property="principal.username" /></h5>   -->
+				<h5><% out.println(request.getSession().getAttribute("username") ); %></h5>
 
 					<!-- Nav -->
 						<nav id="nav">
