@@ -14,6 +14,7 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.sample"/>
     
+    
     <bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://thorserver.noip.me:3306/eseteamseven" />

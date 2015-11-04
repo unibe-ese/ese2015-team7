@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import javax.validation.constraints.NotNull;
 
+import org.sample.controller.service.SearchService;
 import org.sample.model.Tutor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SearchForm 
-{
-	
+{	
     private Long id;
     @NotNull
     private String university;
