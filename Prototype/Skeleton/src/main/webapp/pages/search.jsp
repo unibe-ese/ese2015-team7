@@ -70,7 +70,6 @@ $("#field-University").change(function(){
 	<c:forEach items="${subjects}" var="subject">
 		if("${subject.university.universityName}"==uni){
 			$('#field-Subject').append("<option value="+"${subject}"+">"+"${subject}"+"</option>");
-			console.log("${subject}");
 		}
 	</c:forEach>
 });
@@ -79,7 +78,6 @@ $("#field-University").change(function(){
 <script type="text/javascript">
 $("#field-Subject").change(function(){
 	var subject = $(this).val();
-	console.log("sub "+subject);
 
 	$('#field-Course').empty();
 	$('#field-Course').append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
