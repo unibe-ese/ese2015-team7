@@ -100,7 +100,7 @@ public class RequestService implements IRequestService{
 	}
 
 
-	public void declineRequest(User student, User tutor) {
+	public void declineRequest(User tutor, User student) {
 		Request request=requestDao.findByTutorAndStudent(tutor, student);
 		request.setIsDeclined(true);
 		request.setIsActiv(false);

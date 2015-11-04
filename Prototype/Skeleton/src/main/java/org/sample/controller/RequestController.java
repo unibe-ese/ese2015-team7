@@ -39,8 +39,9 @@ public class RequestController {
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
     	iRequestService.saveRequest(tutorEmail, SecurityContextHolder.getContext().getAuthentication().getName());
     	User principal = userDao.findByEmail(principalEmail);
+    	
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
-    	model.addObject(myRequests);
+    	model.addObject("myRequests",myRequests);
     	
     	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username); 
