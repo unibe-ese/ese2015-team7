@@ -8,6 +8,7 @@ import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,6 @@ public class IndexController {
     public ModelAndView index() {
     	ModelAndView model = new ModelAndView("index");
     	model.addObject("loginForm", new LoginForm());
-    	
         return model;
     }
     /**
@@ -61,7 +61,7 @@ public class IndexController {
 
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)
     public String securityError(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("page_error", "You do have have permission to do that!");
+        redirectAttributes.addFlashAttribute("page_error", "You do have no permission to do that!");
         return "redirect:/";
     }
     

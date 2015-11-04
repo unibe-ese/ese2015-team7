@@ -35,6 +35,14 @@
 							<ul>
 								<li><a href="/Skeleton/search">Search</a></li>
 								<li>
+									<a href="/Skeleton/requests">Requests</a>
+									<ul>
+										<li><a href="/Skeleton/requests">Incoming Requests</a></li>
+										<li><a href="/Skeleton/myRequests">Outgoing Requests</a></li>
+									</ul>
+								</li>
+								
+								<li>
 									<a href="/Skeleton/profile">My Profile</a>
 								</li>
 								<li><a href="<c:url value="j_spring_security_logout" />">Logout</a></li>

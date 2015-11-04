@@ -17,7 +17,7 @@
     
     <bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://thorserver.noip.me:3306/eseteamseven" />
+        <property name="jdbcUrl" value="jdbc:mysql://thorserver.noip.me:3306/eseteamseven?autoReconnect=true&amp;createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8" />
         <property name="username" value="team7"/>
         <property name="password" value="eseteam7"/>
         <property name="idleConnectionTestPeriodInMinutes" value="60"/>
@@ -29,7 +29,7 @@
         <property name="statementsCacheSize" value="100"/>
         <property name="releaseHelperThreads" value="3"/>
     </bean>
-
+   
     <!--
     <bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
@@ -45,7 +45,7 @@
         <property name="statementsCacheSize" value="100"/>
         <property name="releaseHelperThreads" value="3"/>
     </bean>
-    -->
+ -->
 
     <!-- SPRING - JPA -->
     <jpa:repositories base-package="org.sample.model.dao" entity-manager-factory-ref="entityManagerFactory" />

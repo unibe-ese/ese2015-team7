@@ -9,12 +9,15 @@
 
 	<security:http auto-config="true" use-expressions="true" access-denied-page="/access-denied">
 		
-		<security:intercept-url pattern="/login" access="permitAll" />	
+		
 		<security:intercept-url pattern="/" access="permitAll" />	
 		<security:intercept-url pattern="/profile" access="isAuthenticated()"/>	
-		<security:intercept-url pattern="/search" access="isAuthenticated()"/>
+
+		<security:intercept-url pattern="/search" access="isAuthenticated()"/>	
+		<security:intercept-url pattern="/requests" access="isAuthenticated()"/>	
+		<security:intercept-url pattern="/myRequests" access="isAuthenticated()"/>		
 		<security:intercept-url pattern="/editProfile" access="isAuthenticated()"/>	
-		<security:form-login login-page="/login" authentication-failure-url="/login?error=true" default-target-url="/search" />
+		<security:form-login login-page="/" authentication-failure-url="/?error=true" default-target-url="/search" />
 		<security:logout invalidate-session="true" logout-success-url="/"/>
 	</security:http>
 	

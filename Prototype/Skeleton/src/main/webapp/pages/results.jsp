@@ -24,10 +24,10 @@
 <form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     <c:forEach items="${tutors}" var="item">
-    <p>
-	    <c:out value="${item.tutorsName}" />
+    
+	    <p><c:out value="${item.tutorsName}" /></p>
 	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
-    </p>
+    
     </c:forEach>
 <!--   
         <c:set var="tutorsErrors"><form:errors path="tutors"/></c:set>

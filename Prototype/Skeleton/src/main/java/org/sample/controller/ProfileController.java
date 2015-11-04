@@ -42,15 +42,20 @@ public class ProfileController {
     SearchService searchService;
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile(Principal principal){
+    public ModelAndView profile(@RequestParam(required=false,name="user") User theUser){
     	ModelAndView model = new ModelAndView("profile");
+    	User principal =userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     	
-    	User user = userService.getUserByEmail(principal.getName());
+    		
+    	User user = principal;
+    		if (theUser!=null)
+    			user = theUser;
     	model.addObject(user);
     	
     	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
     	model.addObject("principalName", principalName);
     	
+
         return model;
     }
 	
@@ -80,21 +85,24 @@ public class ProfileController {
     	form.setName(user.getName());
     	form.setBiography(user.getBiography());
     	
+    	
+    	try{
     	AutoPopulatingList<Grade> gradeList = new AutoPopulatingList<Grade>(new GradeFactory());
     	ListIterator<Grade> itr = user.getGrades().listIterator();
     	while(itr.hasNext())
     	{
     		gradeList.add(itr.next());
     	}
-		form.setGrades(gradeList);
+		form.setGrades(gradeList);} catch (Exception e){}
 		
+    	try{
 		AutoPopulatingList<TimeSlot> timeSlotList = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
     	ListIterator<TimeSlot> iter = user.getTimeSlots().listIterator();
     	while(iter.hasNext())
     	{
     		timeSlotList.add(iter.next());
     	}
-		form.setTimeSlots(timeSlotList);
+		form.setTimeSlots(timeSlotList);} catch (Exception e){}
 		
 		return form;
 	}
