@@ -61,7 +61,7 @@ public class RequestService implements IRequestService{
         while(myRequestIter.hasNext())
         {
         	Request request = myRequestIter.next();
-        	if((request.getStudent().equals(principal))&&request.getIsActiv()&&!request.getIsAccepted()&&!request.getIsDeclined()&&!request.getIsDeleted())
+        	if((request.getStudent().equals(principal))&&request.getIsActiv())
         		myRequestList.add(request);
         	
         }
@@ -75,7 +75,7 @@ public class RequestService implements IRequestService{
         while(requestIter.hasNext())
         {
         	Request request = requestIter.next();
-        	if((request.getTutor().equals(principal))&&request.getIsActiv()&&!request.getIsAccepted()&&!request.getIsDeclined()&&!request.getIsDeleted())
+        	if((request.getTutor().equals(principal))&&request.getIsActiv())
         		requestList.add(request);
         }
 		return requestList;
