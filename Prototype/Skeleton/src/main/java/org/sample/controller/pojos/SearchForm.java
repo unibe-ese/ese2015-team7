@@ -7,8 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.sample.model.Tutor;
 
 public class SearchForm 
-{
-	
+{	
     private Long id;
     @NotNull
     private String university;

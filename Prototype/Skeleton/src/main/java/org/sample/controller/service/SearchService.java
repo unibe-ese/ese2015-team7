@@ -13,6 +13,10 @@ public interface SearchService {
 	
 	 public ArrayList<University> getUniversities();
 	 
+	 public ArrayList<Subject> getSubjectsFromUniversity(String university);
+	 
+	 public ArrayList<Course> getCourseFromSubject(String subject);
+	 
 	 public ArrayList<Subject> getSubjects();
 	 
 	 public ArrayList<Course> getCourses();

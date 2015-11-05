@@ -68,6 +68,9 @@ public class ProfileController {
     	String username = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username);
     	
+    	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
+    	model.addObject("principalName", principalName);
+    	
         return model;
     }
 	

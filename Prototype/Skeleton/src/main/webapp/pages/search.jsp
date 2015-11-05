@@ -1,19 +1,14 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <c:import url="template/header.jsp" />
 
 
-<html>
-<head>
-<title>Search for a Tutor</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
-<link rel="stylesheet" href="/Skeleton/css/style.css" />
+
 </head>
 <body>
 
@@ -26,7 +21,7 @@
         <div class="control-group<c:if test="${not empty UniversityErrors}"> error</c:if>">
             <label class="control-label" for="field-University">University</label>
             <div class="controls">
-                <form:select path="University" id="field-University" tabindex="4">
+                <form:select path="University" id="field-University" tabindex="1">
                 <form:option value='None' label="Select University"/>
                 		<form:options items="${universities}"/>
                 </form:select>
@@ -40,9 +35,8 @@
         <div class="control-group<c:if test="${not empty SubjectErrors}"> error</c:if>">
             <label class="control-label" for="field-Subject">Subject</label>
             <div class="controls">
-                <form:select path="Subject" id="field-Subject" tabindex="4">
+                <form:select path="Subject" id="field-Subject" tabindex="2">
                 		<form:option value='None' label="Select Subject"/>
-                		<form:options items="${subjects}"/>
                 </form:select>
                 <form:errors path="Subject" cssClass="help-inline" element="span"/>
             </div>
@@ -51,9 +45,8 @@
         <div class="control-group<c:if test="${not empty CourseErrors}"> error</c:if>">
             <label class="control-label" for="field-Course">Course</label>
             <div class="controls">
-                <form:select path="Course" id="field-Course" tabindex="4">
+                <form:select path="Course" id="field-Course" tabindex="3">
                 		<form:option value='None' label="Select Course"/>
-                		<form:options items="${courses}"/>
                 </form:select>
                 <form:errors path="Course" cssClass="help-inline" element="span"/>
             </div>
@@ -66,6 +59,35 @@
 
 
 
+<script type="text/javascript">
+$("#field-University").change(function(){
+	var uni = $(this).val();	
+
+	$('#field-Subject').empty();
+	$('#field-Subject').append("<option value="+"Select Subject"+">"+"Select Subject"+"</option>");
+	$('#field-Course').empty();
+	$('#field-Course').append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
+	<c:forEach items="${subjects}" var="subject">
+		if("${subject.university.universityName}"==uni){
+			$('#field-Subject').append("<option value="+"${subject}"+">"+"${subject}"+"</option>");
+		}
+	</c:forEach>
+});
+</script>
+
+<script type="text/javascript">
+$("#field-Subject").change(function(){
+	var subject = $(this).val();
+
+	$('#field-Course').empty();
+	$('#field-Course').append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
+	<c:forEach items="${courses}" var="course">
+		if("${course.subject.subjectName}"==subject.replace(" ","")){
+			$('#field-Course').append("<option value="+"${course}"+">"+"${course}"+"</option>");
+		}
+	</c:forEach>
+});
+</script>
 
 
 
