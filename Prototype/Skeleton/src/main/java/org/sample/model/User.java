@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -32,6 +33,7 @@ public class User {
     @NaturalId(mutable=false)
     @Column(name="EMAIL", unique = true, nullable = false, length = 111)
     private String email;
+    @NotNull
     private String password;
     private boolean enabled;
     

@@ -364,8 +364,8 @@ function defineOptions (index)
 		$('#field-Course' + index).empty();
 		$('#field-Course' + index).append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
 		<c:forEach items="${subjects}" var="subject">
-			if("${subject.university.universityName}"==uni){
-				$('#field-Subject' + index).append("<option value="+"${subject}"+">"+"${subject}"+"</option>");
+			if("${subject.university.universityName}"==uni.replace){
+				$('#field-Subject' + index).append("<option value="+"\""+"${subject}"+"\""+">"+"${subject}"+"</option>");
 			}
 		</c:forEach>
 	});
@@ -377,7 +377,7 @@ function defineOptions (index)
 		$('#field-Course' + index).append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
 		<c:forEach items="${courses}" var="course">
 			if("${course.subject.subjectName}"==subject.replace(" ","")){
-				$('#field-Course' + index).append("<option value="+"${course}"+">"+"${course}"+"</option>");
+				$('#field-Course' + index).append("<option value="+"\""+"${course}"+"\""+">"+"${course}"+"</option>");
 			}
 		</c:forEach>
 	});

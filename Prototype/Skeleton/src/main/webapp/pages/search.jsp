@@ -22,7 +22,7 @@
             <label class="control-label" for="field-University">University</label>
             <div class="controls">
                 <form:select path="University" id="field-University" tabindex="1">
-                <form:option value='None' label="Select University"/>
+                <form:option value='Select University' label="Select University"/>
                 		<form:options items="${universities}"/>
                 </form:select>
                 <form:errors path="University" cssClass="help-inline" element="span"/>
@@ -35,8 +35,8 @@
         <div class="control-group<c:if test="${not empty SubjectErrors}"> error</c:if>">
             <label class="control-label" for="field-Subject">Subject</label>
             <div class="controls">
-                <form:select path="Subject" id="field-Subject" tabindex="2">
-                		<form:option value='None' label="Select Subject"/>
+                <form:select path="Subject" id="field-Subject" tabindex="1">
+                <form:option value='Select Subject' label="Select Subject"/>
                 </form:select>
                 <form:errors path="Subject" cssClass="help-inline" element="span"/>
             </div>
@@ -45,8 +45,8 @@
         <div class="control-group<c:if test="${not empty CourseErrors}"> error</c:if>">
             <label class="control-label" for="field-Course">Course</label>
             <div class="controls">
-                <form:select path="Course" id="field-Course" tabindex="3">
-                		<form:option value='None' label="Select Course"/>
+                <form:select path="Course" id="field-Course" tabindex="1">
+                		<form:option value='Select Course' label="Select Course"/>
                 </form:select>
                 <form:errors path="Course" cssClass="help-inline" element="span"/>
             </div>
@@ -61,7 +61,7 @@
 
 <script type="text/javascript">
 $("#field-University").change(function(){
-	var uni = $(this).val();	
+	var uni = $(this).val();
 
 	$('#field-Subject').empty();
 	$('#field-Subject').append("<option value="+"Select Subject"+">"+"Select Subject"+"</option>");
@@ -69,7 +69,7 @@ $("#field-University").change(function(){
 	$('#field-Course').append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
 	<c:forEach items="${subjects}" var="subject">
 		if("${subject.university.universityName}"==uni){
-			$('#field-Subject').append("<option value="+"${subject}"+">"+"${subject}"+"</option>");
+			$('#field-Subject').append("<option value="+"\""+"${subject}"+"\""+">"+"${subject}"+"</option>");
 		}
 	</c:forEach>
 });
@@ -82,8 +82,8 @@ $("#field-Subject").change(function(){
 	$('#field-Course').empty();
 	$('#field-Course').append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
 	<c:forEach items="${courses}" var="course">
-		if("${course.subject.subjectName}"==subject.replace(" ","")){
-			$('#field-Course').append("<option value="+"${course}"+">"+"${course}"+"</option>");
+		if("${course.subject.subjectName}"==subject){
+			$('#field-Course').append("<option value="+"\""+"${course}"+"\""+">"+"${course}"+"</option>");
 		}
 	</c:forEach>
 });
