@@ -9,8 +9,10 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.model.Grade;
 import org.sample.model.TimeSlot;
+import org.sample.model.Tutor;
 import org.sample.model.User;
 import org.sample.model.UserRole;
+import org.sample.model.dao.TutorDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +23,8 @@ import org.springframework.util.StringUtils;
 public class UserService implements IUserDataService{
 	
 	@Autowired	UserDao userDao;
+	@Autowired	TutorDao tutorDao;
+	@Autowired	SearchService searchService;
 
 	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
 		String name = signupForm.getName();
@@ -74,6 +78,16 @@ public class UserService implements IUserDataService{
 	
 	public SignupForm saveFrom(SignupForm signupForm){
 		return saveFrom(signupForm, null);
+	}
+	
+	public void createAndSaveTutorLinksFromForm(SignupForm signupForm, User user) {		
+		for( Grade grade : signupForm.getGrades() ) {
+			
+			Tutor tutorLink = new Tutor();
+			tutorLink.setCourse( searchService.getCourseByName(grade.getCourse()) );
+			tutorLink.setUser(user);
+			tutorLink = tutorDao.save(tutorLink); // save object to DB
+		}
 	}
 	
 	public User getUserById(Long userId) {

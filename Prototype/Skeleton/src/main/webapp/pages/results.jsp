@@ -25,23 +25,11 @@
     <fieldset>
     <c:forEach items="${tutors}" var="item">
     
-	    <p><c:out value="${item.tutorsName}" /></p>
+	    <p><c:out value="${item}" /></p>
+	    
 	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
     
-    </c:forEach>
-<!--   
-        <c:set var="tutorsErrors"><form:errors path="tutors"/></c:set>
-        <div class="control-group<c:if test="${not empty TutorsErrors}"> error</c:if>">
-            <label class="control-label" for="field-tutors">Tutors</label>
-            <div class="controls">
-                <form:select path="tutors" id="field-tutors" tabindex="4">
-                <form:option value='None' label="Select Tutor"/>
-                		<form:options items="${tutors}"/>
-                </form:select>
-                <form:errors path="tutors" cssClass="help-inline" element="span"/>
-            </div>
-        </div>
- -->        
+    </c:forEach>      
     </fieldset>
 </form:form>
 

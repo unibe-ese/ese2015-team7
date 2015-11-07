@@ -22,5 +22,11 @@ public interface SearchService {
 	 public ArrayList<Course> getCourses();
 	 
 	 public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException;
+	 
+	 public University getUniversityByName(String universityName);
+	 
+	 public Subject getSubjectByName(String subjectName);
+	 
+	 public Course getCourseByName(String courseName);
 
 }

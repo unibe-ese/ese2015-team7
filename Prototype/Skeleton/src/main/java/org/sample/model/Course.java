@@ -70,4 +70,50 @@ public class Course {
 	public boolean equals(Course otherCourse){
 		return (this.id==otherCourse.id);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((courseName == null) ? 0 : courseName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((semester == null) ? 0 : semester.hashCode());
+		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
+		result = prime * result + year;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Course other = (Course) obj;
+		if (courseName == null) {
+			if (other.courseName != null)
+				return false;
+		} else if (!courseName.equals(other.courseName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (semester == null) {
+			if (other.semester != null)
+				return false;
+		} else if (!semester.equals(other.semester))
+			return false;
+		if (subject == null) {
+			if (other.subject != null)
+				return false;
+		} else if (!subject.equals(other.subject))
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
+	}
 }

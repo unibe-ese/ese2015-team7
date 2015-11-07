@@ -198,6 +198,7 @@ public class ProfileController {
 		    try {
 		
 			userService.saveFrom(signupForm, user);
+			userService.createAndSaveTutorLinksFromForm(signupForm, user);
 			redirectAttributes.addFlashAttribute("infoMessage", "Du hast erfolgreich dein Profil bearbeitet!");
 	
 			model = new ModelAndView("redirect:/profile");
