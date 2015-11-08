@@ -35,6 +35,8 @@ public class TimeSlot implements Serializable{
     @NotNull
     @Size(min = 1, max = 8, message = "Bitte wähle eine Endzeit.")
     private String endTime;
+    
+    private boolean remove = false;
 
     public void setSemesterOrSemesterBreak(String semesterOrSemesterBreak){
     	this.semesterOrSemesterBreak = semesterOrSemesterBreak;
@@ -74,6 +76,14 @@ public class TimeSlot implements Serializable{
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public boolean isRemove() {
+		return remove;
+	}
+
+	public void setRemove(boolean remove) {
+		this.remove = remove;
 	}
 
 	@Override

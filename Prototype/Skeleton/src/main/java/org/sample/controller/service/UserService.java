@@ -44,8 +44,10 @@ public class UserService implements IUserDataService{
 		ArrayList<Grade> arrayList = new ArrayList<Grade>();
 		ListIterator<Grade> itr = signupForm.getGrades().listIterator();
 		while(itr.hasNext())
-		{  
-			arrayList.add(itr.next());
+		{
+			Grade tmp = itr.next();
+			if(!tmp.isRemove())
+				arrayList.add(tmp);
 		}
 		user.setGrades(arrayList);
 		
@@ -53,7 +55,9 @@ public class UserService implements IUserDataService{
 		ListIterator<TimeSlot> iter = signupForm.getTimeSlots().listIterator();
 		while(iter.hasNext())
 		{
-			timeSlotList.add(iter.next());
+			TimeSlot tmp = iter.next();
+			if(!tmp.isRemove())
+				timeSlotList.add(tmp);
 		}
 		user.setTimeSlots(timeSlotList);
 
@@ -82,11 +86,12 @@ public class UserService implements IUserDataService{
 	
 	public void createAndSaveTutorLinksFromForm(SignupForm signupForm, User user) {		
 		for( Grade grade : signupForm.getGrades() ) {
-			
-			Tutor tutorLink = new Tutor();
-			tutorLink.setCourse( searchService.getCourseByName(grade.getCourse()) );
-			tutorLink.setUser(user);
-			tutorLink = tutorDao.save(tutorLink); // save object to DB
+			if(!grade.isRemove()){ // only save if grade wasn't "removed"
+				Tutor tutorLink = new Tutor();
+				tutorLink.setCourse( searchService.getCourseByName(grade.getCourse()) );
+				tutorLink.setUser(user);
+				tutorLink = tutorDao.save(tutorLink); // save object to DB
+			}
 		}
 	}
 	

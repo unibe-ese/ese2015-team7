@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<tr>
+<tr id = "tr${gradeNumber}">
 	<td>
 		<form:select path="signupForm.grades[${gradeNumber}].university" id="field-University${gradeNumber}" tabindex="1">
     		<form:option value='None' label="Select University"/>
@@ -28,5 +28,8 @@
     		<form:option value="6"/>
    		</form:select>
    	</td>
-   		<!-- Remove button missing -->
+   	<td>
+    	<button type="button" onclick="removeGradeRow(${gradeNumber})">Remove</button>
+    </td>
 </tr>
+<form:hidden path="signupForm.grades[${gradeNumber}].remove" />

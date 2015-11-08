@@ -32,6 +32,8 @@ public class Grade implements Serializable {
     @NotNull
     @Size(min = 1, max = 1, message = "Bitte wähle eine Note.")
     private String grade;
+    
+    private boolean remove = false;
 	
 	public Long getId() {
 		return id;
@@ -64,6 +66,12 @@ public class Grade implements Serializable {
 		this.grade = grade;
 	}
 	
+	public boolean isRemove() {
+		return remove;
+	}
+	public void setRemove(boolean remove) {
+		this.remove = remove;
+	}
 	@Override
 	public String toString() {
 		return "Grade [university=" + university + ", subject=" + subject + ", course=" + course + ", grade=" + grade
