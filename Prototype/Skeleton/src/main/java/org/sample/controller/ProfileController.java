@@ -208,7 +208,7 @@ public class ProfileController {
 		    }
 		} else {
 		    model = new ModelAndView("editProfile");
-		    System.out.println("Form hat fehler");
+		    System.out.println("Form hat fehler:\n" + result.toString());
 		}
 		return model;
 	}
