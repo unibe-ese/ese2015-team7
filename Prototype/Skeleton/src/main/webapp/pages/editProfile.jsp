@@ -117,13 +117,11 @@
 		            	<td>
 		            		<form:select path="grades[0].subject" id="field-Subject0" tabindex="1">
 				           		<form:option value='None' label="Select Subject"/>
-				           		<form:options items="${subjects}" itemValue="subjectName"/>
 		            		</form:select>
 		            	</td>
 		            	<td>
 		            		<form:select path="grades[0].course" id="field-Course0" tabindex="1">
 				           		<form:option value='None' label="Select Course"/>
-				           		<form:options items="${courses}" itemValue="courseName"/>
 		            		</form:select>
 		            	</td>
 		            	<td>
@@ -376,7 +374,7 @@ function defineOptions (index)
 		$('#field-Course' + index).empty();
 		$('#field-Course' + index).append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
 		<c:forEach items="${subjects}" var="subject">
-			if("${subject.university.universityName}"==uni.replace){
+			if("${subject.university.universityName}"==uni){
 				$('#field-Subject' + index).append("<option value="+"\""+"${subject}"+"\""+">"+"${subject}"+"</option>");
 			}
 		</c:forEach>
@@ -388,7 +386,7 @@ function defineOptions (index)
 		$('#field-Course'  + index).empty();
 		$('#field-Course' + index).append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
 		<c:forEach items="${courses}" var="course">
-			if("${course.subject.subjectName}"==subject.replace(" ","")){
+			if("${course.subject.subjectName}"==subject){
 				$('#field-Course' + index).append("<option value="+"\""+"${course}"+"\""+">"+"${course}"+"</option>");
 			}
 		</c:forEach>
