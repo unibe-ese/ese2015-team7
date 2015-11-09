@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-@SessionAttributes("username")
+@SessionAttributes({"username","searchedCourse"})
 @Controller
 public class SearchController {
 
@@ -105,6 +105,9 @@ public class SearchController {
             	model = new ModelAndView("results");
             	ArrayList<Tutor> tutors = searchService.getTutorsFromSearchForm(searchForm); 	
             	model.addObject("tutors", tutors);
+            	
+            	Course searchedCourse = searchService.getCourse(searchForm);
+            	model.addObject(searchedCourse);
             	
             } catch (InvalidUserException e) {
             	e.printStackTrace();
