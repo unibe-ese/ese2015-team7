@@ -9,4 +9,6 @@ public interface RequestDao extends CrudRepository<Request,Long> {
 
 	Request findByTutorAndStudent(User tutor, User student);
 
+	Request findByTutorAndStudentAndCourse(User findByEmail, User findByEmail2, Course course);
+
 }

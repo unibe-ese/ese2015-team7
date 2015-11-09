@@ -42,9 +42,9 @@ public class RequestController {
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
     	
     	Course course = (Course) session.getAttribute("searchedCourse");
-    	iRequestService.saveRequest(tutorEmail, SecurityContextHolder.getContext().getAuthentication().getName());
+    	iRequestService.saveRequest(tutorEmail, SecurityContextHolder.getContext().getAuthentication().getName(), course);
+    	session.removeAttribute("searchedCourse");
     	User principal = userDao.findByEmail(principalEmail);
-    	
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests",myRequests);
     	

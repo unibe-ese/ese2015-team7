@@ -38,6 +38,10 @@ public class Request {
 	@ManyToOne(targetEntity=User.class)
 	private User tutor;
 	
+	@NotNull
+	@ManyToOne(targetEntity=Course.class)
+	private Course course;
+	
 	
 	//Date date;
 	@NotNull
@@ -197,6 +201,16 @@ public class Request {
 			return false;
 		return true;
 	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+
 	
 	
 	

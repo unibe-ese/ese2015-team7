@@ -24,15 +24,16 @@ public class RequestService implements IRequestService{
 	UserDao userDao;
 
 	@Transactional
-	public void saveRequest(String tutorEmail, String studentEmail) {
-		Request oldRequest= requestDao.findByTutorAndStudent(userDao.findByEmail(tutorEmail), userDao.findByEmail(studentEmail));
+	public void saveRequest(String tutorEmail, String studentEmail, Course course) {
+		Request oldRequest= requestDao.findByTutorAndStudentAndCourse(userDao.findByEmail(tutorEmail), userDao.findByEmail(studentEmail),course);
 		
 		Request request;
 		if (oldRequest != null)
 			request=oldRequest;
 			else {
 				request= new Request();
-		
+				
+				request.setCourse(course);
 				request.setStudent(userDao.findByEmail(studentEmail));
 				request.setTutor(userDao.findByEmail(tutorEmail));
 			}

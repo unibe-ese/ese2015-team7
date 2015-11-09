@@ -31,7 +31,7 @@
    		 <c:forEach items="${myRequests}" var="item">
 
     		<p>
-	  			<c:out value="${item.tutor.name}" />
+	  			<c:out value="${item.tutor.name}" /> <c:out value="${item.course.courseName}" />
 	  			<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
    			</p>
     	</c:forEach> 
