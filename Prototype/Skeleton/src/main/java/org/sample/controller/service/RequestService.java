@@ -4,6 +4,7 @@ package org.sample.controller.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
 import org.sample.model.dao.RequestDao;

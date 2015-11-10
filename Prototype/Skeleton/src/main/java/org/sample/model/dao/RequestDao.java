@@ -1,5 +1,6 @@
 package org.sample.model.dao;
 
+import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
 import org.springframework.data.repository.CrudRepository;
