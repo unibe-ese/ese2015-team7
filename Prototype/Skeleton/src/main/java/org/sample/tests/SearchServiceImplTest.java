@@ -31,7 +31,7 @@ import static org.mockito.AdditionalAnswers.*;
 import static org.mockito.Matchers.any;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/test.xml"})
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test.xml"})
 public class SearchServiceImplTest {
 	
     @Autowired	UserDao userDao;
