@@ -16,51 +16,39 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+/**
+ * @author mirko
+ *
+ *This Controller handles all requests about to Login page which is the landing Page of this project.
+ */
 @Controller
 public class IndexController {
 
     @Autowired
     UserService	userService;	
     
+    /**
+     * loads Login Page named index
+     * 
+     * @return ModelView of login Page
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
     	ModelAndView model = new ModelAndView("index");
     	model.addObject("loginForm", new LoginForm());
         return model;
     }
-    /**
-     * this mapping method redirects the user to the signup form
-     * 
-     * @return
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login() {
-	
-	ModelAndView model = new ModelAndView("login");
-	model.addObject("loginForm", new SignupForm());
-	return model;
-    }
     
-    @RequestMapping(value = "/validate", method = RequestMethod.POST)
-    public ModelAndView validate(@Valid LoginForm loginForm, BindingResult result, RedirectAttributes redirectAttributes) {
-    	ModelAndView model;
-    	if (!result.hasErrors()) {
-            try {
-            	// sampleService.saveFrom(loginForm);
-            	model = new ModelAndView(new RedirectView("profile"));
-            } catch (InvalidUserException e) {
-            	model = new ModelAndView("index");
-            	model.addObject("page_error", e.getMessage()); 
-            }
-        } else {
-        	model = new ModelAndView("index");
-        }   	
-    	return model;
-    }
 
+
+    /**
+     * catches security errors and redirects them to login page
+     * @param redirectAttributes 
+     * @return loginPage
+     */
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)
     public String securityError(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("page_error", "You do have no permission to do that!");
+        redirectAttributes.addFlashAttribute("infoMessage", "You do have no permission to do that!");
         return "redirect:/";
     }
 }

@@ -21,23 +21,38 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author mirko
  *
  */
+
 @Controller
 public class UserController {
 	
 	@Autowired
 	IUserDataService userService;
 	
+	/**
+	 * loads signupPage to enter Personal Information.
+	 * 
+	 * @param message informs User about mistakes he did (not equal passwords)
+	 * @return ModelView signupPage
+	 */
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView register(@ModelAttribute("infoMessage") String message) {
 	ModelAndView model = new ModelAndView("signUp");
 	model.addObject("signupForm", new SignupForm());
-	model.addObject("message", message);
+	model.addObject("infoMessage", message);
 	return model;
     }
 	
+	/**
+	 * checks if all parameters are valid and 
+	 * creates then a user accout on the specific parameters.
+	 * 
+	 * @param signupForm hold the Input of the User to create the new Account
+	 * @param result 
+	 * @param redirectAttributes 
+	 * @return ModelView if invalid input is entered it loads new signupPage with infoMessage else goes to LoginPage
+	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
-	
 	ModelAndView model;
 
 	try {

@@ -95,6 +95,7 @@ public class UserService implements IUserDataService{
 		}
 	}
 	
+
 	public User getUserById(Long userId) {
 		return userDao.findOne(userId);
 	    }

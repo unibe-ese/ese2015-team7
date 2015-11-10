@@ -11,6 +11,7 @@ import org.sample.model.pojos.TutorId;
 @Entity
 public class Tutor
 {
+	
 	@Id
 	@OneToOne(targetEntity=User.class)
 	private User user;
@@ -18,6 +19,8 @@ public class Tutor
     @Id
     @OneToOne(targetEntity=Course.class)
     private Course course;
+    
+    private String tutorsName;
     
 	public Course getCourse() {
 		return course;
@@ -33,10 +36,19 @@ public class Tutor
 
 	public void setUser(User user) {
 		this.user = user;
+		this.setTutorsName(this.user.getName().substring(0, this.user.getName().length()-1));
 	}
 
 	public String toString(){
 		return user.getName();
+	}
+
+	public String getTutorsName() {
+		return tutorsName;
+	}
+
+	public void setTutorsName(String tutorsName) {
+		this.tutorsName = tutorsName;
 	}
 	
 

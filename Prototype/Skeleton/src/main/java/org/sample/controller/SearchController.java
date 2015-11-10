@@ -20,6 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * The SearchController handles all requests in relationship with a search action. 
+ * 
+ * 
+ * @author Jannis
+ *
+ */
 @SessionAttributes({"username","searchedCourse"})
 @Controller
 public class SearchController {
@@ -31,6 +38,12 @@ public class SearchController {
     UserService	userService;	
 
 
+    /**
+     * Loads searchPage and all possible Universitys/Subjects and Courses and 
+     * adds the Searchform for user input
+     * 
+     * @return ModelView of searchPage
+     */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView searchUniversities() {
     	
@@ -56,48 +69,14 @@ public class SearchController {
         return model;
     }
     
-    /*
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ModelAndView validate(@Valid String university, BindingResult result, RedirectAttributes redirectAttributes) {
-    	ModelAndView model;
-    	if (!result.hasErrors()) {
-            try {
-            	model = new ModelAndView(new RedirectView("searchSubjects"));
-            } catch (InvalidUserException e) {
-            	model = new ModelAndView("search");
-            	model.addObject("page_error", e.getMessage());
-            }
-        } else {
-        	model = new ModelAndView("search");
-        }   	
-    	return model;
-    }
-    
-    @RequestMapping(value = "/searchSubjects", method = RequestMethod.GET)
-    public ModelAndView searchSubjects(@RequestParam("university") String university, @RequestParam("model") ModelAndView model) {
-    	ArrayList<Subject> subjects = new ArrayList<Subject>();
-    	subjects = ((SampleServiceImpl) sampleService).getSubjectsFromUniversity(university);
-    	model.addObject("subjects", subjects);
 
-    	model.addObject("searchForm", new SearchForm());
-    	
-        return model;
-    }
-    
-    
-    
-    @RequestMapping(value = "/searchCourses", method = RequestMethod.GET)
-    public ModelAndView searchCourses(@RequestParam("subject") Subject subject) {
-    	ModelAndView model = new ModelAndView("search");
-    	ArrayList<Course> courses = new ArrayList<Course>();
-    	courses = ((SampleServiceImpl) sampleService).getCourseFromSubject(subject);
-    	model.addObject("courses", courses);
-
-    	model.addObject("searchForm", new SearchForm());
-    	
-        return model;
-    }
-    */
+    /**
+     * shows all Results for the specified SearchRequest in Searchform.
+     * adds all Tutors to the model and specifies the searched Course in SessionAttribut
+     * 
+     * @param searchForm holds the University, Subject and Course of the SearchRequest.
+     * @return MOdelView with all possible Tutors.
+     */
     @RequestMapping(value = "/results", method = RequestMethod.POST)
     public ModelAndView results(@Valid SearchForm searchForm) {
     	ModelAndView model = new ModelAndView();

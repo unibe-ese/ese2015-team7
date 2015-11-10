@@ -1,3 +1,0 @@
-2015-11-09 15:55:37,515 [main] INFO  o.e.m2e.actions.ExecutePomAction - Using existing launch configuration
-2015-11-09 15:55:37,603 [Worker-27] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Volumes/Macintosh HD/Users/lucienmadl/GitHub/ese2015-team7/Prototype/Skeleton
-2015-11-09 15:55:37,604 [Worker-27] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B jetty:stop jetty:run
