@@ -75,7 +75,7 @@ public class SearchServiceImpl implements SearchService {
     	String courseName = searchForm.getCourse();
 
         if(!StringUtils.isEmpty(courseName) && "Select Course".equalsIgnoreCase(courseName)) {
-            throw new InvalidUserException("Sorry, Select Course is not a valid name");
+            throw new InvalidUserException("You have not selected a course yet!");
         }
         
         Course course = courseDao.findByCourseName(courseName);

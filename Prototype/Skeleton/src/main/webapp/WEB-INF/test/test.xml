@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- MOCK data access classes (DAO) -->
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.model.dao.UserDao" />
+	</bean>
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.model.dao.CourseDao" />
+	</bean>
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.model.dao.SubjectDao" />
+	</bean>
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.model.dao.UniversityDao" />
+	</bean>
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.model.dao.RequestDao" />
+	</bean>
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.model.dao.TutorDao" />
+	</bean>
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.model.dao.AddressDao" />
+	</bean>
+
+	<!-- AUTOWIRE services -->
+	<bean class="org.sample.controller.service.RequestService" />
+	<bean class="org.sample.controller.service.SearchServiceImpl" />
+	<bean class="org.sample.controller.service.UserService" />	
+</beans>

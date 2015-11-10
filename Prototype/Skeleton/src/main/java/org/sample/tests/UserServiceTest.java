@@ -44,33 +44,33 @@ public class UserServiceTest {
 		grades = new AutoPopulatingList<Grade>(new GradeFactory());
 		grades.add(grade);
 		
-		testSignupForm = new SignupForm();
-		testSignupForm.setId((long) 1500);
-		testSignupForm.setName("Capitain Awesome");
-		testSignupForm.setEmail("CapAwe@CapAwe.awe");
-		testSignupForm.setBiography("I try to be .......... awesome...");
-		testSignupForm.setPassword("123456");
-		testSignupForm.setGrades(grades);
+		signupForm = new SignupForm();
+		signupForm.setId((long) 1500);
+		signupForm.setName("Capitain Awesome");
+		signupForm.setEmail("CapAwe@CapAwe.awe");
+		signupForm.setBiography("I try to be .......... awesome...");
+		signupForm.setPassword("123456");
+		signupForm.setGrades(grades);
 		
 		when(userDao.save(any(User.class))).then(returnsFirstArg());
 	}
 	
 	@Test
 	public void testTheBasicUserServiceSaving(){
-		signupForm = userService.saveFrom(testSignupForm, null);
+		testSignupForm = userService.saveFrom(signupForm, null);
 		
-		assertEquals(signupForm.getName(),"Capitain Awesome");
-		assertEquals(signupForm.getEmail(),"CapAwe@CapAwe.awe");
-		assertEquals(signupForm.getBiography(),"I try to be .......... awesome...");
-		assertEquals(signupForm.getPassword(),"123456");
+		assertEquals(testSignupForm.getName(),"Capitain Awesome");
+		assertEquals(testSignupForm.getEmail(),"CapAwe@CapAwe.awe");
+		assertEquals(testSignupForm.getBiography(),"I try to be .......... awesome...");
+		assertEquals(testSignupForm.getPassword(),"123456");
 	}
 	
 	@Test
 	public void testTheSavingOfGrades(){
-		signupForm = userService.saveFrom(signupForm, null);
+		testSignupForm = userService.saveFrom(signupForm, null);
 		AutoPopulatingList<Grade> testList = new AutoPopulatingList<Grade>(new GradeFactory());
 		testList.add(grade);
-		assertEquals(signupForm.getGrades(), testList);
+		assertEquals(testSignupForm.getGrades(), testList);
 	}
 	
 	

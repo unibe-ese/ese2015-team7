@@ -30,10 +30,14 @@ public class UserService implements IUserDataService{
 
 	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
 		String name = signupForm.getName();
-
-		if (!StringUtils.isEmpty(name) && "ESE".equalsIgnoreCase(name)) {
+		
+		if(StringUtils.isEmpty(name)){
+			throw new InvalidUserException("Sorry, no empty names"); // throw exception
+		}
+		else if (!StringUtils.isEmpty(name) && "ESE".equalsIgnoreCase(name)) {
 		    throw new InvalidUserException("Sorry, ESE is not a valid name"); // throw exception
 		}
+		
 
 		BCryptPasswordEncoder password = new BCryptPasswordEncoder();
 

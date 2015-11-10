@@ -21,6 +21,13 @@ public class Subject {
     @ManyToOne (targetEntity=University.class)
     private University university;
     
+    public Subject(){
+    	subjectName=null;
+    	degreeLevel=null;
+    	university=null;
+    }
+    
+    
     public Long getId() {
         return id;
     }
@@ -55,10 +62,6 @@ public class Subject {
 	
 	public String toString(){
 		return this.subjectName;
-	}
-
-	public boolean equals(Subject otherSubj){
-		return (this.id==otherSubj.id);
 	}
 
 	@Override

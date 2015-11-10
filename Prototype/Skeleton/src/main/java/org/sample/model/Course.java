@@ -23,6 +23,14 @@ public class Course {
     @ManyToOne (targetEntity=Subject.class)
     private Subject subject;
     
+    public Course(){
+    	courseName=null;
+    	year=0;
+    	semester=null;
+    	subject=null;
+    }
+    
+    
     public Long getId() {
         return id;
     }
@@ -65,10 +73,6 @@ public class Course {
 	
 	public String toString(){
 		return this.courseName;
-	}
-
-	public boolean equals(Course otherCourse){
-		return (this.id==otherCourse.id);
 	}
 
 	@Override
