@@ -1,6 +1,7 @@
 package org.sample.tests;
 
 import org.junit.runner.RunWith;
+import org.mockito.stubbing.Answer;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.pojos.SignupForm;
@@ -64,11 +65,13 @@ public class SearchServiceImplTest {
     	searchForm.setSubject("Info");
     	searchForm.setUniversity("Uni Bern");
     	
+    	
+    	
     	when(userDao.save(any(User.class))).then(returnsFirstArg());
     	
-    	when(universityDao.findByUniversityName(any(String.class))).then(returnsFirstArg());
-    	when(subjectDao.findBySubjectNameAndUniversity(any(String.class),any(University.class))).then(returnsFirstArg());
-		when(courseDao.findByCourseNameAndSubject(any(String.class),any(Subject.class))).then(returnsFirstArg());
+    	when(universityDao.findByUniversityName(any(String.class))).thenReturn(uni);
+    	when(subjectDao.findBySubjectNameAndUniversity(any(String.class),any(University.class))).thenReturn(sub);
+		when(courseDao.findByCourseNameAndSubject(any(String.class),any(Subject.class))).thenReturn(course);
     }
     
     @Test
@@ -77,7 +80,6 @@ public class SearchServiceImplTest {
     	testCourse = searchServiceImpl.getCourse(searchForm);
     	
     	assertEquals(testCourse, course);
-    	
     }
 
 }
