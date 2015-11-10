@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@page import="java.util.ArrayList" %>
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <html>
@@ -23,21 +23,40 @@
 
 <h1>myRequestPage</h1>
 
-<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
     
     <fieldset>
-    
-    
-   		 <c:forEach items="${myRequests}" var="item">
-
-    		<p>
-	  			<c:out value="${item.tutor.name}" /> <c:out value="${item.course.courseName}" />
-	  			<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
-   			</p>
-    	</c:forEach> 
-      
+    		<table>
+				<thead>
+                	<tr>
+                    	<th>Tutor</th>
+                        <th>Course</th>
+                      
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                	<tr> 
+                			<c:if test="${fn:length(myRequests) > 0}" >
+                			<c:forEach items="${myRequests}" var="item"/>
+		                		<tr>
+									<td>
+										<c:out value="${item.tutor.name}" /> 
+									</td>
+									<td>
+								   		<c:out value="${item.course.courseName}" />
+								   	</td>
+										<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
+								   		<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
+								   		</form:form>
+								</tr>
+				
+						
+							</c:if>
+					</tr>
+                </tbody>
+			</table>	
    	 </fieldset>
-</form:form>
+
 
 </body>
 </html>
