@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author mirko
+ *
+ */
 @Service
 public class RequestService implements IRequestService{
 	
@@ -22,6 +26,9 @@ public class RequestService implements IRequestService{
 	@Autowired
 	UserDao userDao;
 
+	
+
+	
 	@Transactional
 	public void saveRequest(String tutorEmail, String studentEmail, Course course) {
 		Request oldRequest= requestDao.findByTutorAndStudentAndCourse(userDao.findByEmail(tutorEmail), userDao.findByEmail(studentEmail),course);
