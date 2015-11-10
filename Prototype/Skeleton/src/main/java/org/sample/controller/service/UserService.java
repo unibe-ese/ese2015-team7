@@ -9,8 +9,10 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.model.Grade;
 import org.sample.model.TimeSlot;
+import org.sample.model.Tutor;
 import org.sample.model.User;
 import org.sample.model.UserRole;
+import org.sample.model.dao.TutorDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +23,8 @@ import org.springframework.util.StringUtils;
 public class UserService implements IUserDataService{
 	
 	@Autowired	UserDao userDao;
+	@Autowired	TutorDao tutorDao;
+	@Autowired	SearchService searchService;
 
 	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
 		String name = signupForm.getName();
@@ -40,8 +44,10 @@ public class UserService implements IUserDataService{
 		ArrayList<Grade> arrayList = new ArrayList<Grade>();
 		ListIterator<Grade> itr = signupForm.getGrades().listIterator();
 		while(itr.hasNext())
-		{  
-			arrayList.add(itr.next());
+		{
+			Grade tmp = itr.next();
+			if(!tmp.isRemove())
+				arrayList.add(tmp);
 		}
 		user.setGrades(arrayList);
 		
@@ -49,7 +55,9 @@ public class UserService implements IUserDataService{
 		ListIterator<TimeSlot> iter = signupForm.getTimeSlots().listIterator();
 		while(iter.hasNext())
 		{
-			timeSlotList.add(iter.next());
+			TimeSlot tmp = iter.next();
+			if(!tmp.isRemove())
+				timeSlotList.add(tmp);
 		}
 		user.setTimeSlots(timeSlotList);
 
@@ -74,6 +82,17 @@ public class UserService implements IUserDataService{
 	
 	public SignupForm saveFrom(SignupForm signupForm){
 		return saveFrom(signupForm, null);
+	}
+	
+	public void createAndSaveTutorLinksFromForm(SignupForm signupForm, User user) {		
+		for( Grade grade : signupForm.getGrades() ) {
+			if(!grade.isRemove()){ // only save if grade wasn't "removed"
+				Tutor tutorLink = new Tutor();
+				tutorLink.setCourse( searchService.getCourseByName(grade.getCourse()) );
+				tutorLink.setUser(user);
+				tutorLink = tutorDao.save(tutorLink); // save object to DB
+			}
+		}
 	}
 	
 	public User getUserById(Long userId) {

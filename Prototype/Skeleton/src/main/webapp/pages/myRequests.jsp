@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@page import="java.util.ArrayList" %>
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <html>
@@ -23,21 +23,45 @@
 
 <h1>myRequestPage</h1>
 
-<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
-    
-    <fieldset>
-    
-    
-   		 <c:forEach items="${myRequests}" var="item">
 
-    		<p>
-	  			<c:out value="${item.tutor.name}" />
-	  			<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
-   			</p>
-    	</c:forEach> 
+<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
+    <fieldset>
+    <table>
+				<thead>
+                	<tr>
+                    	<th>Tutor</th>
+                        <th>Course</th>
+                        <th></th>
+                        <th></th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                	<tr>
+		                	<c:forEach items="${myRequests}" var="item">
+		                		<tr>
+									<td>
+										<c:out value="${item.tutor.name}" />
+									</td>
+									<td>
+								   		<c:out value="${item.course.courseName}" />
+								   	</td>
+								   	<td>
+								   		<!--  	<button type=submit name=visitProfile value="${item.student.email}">Visit Profile</button>-->
+								   	</td>
+								   	<td>
+								   		<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
+								   	</td>
+								   
+								</tr>
+							</c:forEach>
+					</tr>
+                </tbody>
+     </table>
+     
+
       
    	 </fieldset>
 </form:form>
-
 </body>
 </html>

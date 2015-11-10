@@ -1,27 +1,22 @@
 package org.sample.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.IdClass;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
+import org.sample.model.pojos.TutorId;
+
+@IdClass(TutorId.class)
 @Entity
 public class Tutor
 {
-    @Id
-    @GeneratedValue
-    private Long id;
-
-	@NotNull
-    private String tutorsName;
-
-    @OneToOne(targetEntity=User.class)
+	@Id
+	@OneToOne(targetEntity=User.class)
 	private User user;
     
-    @NotNull
-    @ManyToOne(targetEntity=Course.class)  
+    @Id
+    @OneToOne(targetEntity=Course.class)
     private Course course;
     
 	public Course getCourse() {
@@ -40,28 +35,8 @@ public class Tutor
 		this.user = user;
 	}
 
-
-	public String getTutorsName() {
-		return tutorsName;
-	}
-
-
-	public void setTutorsName(String tutorsName) {
-		this.tutorsName = tutorsName;
-	}
-
-
-    public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String toString(){
-		return tutorsName;
+		return user.getName();
 	}
 	
 

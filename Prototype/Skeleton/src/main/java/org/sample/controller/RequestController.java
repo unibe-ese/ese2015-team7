@@ -4,9 +4,12 @@ package org.sample.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.service.IRequestService;
 import org.sample.controller.service.UserService;
+import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
 import org.sample.model.dao.UserDao;
@@ -34,12 +37,17 @@ public class RequestController {
 
 	
 	@RequestMapping(value = "/myRequests", method = RequestMethod.POST)
-    public ModelAndView myRequestPost( @RequestParam("requestedUser") String tutorEmail){
+    public ModelAndView myRequestPost( @RequestParam("requestedUser") String tutorEmail, HttpSession session){
     	ModelAndView model = new ModelAndView("myRequests");
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
-    	iRequestService.saveRequest(tutorEmail, SecurityContextHolder.getContext().getAuthentication().getName());
-    	User principal = userDao.findByEmail(principalEmail);
     	
+    	Course course = (Course) session.getAttribute("searchedCourse");
+    	iRequestService.saveRequest(tutorEmail, SecurityContextHolder.getContext().getAuthentication().getName(), course);
+    	session.removeAttribute("searchedCourse");
+    	
+    	
+    	
+    	User principal = userDao.findByEmail(principalEmail);
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests",myRequests);
     	
@@ -71,6 +79,7 @@ public class RequestController {
     public ModelAndView requestGet(){
     	ModelAndView model = new ModelAndView("requests");
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
+    	
     	User principal = userDao.findByEmail(principalEmail);
     	
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);

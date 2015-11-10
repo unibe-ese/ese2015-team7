@@ -66,83 +66,84 @@
                 </thead>
                 <tbody>
                 	<tr><input type="button" id="addGradeButton" value="Add Grade Row" /></tr>
-                	<tr>
-							<c:if test="${fn:length(signupForm.grades) == 0}" >
-	                            <td>
-	                            	<form:select path="grades[0].university" tabindex="1">
-						           		<form:option value='None' label="Select University"/>
-						           		<form:options items="${universities}" itemValue="universityName"/>
-				            		</form:select>
-				            	</td>
-				            	<td>
-				            		<form:select path="grades[0].subject" tabindex="1">
-						           		<form:option value='None' label="Select Subject"/>
-						           		<form:options items="${subjects}" itemValue="subjectName"/>
-				            		</form:select>
-				            	</td>
-				            	<td>
-				            		<form:select path="grades[0].course" tabindex="1">
-						           		<form:option value='None' label="Select Course"/>
-						           		<form:options items="${courses}" itemValue="courseName"/>
-				            		</form:select>
-				            	</td>
-				            	<td>
-				            		<form:select path="grades[0].grade" tabindex="1">
-						           		<form:option value='None' label="Select Grade"/>
-						           		<form:option value="1"/>
-						           		<form:option value="2"/>
-						           		<form:option value="3"/>
-						           		<form:option value="4"/>
-						           		<form:option value="5"/>
-						           		<form:option value="6"/>
-				            		</form:select>
-				            	</td>
-				            		<!-- Remove button missing -->
-		                	</c:if>
-		                	<c:if test="${fn:length(signupForm.grades) > 0}" >
-		                	<c:forEach items="${signupForm.grades}" var="element" varStatus="i" begin="0">
-		                		<tr>
-									<td>
-										<form:select path="grades[${i.index}].university" tabindex="1">
-								    		<form:option value='None' label="Select University"/>
-								    		<form:options items="${universities}" itemValue="universityName"/>
-								    	</form:select>
-									</td>
-									<td>
-								   		<form:select path="grades[${i.index}].subject" tabindex="1">
-								    		<form:option value='None' label="Select Subject"/>
-								    		<form:options items="${subjects}" itemValue="subjectName"/>
-								   		</form:select>
-								   	</td>
-								   	<td>
-								   		<form:select path="grades[${i.index}].course" tabindex="1">
-								    		<form:option value='None' label="Select Course"/>
-								    		<form:options items="${courses}" itemValue="courseName"/>
-								   		</form:select>
-								   	</td>
-								   	<td>
-								   		<form:select path="grades[${i.index}].grade" tabindex="1">
-								    		<form:option value='None' label="Select Grade"/>
-								    		<form:option value="1"/>
-								    		<form:option value="2"/>
-								    		<form:option value="3"/>
-								    		<form:option value="4"/>
-								    		<form:option value="5"/>
-								    		<form:option value="6"/>
-								   		</form:select>
-								   	</td>
-								   		<!-- Remove button missing -->
-								</tr>
-							</c:forEach>
-							</c:if>
+                	<c:if test="${fn:length(signupForm.grades) > 0}" >
+                	<c:forEach items="${signupForm.grades}" var="element" varStatus="i" begin="0">
+                		<form:hidden path="grades[${i.index}].remove" />
+                		<tr id="tr${i.index}">
+							<td>
+								<form:select path="grades[${i.index}].university" id="field-University${i.index}" tabindex="1">
+						    		<form:option value='None' label="Select University"/>
+						    		<form:options items="${universities}" itemValue="universityName"/>
+						    	</form:select>
+							</td>
+							<td>
+						   		<form:select path="grades[${i.index}].subject" id="field-Subject${i.index}" tabindex="1">
+						    		<form:option value='None' label="Select Subject"/>
+						    		<form:options items="${subjects}" itemValue="subjectName"/>
+						   		</form:select>
+						   	</td>
+						   	<td>
+						   		<form:select path="grades[${i.index}].course" id="field-Course${i.index}" tabindex="1">
+						    		<form:option value='None' label="Select Course"/>
+						    		<form:options items="${courses}" itemValue="courseName"/>
+						   		</form:select>
+						   	</td>
+						   	<td>
+						   		<form:select path="grades[${i.index}].grade" tabindex="1">
+						    		<form:option value='None' label="Select Grade"/>
+						    		<form:option value="1"/>
+						    		<form:option value="2"/>
+						    		<form:option value="3"/>
+						    		<form:option value="4"/>
+						    		<form:option value="5"/>
+						    		<form:option value="6"/>
+						   		</form:select>
+						   	</td>
+						    <td>
+						    	<button type="button" onclick="removeGradeRow(${i.index})">Remove</button>
+						    </td>
+						</tr>
+					</c:forEach>
+					</c:if>
+					<c:if test="${fn:length(signupForm.grades) == 0}" >
+					<form:hidden path="grades[0].remove" />
+					<tr id="tr0">
+                        <td>
+                        	<form:select path="grades[0].university" id="field-University0" tabindex="1">
+				           		<form:option value='None' label="Select University"/>
+				           		<form:options items="${universities}" itemValue="universityName"/>
+		            		</form:select>
+		            	</td>
+		            	<td>
+		            		<form:select path="grades[0].subject" id="field-Subject0" tabindex="1">
+				           		<form:option value='None' label="Select Subject"/>
+		            		</form:select>
+		            	</td>
+		            	<td>
+		            		<form:select path="grades[0].course" id="field-Course0" tabindex="1">
+				           		<form:option value='None' label="Select Course"/>
+		            		</form:select>
+		            	</td>
+		            	<td>
+		            		<form:select path="grades[0].grade" tabindex="1">
+				           		<form:option value='None' label="Select Grade"/>
+				           		<form:option value="1"/>
+				           		<form:option value="2"/>
+				           		<form:option value="3"/>
+				           		<form:option value="4"/>
+				           		<form:option value="5"/>
+				           		<form:option value="6"/>
+		            		</form:select>
+		            	</td>
+		            	<td>
+					    	<button type="button" onclick="removeGradeRow(0)">Remove</button>
+					    </td>
 					</tr>
-					<tr id="submitRowGrades" /> <!-- Hier wird neue Zeile eingefügt -->
+                	</c:if>
+					<tr id="submitRowGrades" /> <!-- Here a new row gets attached -->
                 </tbody>
 			</table>
-	        
-			<button type="submit" class="btn btn-primary">Update</button>
 			
-			<br>
 			<br>
 			
 			<table>
@@ -157,144 +158,150 @@
                 </thead>
                 <tbody>
                 	<tr><input type="button" id="addTimeSlotButton" value="Add Time Slot Row" /></tr>
-                	<tr>
-							<c:if test="${fn:length(signupForm.timeSlots) == 0}" >
-	                            <td>
-	                            	<form:select path="timeSlots[0].semesterOrSemesterBreak" tabindex="1">
-						           		<form:option value='None' label="Select Time Period"/>
-						           		<form:option value="Herbstsemester 2015"/>
-						           		<form:option value="Semesterferien im Winter"/>
-						           		<form:option value="Frühjahrssemester 2016"/>
-						           		<form:option value="Semesterferien im Sommer"/>
-				            		</form:select>
-				            	</td>
-				            	<td>
-				            		<form:select path="timeSlots[0].day" tabindex="1">
-						           		<form:option value='None' label="Select Day"/>
-						           		<form:option value="Montag"/>
-						           		<form:option value="Dienstag"/>
-						           		<form:option value="Mittwoch"/>
-						           		<form:option value="Donnerstag"/>
-						           		<form:option value="Freitag"/>
-						           		<form:option value="Samstag"/>
-						           		<form:option value="Sonntag"/>
-				            		</form:select>
-				            	</td>
-				            	<td>
-				            		<form:select path="timeSlots[0].startTime" tabindex="1">
-						           		<form:option value='None' label="Select Start Time"/>
-						           		<form:option value="07:00"/>
-						           		<form:option value="08:00"/>
-						           		<form:option value="09:00"/>
-						           		<form:option value="10:00"/>
-						           		<form:option value="11:00"/>
-						           		<form:option value="12:00"/>
-						           		<form:option value="13:00"/>
-						           		<form:option value="14:00"/>
-						           		<form:option value="15:00"/>
-						           		<form:option value="16:00"/>
-						           		<form:option value="17:00"/>
-						           		<form:option value="18:00"/>
-						           		<form:option value="19:00"/>
-						           		<form:option value="20:00"/>
-						           		<form:option value="21:00"/>
-						           		<form:option value="22:00"/>
-				            		</form:select>
-				            	</td>
-				            	<td>
-				            		<form:select path="timeSlots[0].endTime" tabindex="1">
-						           		<form:option value='None' label="Select End Time"/>
-						           		<form:option value="08:00"/>
-						           		<form:option value="09:00"/>
-						           		<form:option value="10:00"/>
-						           		<form:option value="11:00"/>
-						           		<form:option value="12:00"/>
-						           		<form:option value="13:00"/>
-						           		<form:option value="14:00"/>
-						           		<form:option value="15:00"/>
-						           		<form:option value="16:00"/>
-						           		<form:option value="17:00"/>
-						           		<form:option value="18:00"/>
-						           		<form:option value="19:00"/>
-						           		<form:option value="20:00"/>
-						           		<form:option value="21:00"/>
-						           		<form:option value="22:00"/>
-						           		<form:option value="22:00"/>
-				            		</form:select>
-				            	</td>
-				            		<!-- Remove button missing -->
-		                	</c:if>
-		                	<c:if test="${fn:length(signupForm.timeSlots) > 0}" >
-		                	<c:forEach items="${signupForm.timeSlots}" var="element" varStatus="j" begin="0">
-		                		<tr>
-									<td>
-										<form:select path="timeSlots[${j.index}].semesterOrSemesterBreak" tabindex="1">
-								    		<form:option value='None' label="Select Time Period"/>
-						           			<form:option value="Herbstsemester 2015"/>
-						           			<form:option value="Semesterferien im Winter"/>
-						           			<form:option value="Frühjahrssemester 2016"/>
-						           			<form:option value="Semesterferien im Sommer"/>
-								    	</form:select>
-									</td>
-									<td>
-								   		<form:select path="timeSlots[${j.index}].day" tabindex="1">
-								    		<form:option value='None' label="Select Day"/>
-						           			<form:option value="Montag"/>
-						           			<form:option value="Dienstag"/>
-						           			<form:option value="Mittwoch"/>
-						           			<form:option value="Donnerstag"/>
-						           			<form:option value="Freitag"/>
-						           			<form:option value="Samstag"/>
-						           			<form:option value="Sonntag"/>
-								   		</form:select>
-								   	</td>
-								   	<td>
-								   		<form:select path="timeSlots[${j.index}].startTime" tabindex="1">
-								    		<form:option value='None' label="Select Start Time"/>
-						          	 		<form:option value="07:00"/>
-						        	   		<form:option value="08:00"/>
-						         	  		<form:option value="09:00"/>
-							           		<form:option value="10:00"/>
-							           		<form:option value="11:00"/>
-							           		<form:option value="12:00"/>
-							           		<form:option value="13:00"/>
-							           		<form:option value="14:00"/>
-							           		<form:option value="15:00"/>
-							           		<form:option value="16:00"/>
-							           		<form:option value="17:00"/>
-							           		<form:option value="18:00"/>
-							           		<form:option value="19:00"/>
-							           		<form:option value="20:00"/>
-							           		<form:option value="21:00"/>
-							           		<form:option value="22:00"/>
-								   		</form:select>
-								   	</td>
-								   	<td>
-								   		<form:select path="timeSlots[${j.index}].endTime" tabindex="1">
-								    		<form:option value="08:00"/>
-							           		<form:option value="09:00"/>
-							           		<form:option value="10:00"/>
-							           		<form:option value="11:00"/>
-							           		<form:option value="12:00"/>
-							           		<form:option value="13:00"/>
-							           		<form:option value="14:00"/>
-							           		<form:option value="15:00"/>
-							           		<form:option value="16:00"/>
-							           		<form:option value="17:00"/>
-							           		<form:option value="18:00"/>
-							           		<form:option value="19:00"/>
-							           		<form:option value="20:00"/>
-							           		<form:option value="21:00"/>
-							           		<form:option value="22:00"/>
-							           		<form:option value="22:00"/>
-								   		</form:select>
-								   	</td>
-								   		<!-- Remove button missing -->
-								</tr>
-							</c:forEach>
-							</c:if>
+              		<c:if test="${fn:length(signupForm.timeSlots) > 0}" >
+                	<c:forEach items="${signupForm.timeSlots}" var="element" varStatus="j" begin="0">
+                		<form:hidden path="timeSlots[${j.index}].remove" />
+                		<tr id="trTS${j.index}">
+							<td>
+								<form:select path="timeSlots[${j.index}].semesterOrSemesterBreak" tabindex="1">
+						    		<form:option value='None' label="Select Time Period"/>
+				           			<form:option value="Herbstsemester 2015"/>
+				           			<form:option value="Semesterferien im Winter"/>
+				           			<form:option value="Frühjahrssemester 2016"/>
+				           			<form:option value="Semesterferien im Sommer"/>
+						    	</form:select>
+							</td>
+							<td>
+						   		<form:select path="timeSlots[${j.index}].day" tabindex="1">
+						    		<form:option value='None' label="Select Day"/>
+				           			<form:option value="Montag"/>
+				           			<form:option value="Dienstag"/>
+				           			<form:option value="Mittwoch"/>
+				           			<form:option value="Donnerstag"/>
+				           			<form:option value="Freitag"/>
+				           			<form:option value="Samstag"/>
+				           			<form:option value="Sonntag"/>
+						   		</form:select>
+						   	</td>
+						   	<td>
+						   		<form:select path="timeSlots[${j.index}].startTime" tabindex="1">
+						    		<form:option value='None' label="Select Start Time"/>
+				          	 		<form:option value="07:00"/>
+				        	   		<form:option value="08:00"/>
+				         	  		<form:option value="09:00"/>
+					           		<form:option value="10:00"/>
+					           		<form:option value="11:00"/>
+					           		<form:option value="12:00"/>
+					           		<form:option value="13:00"/>
+					           		<form:option value="14:00"/>
+					           		<form:option value="15:00"/>
+					           		<form:option value="16:00"/>
+					           		<form:option value="17:00"/>
+					           		<form:option value="18:00"/>
+					           		<form:option value="19:00"/>
+					           		<form:option value="20:00"/>
+					           		<form:option value="21:00"/>
+					           		<form:option value="22:00"/>
+						   		</form:select>
+						   	</td>
+						   	<td>
+						   		<form:select path="timeSlots[${j.index}].endTime" tabindex="1">
+						    		<form:option value="08:00"/>
+					           		<form:option value="09:00"/>
+					           		<form:option value="10:00"/>
+					           		<form:option value="11:00"/>
+					           		<form:option value="12:00"/>
+					           		<form:option value="13:00"/>
+					           		<form:option value="14:00"/>
+					           		<form:option value="15:00"/>
+					           		<form:option value="16:00"/>
+					           		<form:option value="17:00"/>
+					           		<form:option value="18:00"/>
+					           		<form:option value="19:00"/>
+					           		<form:option value="20:00"/>
+					           		<form:option value="21:00"/>
+					           		<form:option value="22:00"/>
+					           		<form:option value="22:00"/>
+						   		</form:select>
+						   	</td>
+						   	<td>
+						    	<button type="button" onclick="removeTSRow(${j.index})">Remove</button>
+						    </td>
+						</tr>
+					</c:forEach>
+					</c:if>
+					<c:if test="${fn:length(signupForm.timeSlots) == 0}" >
+						<form:hidden path="timeSlots[0].remove" />
+						<tr id="trTS0">
+                           <td>
+                           	<form:select path="timeSlots[0].semesterOrSemesterBreak" tabindex="1">
+				           		<form:option value='None' label="Select Time Period"/>
+				           		<form:option value="Herbstsemester 2015"/>
+				           		<form:option value="Semesterferien im Winter"/>
+				           		<form:option value="Frühjahrssemester 2016"/>
+				           		<form:option value="Semesterferien im Sommer"/>
+		            		</form:select>
+		            	</td>
+		            	<td>
+		            		<form:select path="timeSlots[0].day" tabindex="1">
+				           		<form:option value='None' label="Select Day"/>
+				           		<form:option value="Montag"/>
+				           		<form:option value="Dienstag"/>
+				           		<form:option value="Mittwoch"/>
+				           		<form:option value="Donnerstag"/>
+				           		<form:option value="Freitag"/>
+				           		<form:option value="Samstag"/>
+				           		<form:option value="Sonntag"/>
+		            		</form:select>
+		            	</td>
+		            	<td>
+		            		<form:select path="timeSlots[0].startTime" tabindex="1">
+				           		<form:option value='None' label="Select Start Time"/>
+				           		<form:option value="07:00"/>
+				           		<form:option value="08:00"/>
+				           		<form:option value="09:00"/>
+				           		<form:option value="10:00"/>
+				           		<form:option value="11:00"/>
+				           		<form:option value="12:00"/>
+				           		<form:option value="13:00"/>
+				           		<form:option value="14:00"/>
+				           		<form:option value="15:00"/>
+				           		<form:option value="16:00"/>
+				           		<form:option value="17:00"/>
+				           		<form:option value="18:00"/>
+				           		<form:option value="19:00"/>
+				           		<form:option value="20:00"/>
+				           		<form:option value="21:00"/>
+				           		<form:option value="22:00"/>
+		            		</form:select>
+		            	</td>
+		            	<td>
+		            		<form:select path="timeSlots[0].endTime" tabindex="1">
+				           		<form:option value='None' label="Select End Time"/>
+				           		<form:option value="08:00"/>
+				           		<form:option value="09:00"/>
+				           		<form:option value="10:00"/>
+				           		<form:option value="11:00"/>
+				           		<form:option value="12:00"/>
+				           		<form:option value="13:00"/>
+				           		<form:option value="14:00"/>
+				           		<form:option value="15:00"/>
+				           		<form:option value="16:00"/>
+				           		<form:option value="17:00"/>
+				           		<form:option value="18:00"/>
+				           		<form:option value="19:00"/>
+				           		<form:option value="20:00"/>
+				           		<form:option value="21:00"/>
+				           		<form:option value="22:00"/>
+				           		<form:option value="22:00"/>
+		            		</form:select>
+		            	</td>
+		            	<td>
+					    	<button type="button" onclick="removeTSRow(0)">Remove</button>
+					    </td>
 					</tr>
-					<tr id="submitRowTimeSlots" /> <!-- Hier wird neue Zeile eingefügt -->
+                	</c:if>
+					<tr id="submitRowTimeSlots" /> <!-- Here a new row gets attached -->
                 </tbody>
 			</table>
 			
@@ -309,7 +316,7 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
+$(document).ready(function addGradeRowTrigger() {
 	
 	var countList = new Array();
 	<c:forEach items="${signupForm.grades}">
@@ -321,16 +328,17 @@ $(document).ready(function() {
 	
 	$("#addGradeButton").click(function() {
 		gradePosition++;
- 
+		
 		$.get("<%=request.getContextPath()%>/editProfileAppend", { fieldId: gradePosition},
 			function(data){
 				$("#submitRowGrades").before(data);
 		});
+		defineOptions(gradePosition);
 	});
 });
 </script>
 <script type="text/javascript">
-$(document).ready(function addTS() {
+$(document).ready(function addTSTrigger() {
 	
 	var countTimeSlotsList = new Array();
 	<c:forEach items="${signupForm.timeSlots}">
@@ -349,4 +357,53 @@ $(document).ready(function addTS() {
 		});
 	});
 });
+</script>
+<script type="text/javascript">
+// add triggers to existing rows
+<c:forEach items="${signupForm.grades}" var="element" varStatus="i" begin="0">
+	defineOptions("${i.index}");
+</c:forEach>
+
+function defineOptions (index)
+{
+	$(document).on('change', '#field-University' + index, function(){
+		var uni = $(this).val();
+
+		$('#field-Subject' + index).empty();
+		$('#field-Subject' + index).append("<option value="+"Select Subject"+">"+"Select Subject"+"</option>");
+		$('#field-Course' + index).empty();
+		$('#field-Course' + index).append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
+		<c:forEach items="${subjects}" var="subject">
+			if("${subject.university.universityName}"==uni){
+				$('#field-Subject' + index).append("<option value="+"\""+"${subject}"+"\""+">"+"${subject}"+"</option>");
+			}
+		</c:forEach>
+	});
+
+	$(document).on('change', '#field-Subject' + index, function(){
+		var subject = $(this).val();
+
+		$('#field-Course'  + index).empty();
+		$('#field-Course' + index).append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
+		<c:forEach items="${courses}" var="course">
+			if("${course.subject.subjectName}"==subject){
+				$('#field-Course' + index).append("<option value="+"\""+"${course}"+"\""+">"+"${course}"+"</option>");
+			}
+		</c:forEach>
+	});
+}
+</script>
+<script>
+function removeGradeRow (id)
+{
+	$("tr").remove("#tr" + id);
+	var elem = document.getElementById("grades" + id + ".remove");
+	elem.value = true;
+}
+function removeTSRow (id)
+{
+	$("tr").remove("#trTS" + id);
+	var elem = document.getElementById("timeSlots" + id + ".remove");
+	elem.value = true;
+}
 </script>

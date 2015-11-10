@@ -5,8 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
+
+import org.sample.controller.pojos.SignupForm.SignupValidatorGroup;
 
 @Entity
 public class TimeSlot implements Serializable{
@@ -20,21 +21,19 @@ public class TimeSlot implements Serializable{
     @GeneratedValue
     private Long id;
     
-	@NotNull
-	@Size(min = 1, max = 30, message = "Bitte wähle einen Zeitperiode.")
+	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle einen Zeitperiode.")
 	private String semesterOrSemesterBreak;
 	
-    @NotNull
-    @Size(min = 1, max = 20, message = "Bitte wähle einen Wochentag.")
+	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle einen Wochentag.")
     private String day;
     
-    @NotNull
-    @Size(min = 1, max = 8, message = "Bitte wähle eine Startzeit.")
+	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle eine Startzeit.")
     private String startTime;
     
-    @NotNull
-    @Size(min = 1, max = 8, message = "Bitte wähle eine Endzeit.")
+	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle eine Endzeit.")
     private String endTime;
+    
+    private boolean remove = false;
 
     public void setSemesterOrSemesterBreak(String semesterOrSemesterBreak){
     	this.semesterOrSemesterBreak = semesterOrSemesterBreak;
@@ -74,6 +73,14 @@ public class TimeSlot implements Serializable{
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public boolean isRemove() {
+		return remove;
+	}
+
+	public void setRemove(boolean remove) {
+		this.remove = remove;
 	}
 
 	@Override

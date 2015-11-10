@@ -8,7 +8,6 @@ import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,7 @@ public class IndexController {
         return model;
     }
     /**
-     * this maping method redirects the user to the signup form
+     * this mapping method redirects the user to the signup form
      * 
      * @return
      */
@@ -64,24 +63,4 @@ public class IndexController {
         redirectAttributes.addFlashAttribute("page_error", "You do have no permission to do that!");
         return "redirect:/";
     }
-    
-    /*
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
-    	ModelAndView model;
-    	if (!result.hasErrors()) {
-            try {
-            	//sampleService.saveFrom(signupForm);
-            	model = new ModelAndView(new RedirectView("profile"));
-            } catch (InvalidUserException e) {
-            	model = new ModelAndView("signUp");
-            	model.addObject("page_error", e.getMessage());
-            }
-        } else {
-        	model = new ModelAndView("signUp");
-        }   	
-    	return model;
-    }
-    */
-
 }

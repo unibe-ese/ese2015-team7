@@ -1,22 +1,20 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<tr>
+<tr id = "tr${gradeNumber}">
 	<td>
-		<form:select path="signupForm.grades[${gradeNumber}].university" tabindex="1">
+		<form:select path="signupForm.grades[${gradeNumber}].university" id="field-University${gradeNumber}" tabindex="1">
     		<form:option value='None' label="Select University"/>
     		<form:options items="${universities}" itemValue="universityName"/>
     	</form:select>
 	</td>
 	<td>
-   		<form:select path="signupForm.grades[${gradeNumber}].subject" tabindex="1">
+   		<form:select path="signupForm.grades[${gradeNumber}].subject" id="field-Subject${gradeNumber}" tabindex="1">
     		<form:option value='None' label="Select Subject"/>
-    		<form:options items="${subjects}" itemValue="subjectName"/>
    		</form:select>
    	</td>
    	<td>
-   		<form:select path="signupForm.grades[${gradeNumber}].course" tabindex="1">
+   		<form:select path="signupForm.grades[${gradeNumber}].course" id="field-Course${gradeNumber}" tabindex="1">
     		<form:option value='None' label="Select Course"/>
-    		<form:options items="${courses}" itemValue="courseName"/>
    		</form:select>
    	</td>
    	<td>
@@ -30,5 +28,8 @@
     		<form:option value="6"/>
    		</form:select>
    	</td>
-   		<!-- Remove button missing -->
+   	<td>
+    	<button type="button" onclick="removeGradeRow(${gradeNumber})">Remove</button>
+    </td>
 </tr>
+<form:hidden path="signupForm.grades[${gradeNumber}].remove" />

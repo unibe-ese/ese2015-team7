@@ -4,4 +4,6 @@ import org.sample.model.University;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UniversityDao extends CrudRepository<University,Long> {
+
+	University findByUniversityName(String university);
 }
