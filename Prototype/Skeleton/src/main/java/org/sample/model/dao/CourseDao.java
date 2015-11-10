@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface CourseDao extends CrudRepository<Course,Long> {
 
 	Course findByCourseNameAndSubject(String course, Subject subject);
+	Course findByCourseName(String courseName);
 }

@@ -1,3 +1,4 @@
+
 package org.sample.tests;
 
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class UserServiceTest {
 	@Autowired	TutorDao tutorDao;
 	@Autowired	SearchService searchService;
 	@Autowired	UserService userService;
-	private SignupForm signupForm;
+	private SignupForm signupForm, testSignupForm;
 	private Grade grade;
 	private AutoPopulatingList<Grade> grades;
 	
@@ -43,20 +44,20 @@ public class UserServiceTest {
 		grades = new AutoPopulatingList<Grade>(new GradeFactory());
 		grades.add(grade);
 		
-		signupForm = new SignupForm();
-		signupForm.setId((long) 1500);
-		signupForm.setName("Capitain Awesome");
-		signupForm.setEmail("CapAwe@CapAwe.awe");
-		signupForm.setBiography("I try to be .......... awesome...");
-		signupForm.setPassword("123456");
-		signupForm.setGrades(grades);
+		testSignupForm = new SignupForm();
+		testSignupForm.setId((long) 1500);
+		testSignupForm.setName("Capitain Awesome");
+		testSignupForm.setEmail("CapAwe@CapAwe.awe");
+		testSignupForm.setBiography("I try to be .......... awesome...");
+		testSignupForm.setPassword("123456");
+		testSignupForm.setGrades(grades);
 		
 		when(userDao.save(any(User.class))).then(returnsFirstArg());
 	}
 	
 	@Test
 	public void testTheBasicUserServiceSaving(){
-		signupForm = userService.saveFrom(signupForm, null);
+		signupForm = userService.saveFrom(testSignupForm, null);
 		
 		assertEquals(signupForm.getName(),"Capitain Awesome");
 		assertEquals(signupForm.getEmail(),"CapAwe@CapAwe.awe");
@@ -72,12 +73,12 @@ public class UserServiceTest {
 		assertEquals(signupForm.getGrades(), testList);
 	}
 	
-	/*
+	
 	@Test(expected = InvalidUserException.class)
 	public void testEmptyName(){
 		signupForm.setName("");
 		userService.saveFrom(signupForm);
 		
 	}
-	*/
+	
 }
