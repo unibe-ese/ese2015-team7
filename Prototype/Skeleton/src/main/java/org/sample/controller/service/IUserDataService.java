@@ -22,6 +22,15 @@ public interface IUserDataService {
 	 */
 	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate);
 	
+	/**
+	 * Creates tutorLinks from the given information of the signupForm and saves them to database.
+	 * <br>
+	 * A tutorLink is one tutor-entry in the database.
+	 * @param signupForm all information about the user.
+	 * @param user the user to whom the signupForm belongs.
+	 */
+	public void createAndSaveTutorLinksFromForm(SignupForm signupForm, User user);
+	
 	public User getUserById(Long userId);
 
 	public User getUserByEmail(String email);

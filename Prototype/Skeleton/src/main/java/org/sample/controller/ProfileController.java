@@ -198,6 +198,7 @@ public class ProfileController {
 		    try {
 		
 			userService.saveFrom(signupForm, user);
+			userService.createAndSaveTutorLinksFromForm(signupForm, user);
 			redirectAttributes.addFlashAttribute("infoMessage", "Du hast erfolgreich dein Profil bearbeitet!");
 	
 			model = new ModelAndView("redirect:/profile");
@@ -207,7 +208,7 @@ public class ProfileController {
 		    }
 		} else {
 		    model = new ModelAndView("editProfile");
-		    System.out.println("Form hat fehler");
+		    System.out.println("Form hat fehler:\n" + result.toString());
 		}
 		return model;
 	}

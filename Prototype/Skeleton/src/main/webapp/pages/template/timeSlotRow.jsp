@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<tr>
+<tr id="trTS${timeSlotNumber}">
 	<td>
 		<form:select path="signupForm.timeSlots[${timeSlotNumber}].semesterOrSemesterBreak" tabindex="1">						           	<form:option value='None' label="Select Time Period"/>
 				<form:option value="Herbstsemester 2015"/>
@@ -63,6 +63,8 @@
 				<form:option value="22:00"/>
 		</form:select>
    	</td>
-   		<!-- Remove button missing -->
+	<td>
+    	<button type="button" onclick="removeTSRow(${timeSlotNumber})">Remove</button>
+    </td>
 </tr>
-
+<form:hidden path="signupForm.timeSlots[${timeSlotNumber}].remove" />

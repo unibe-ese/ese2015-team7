@@ -5,8 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.sample.controller.pojos.SignupForm.SignupValidatorGroup;
 
 @Entity
 public class Grade implements Serializable {
@@ -20,18 +22,19 @@ public class Grade implements Serializable {
     @GeneratedValue
     private Long id;
     
-    @NotNull
+    @Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle eine Universität.")
     private String university;
     
-    @NotNull
+    @Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle ein Fach.")
     private String subject;
     
-    @NotNull
+    @Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle ein Kurs.")
     private String course;
     
-    @NotNull
-    @Size(min = 1, max = 1, message = "Bitte wähle eine Note.")
+    @Size(groups= {SignupValidatorGroup.class}, min = 1, max = 1, message = "Bitte wähle eine Note.")
     private String grade;
+    
+    private boolean remove = false;
 	
 	public Long getId() {
 		return id;
@@ -64,6 +67,12 @@ public class Grade implements Serializable {
 		this.grade = grade;
 	}
 	
+	public boolean isRemove() {
+		return remove;
+	}
+	public void setRemove(boolean remove) {
+		this.remove = remove;
+	}
 	@Override
 	public String toString() {
 		return "Grade [university=" + university + ", subject=" + subject + ", course=" + course + ", grade=" + grade

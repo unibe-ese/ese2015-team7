@@ -1,5 +1,6 @@
 package org.sample.controller.pojos;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -20,7 +21,9 @@ public class SignupForm {
     private String name;
     
     private String biography;
+    // @Valid
     private AutoPopulatingList<Grade> grades = new AutoPopulatingList<Grade>(new GradeFactory());
+    // @Valid
     private AutoPopulatingList<TimeSlot> timeSlots = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
     
     @Size(groups= {SignupValidatorGroup.class, Default.class}, min = 6, max = 20, message = "Bitte wähle ein passwort mit mindestens 6 Zeichen.")
