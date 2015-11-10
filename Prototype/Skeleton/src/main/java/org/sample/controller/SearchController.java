@@ -106,8 +106,9 @@ public class SearchController {
             	ArrayList<Tutor> tutors = searchService.getTutorsFromSearchForm(searchForm); 	
             	model.addObject("tutors", tutors);
             	
+            	
             	Course searchedCourse = searchService.getCourse(searchForm);
-            	model.addObject(searchedCourse);
+            	model.addObject("searchedCourse",searchedCourse);
             	
             } catch (InvalidUserException e) {
             	e.printStackTrace();

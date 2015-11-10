@@ -23,40 +23,45 @@
 
 <h1>myRequestPage</h1>
 
-    
+
+<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-    		<table>
+    <table>
 				<thead>
                 	<tr>
                     	<th>Tutor</th>
                         <th>Course</th>
-                      
-                        
+                        <th></th>
+                        <th></th>
+                    
                     </tr>
                 </thead>
                 <tbody>
-                	<tr> 
-                			<c:if test="${fn:length(myRequests) > 0}" >
-                			<c:forEach items="${myRequests}" var="item"/>
+                	<tr>
+		                	<c:forEach items="${myRequests}" var="item">
 		                		<tr>
 									<td>
-										<c:out value="${item.tutor.name}" /> 
+										<c:out value="${item.tutor.name}" />
 									</td>
 									<td>
 								   		<c:out value="${item.course.courseName}" />
 								   	</td>
-										<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
+								   	<td>
+								   		<!--  	<button type=submit name=visitProfile value="${item.student.email}">Visit Profile</button>-->
+								   	</td>
+								   	<td>
 								   		<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
-								   		</form:form>
+								   	</td>
+								   
 								</tr>
-				
-						
-							</c:if>
+							</c:forEach>
 					</tr>
                 </tbody>
-			</table>	
+     </table>
+     
+
+      
    	 </fieldset>
-
-
+</form:form>
 </body>
 </html>

@@ -25,9 +25,9 @@
     <fieldset>
     <c:forEach items="${tutors}" var="item">
     
-	    <p><c:out value="${item.tutorsName}" /></p>
+	    <p><c:out value="${item.tutorsName}" /> <c:out value="${searchedCourse}" /> 
 	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
-    
+    </p>
     </c:forEach>
 <!--   
         <c:set var="tutorsErrors"><form:errors path="tutors"/></c:set>

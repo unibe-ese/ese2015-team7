@@ -174,7 +174,9 @@ public class SearchServiceImpl implements SearchService {
     
     @Transactional
 	public Course getCourse(SearchForm searchForm) {
-		Course course = courseDao.findByCourseNameAndSubject(searchForm.getCourse(),searchForm.getSubject());
+    	University university = universityDao.findByUniversityName(searchForm.getUniversity());
+    	Subject subject=subjectDao.findBySubjectNameAndUniversity(searchForm.getSubject(),university);
+		Course course = courseDao.findByCourseNameAndSubject(searchForm.getCourse(),subject);
 		return course;
 	}
 }
