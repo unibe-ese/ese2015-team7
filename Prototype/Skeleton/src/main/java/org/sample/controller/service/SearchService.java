@@ -28,7 +28,10 @@ public interface SearchService {
 	 public Subject getSubjectByName(String subjectName);
 	 
 	 public Course getCourseByName(String courseName);
+<<<<<<< HEAD
 
 	public Course getCourse(SearchForm searchForm);
+=======
+>>>>>>> a261c271cf38bba659f0eafc30d92dcb3853f899
 
 }

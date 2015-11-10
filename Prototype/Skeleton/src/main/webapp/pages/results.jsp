@@ -24,6 +24,7 @@
 <form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     <c:forEach items="${tutors}" var="item">
+<<<<<<< HEAD
 
 	    <p><c:out value="${item.tutorsName}" /> <c:out value="${searchedCourse}" /> 
 	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
@@ -31,6 +32,14 @@
     </c:forEach>
    
 
+=======
+    
+	    <p><c:out value="${item}" /></p>
+	    
+	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
+    
+    </c:forEach>      
+>>>>>>> a261c271cf38bba659f0eafc30d92dcb3853f899
     </fieldset>
 </form:form>
 
