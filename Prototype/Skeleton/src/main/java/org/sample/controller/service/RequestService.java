@@ -20,11 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RequestService implements IRequestService{
 	
-	@Autowired
-	RequestDao requestDao;
-	
-	@Autowired
-	UserDao userDao;
+	@Autowired 	RequestDao requestDao;
+	@Autowired 	UserDao userDao;
 
 	
 
@@ -114,8 +111,5 @@ public class RequestService implements IRequestService{
 		requestDao.save(request);
 		
 	}
-
-
-
 
 }

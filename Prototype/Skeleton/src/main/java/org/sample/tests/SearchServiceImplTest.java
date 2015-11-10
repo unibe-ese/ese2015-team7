@@ -1,16 +1,9 @@
 package org.sample.tests;
 
 import org.junit.runner.RunWith;
-import org.mockito.stubbing.Answer;
-import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.pojos.SignupForm;
-import org.sample.controller.service.SearchService;
 import org.sample.controller.service.SearchServiceImpl;
-import org.sample.controller.service.UserService;
 import org.sample.model.Course;
-import org.sample.model.Grade;
-import org.sample.model.GradeFactory;
 import org.sample.model.Subject;
 import org.sample.model.University;
 import org.sample.model.User;
@@ -25,11 +18,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.AutoPopulatingList;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.*;
-import static org.mockito.Matchers.any;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test.xml"})
@@ -49,6 +40,7 @@ public class SearchServiceImplTest {
     
     @Before
     public void setUp(){
+    	
     	uni = new University();
     	sub = new Subject();
     	course = new Course();
