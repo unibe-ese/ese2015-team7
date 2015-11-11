@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/test.xml"})
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test.xml"})
 public class SearchServiceImplTest {
 	
     @Autowired	UserDao userDao;
@@ -47,6 +47,7 @@ public class SearchServiceImplTest {
     
     @Before
     public void setUp(){
+    	
     	uni = new University();
     	uni.setUniversityName("Uni Bern");
     	
@@ -93,6 +94,8 @@ public class SearchServiceImplTest {
     	searchForm.setCourse("ESE");
     	searchForm.setSubject("Info");
     	searchForm.setUniversity("Uni Bern");
+    	
+    	
     	
     	when(userDao.save(any(User.class))).then(returnsFirstArg());
     	
@@ -178,7 +181,6 @@ public class SearchServiceImplTest {
     	testCourse = searchService.getCourse(searchForm);
     	
     	assertEquals(course, testCourse);
-    	
-    }
+    	}
 
 }

@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/test.xml"})
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test.xml"})
 public class UserServiceTest {
 	@Autowired	UserDao userDao;
 	@Autowired	TutorDao tutorDao;
