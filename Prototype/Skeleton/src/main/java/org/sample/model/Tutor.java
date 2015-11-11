@@ -3,20 +3,31 @@ package org.sample.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.sample.model.pojos.TutorId;
 
-@IdClass(TutorId.class)
+//@IdClass(TutorId.class)
 @Entity
 public class Tutor
 {
 	
 	@Id
+	private long id;
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	//@Id
 	@OneToOne(targetEntity=User.class)
 	private User user;
     
-    @Id
+    //@Id
     @OneToOne(targetEntity=Course.class)
     private Course course;
     
