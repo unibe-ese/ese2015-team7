@@ -25,5 +25,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="ext libraries/jexample-4.5-391.jar"/>
 	<classpathentry kind="lib" path="ext libraries/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
