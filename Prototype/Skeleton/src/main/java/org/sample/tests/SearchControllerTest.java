@@ -2,9 +2,10 @@
 package org.sample.tests;
 
 import org.junit.runner.RunWith;
-import org.sample.controller.exceptions.InvalidUserException;
+import org.sample.controller.SearchController;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.service.SearchService;
+import org.sample.controller.service.UserService;
 import org.sample.model.Course;
 import org.sample.model.Subject;
 import org.sample.model.Tutor;
@@ -21,6 +22,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.servlet.ModelAndView;
+
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ import static org.mockito.AdditionalAnswers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/test.xml"})
-public class SearchServiceImplTest {
+public class SearchControllerTest {
 	
     @Autowired	UserDao userDao;
     @Autowired	AddressDao addDao;
@@ -38,12 +41,14 @@ public class SearchServiceImplTest {
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
     @Autowired	TutorDao tutorDao;
-    @Autowired	SearchService searchService;
+    @Autowired  SearchService searchService;
+    @Autowired  UserService	userService;	
     private SearchForm searchForm;
     private University uni, uni2, uni3;
     private Subject sub, sub2, sub3;
-    private Course testCourse, course, course2, course3;
+    private Course course, course2, course3;
     private Tutor tutor, tutor2;
+    private SearchController searchController;
     
     @Before
     public void setUp(){
@@ -104,81 +109,39 @@ public class SearchServiceImplTest {
     
     
     @Test
-    public void testGetUniversities(){
+    public void testSearchUniversitiesSubjectsAndCourses(){
     	
     	ArrayList<University> unis = new ArrayList<University>();
     	unis.add(uni2);
     	unis.add(uni3);
     	
-    	when(universityDao.findAll()).thenReturn(unis);
-    	ArrayList<University> testUnis = searchService.getUniversities();
-    	
-    	assertEquals(unis, testUnis);    	
-    }
-    
+    	when(searchService.getUniversities()).thenReturn(unis);
 
-    @Test
-    public void testGetSubjects(){
     	ArrayList<Subject> subs = new ArrayList<Subject>();
     	subs.add(sub2);
     	subs.add(sub3);
     	
-    	when(subjectDao.findAll()).thenReturn(subs);
-    	ArrayList<Subject> testSubs = searchService.getSubjects();
+    	when(searchService.getSubjects()).thenReturn(subs);
     	
-    	assertEquals(subs, testSubs);    	
-    }
-    
-
-    @Test
-    public void testGetCourses(){
     	ArrayList<Course> courses = new ArrayList<Course>();
     	courses.add(course2);
     	courses.add(course3);
-    	
-    	when(courseDao.findAll()).thenReturn(courses);
-    	ArrayList<Course> testCourses = searchService.getCourses();
-    	
-    	assertEquals(courses, testCourses);    	
-    }
-    
 
-	@Test(expected = InvalidUserException.class)
-    public void testCourseNotSelected(){
-		searchForm.setCourse("Select Course");
-		searchService.getTutorsFromSearchForm(searchForm);
-	}
-	
-	@Test
-    public void testGetTutorsFromSearchForm(){
-    	Course otherCourse = new Course();
-    	otherCourse.setCourseName("Flying");
-    	otherCourse.setSubject(new Subject());
+    	when(searchService.getCourses()).thenReturn(courses);
     	
+    	User user = new User();
+    	user.setName("Hans Solo");
+    	when(userService.getUserByEmail(any(String.class))).thenReturn(user);
     	
-    	ArrayList<Tutor> tutorsList = new ArrayList<Tutor>();
-    	tutorsList.add(tutor);
-    	tutorsList.add(tutor2);
+    	ModelAndView testModel = searchController.searchUniversitiesSubjectsAndCourses();
     	
-    	when(tutorDao.findAll()).thenReturn(tutorsList);
-    	when(courseDao.findByCourseName("ESE")).thenReturn(course);
-    	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
+    	ModelAndView model = new ModelAndView();
+
+    	model.addObject("universities", unis);
+    	model.addObject("subjects", subs);
+    	model.addObject("courses", courses);
     	
-		ArrayList<Tutor> testTutors = searchService.getTutorsFromSearchForm(searchForm);
-		
-		ArrayList<Tutor> tutors = new ArrayList<Tutor>();
-		tutors.add(tutor);
-		assertEquals(testTutors, testTutors);
-    }
-    
-    
-    @Test
-    public void testGetCourse(){
-    	testCourse = new Course();
-    	testCourse = searchService.getCourse(searchForm);
-    	
-    	assertEquals(course, testCourse);
-    	
+    	assertEquals(model, testModel);    	
     }
 
 }

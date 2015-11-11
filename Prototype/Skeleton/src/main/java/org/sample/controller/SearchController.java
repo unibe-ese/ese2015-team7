@@ -45,7 +45,7 @@ public class SearchController {
      * @return ModelView of searchPage
      */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView searchUniversities() {
+    public ModelAndView searchUniversitiesSubjectsAndCourses() {
     	
     	ModelAndView model = new ModelAndView("search");
         ArrayList<University> universities = new ArrayList<University>(); 
