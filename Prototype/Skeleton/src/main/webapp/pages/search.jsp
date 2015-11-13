@@ -73,9 +73,7 @@ $("#field-University").change(function(){
 		}
 	</c:forEach>
 });
-</script>
 
-<script type="text/javascript">
 $("#field-Subject").change(function(){
 	var subject = $(this).val();
 

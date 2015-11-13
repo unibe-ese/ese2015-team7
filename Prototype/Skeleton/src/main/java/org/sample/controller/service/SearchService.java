@@ -13,22 +13,13 @@ public interface SearchService {
 	
 	 public ArrayList<University> getUniversities();
 	 
-	 public ArrayList<Subject> getSubjectsFromUniversity(String university);
-	 
-	 public ArrayList<Course> getCourseFromSubject(String subject);
-	 
 	 public ArrayList<Subject> getSubjects();
 	 
 	 public ArrayList<Course> getCourses();
 	 
 	 public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException;
-	 
-	 public University getUniversityByName(String universityName);
-	 
-	 public Subject getSubjectByName(String subjectName);
-	 
-	 public Course getCourseByName(String courseName);
+	 	 
+	 public Course getCourse(SearchForm searchForm);
 
-	public Course getCourse(SearchForm searchForm);
 
 }

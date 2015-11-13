@@ -31,6 +31,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ * handels all requests concerning the editing and displaying of the profileData.
+ * 
+ * @author simon
+ *
+ */
+/**
+ * @author mirko
+ *
+ */
 @SessionAttributes("username")
 @Controller
 public class ProfileController {
@@ -41,6 +51,11 @@ public class ProfileController {
 	@Autowired
     SearchService searchService;
 	
+	/**
+	 * displays the profile data of the Principal if no User is entered
+	 * @param theUser
+	 * @return
+	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView profile(@RequestParam(required=false,name="user") User theUser){
     	ModelAndView model = new ModelAndView("profile");
@@ -59,6 +74,11 @@ public class ProfileController {
         return model;
     }
 	
+	/**
+	 * shows profile of entered tutorEmailaddress
+	 * @param tutorEmail of Tutor to be displayed 
+	 * @return ModelView profile of the entered Tutor.
+	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
     public ModelAndView postProfile( @RequestParam("itemUser") String tutorEmail){
     	ModelAndView model = new ModelAndView("profile");

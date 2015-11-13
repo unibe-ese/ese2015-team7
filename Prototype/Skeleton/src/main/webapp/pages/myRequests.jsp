@@ -24,7 +24,6 @@
 <h1>myRequestPage</h1>
 
 
-<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     <table>
 				<thead>
@@ -50,7 +49,10 @@
 								   		<!--  	<button type=submit name=visitProfile value="${item.student.email}">Visit Profile</button>-->
 								   	</td>
 								   	<td>
+								   		<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
+								   	
 								   		<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
+								   		</form:form>
 								   	</td>
 								   
 								</tr>
@@ -62,6 +64,6 @@
 
       
    	 </fieldset>
-</form:form>
+
 </body>
 </html>

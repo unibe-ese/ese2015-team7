@@ -45,20 +45,6 @@ public class SearchServiceImpl implements SearchService {
     }
     
     @Transactional
-    public ArrayList<Subject> getSubjectsFromUniversity(String university) throws InvalidUserException
-    {
-    	ArrayList<Subject> subjectsList = new ArrayList<Subject>();
-    	Iterator<Subject> subjectsIter = subjectDao.findAll().iterator();
-    	while(subjectsIter.hasNext())
-    	{
-    		Subject subject = subjectsIter.next();
-    		if(subject.getUniversity().getUniversityName().equals(university))
-    			subjectsList.add(subject);
-    	}
-    	return subjectsList;
-    }
-    
-    @Transactional
     public ArrayList<Subject> getSubjects()
     {
     	ArrayList<Subject> subjectsList = new ArrayList<Subject>();
@@ -69,21 +55,7 @@ public class SearchServiceImpl implements SearchService {
     	}
     	return subjectsList;
     }
-    
-    @Transactional
-    public ArrayList<Course> getCourseFromSubject(String subject) throws InvalidUserException
-    {
-    	ArrayList<Course> coursesList = new ArrayList<Course>();
-    	Iterator<Course> coursesIter = courseDao.findAll().iterator();
-    	while(coursesIter.hasNext())
-    	{
-    		Course course = coursesIter.next();
-    		if(course.getSubject().equals(subject))
-    			coursesList.add(course);
-    	}
-    	return coursesList;
-    }
-    
+        
     @Transactional
     public ArrayList<Course> getCourses()
     {
@@ -95,8 +67,7 @@ public class SearchServiceImpl implements SearchService {
     	}
     	return coursesList;
     }
-    
-    
+        
     @Transactional
     public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException
     {
@@ -107,7 +78,7 @@ public class SearchServiceImpl implements SearchService {
             throw new InvalidUserException("Sorry, Select Course is not a valid name");
         }
         
-        Course course = getCourseByName(courseName);
+        Course course = courseDao.findByCourseName(courseName);
 
         ArrayList<Tutor> tutorsList = new ArrayList<Tutor>();
         Iterator<Tutor> tutorsIter	= tutorDao.findAll().iterator();
@@ -120,62 +91,13 @@ public class SearchServiceImpl implements SearchService {
 
         return tutorsList;
     }
-    
+        
     @Transactional
-    public University getUniversityByName(String universityName)
-    {
-    	University university = new University();
-    	Iterator<University> universities = universityDao.findAll().iterator();
-    	while(universities.hasNext())
-    	{
-    		University universityTmp = universities.next();
-    		if(universityTmp.getUniversityName().equalsIgnoreCase(universityName))
-    		{
-    			university = universityTmp;
-    			break;
-    		}
-    	}
-    	return university;
-    }
-    
-    @Transactional
-    public Subject getSubjectByName(String subjectName)
-    {
-    	Subject subject = new Subject();
-    	Iterator<Subject> subjects = subjectDao.findAll().iterator();
-    	while(subjects.hasNext())
-    	{
-    		Subject subjectTmp = subjects.next();
-    		if(subjectTmp.getSubjectName().equalsIgnoreCase(subjectName))
-    		{
-    			subject = subjectTmp;
-    			break;
-    		}
-    	}
-    	return subject;
-    }
-    
-    @Transactional
-    public Course getCourseByName(String courseName)
-    {
-    	Course course = new Course();
-    	Iterator<Course> courses = courseDao.findAll().iterator();
-    	while(courses.hasNext())
-    	{
-    		Course courseTmp = courses.next();
-    		if(courseTmp.getCourseName().equalsIgnoreCase(courseName))
-    		{
-    			course = courseTmp;
-    			break;
-    		}
-    	}
-    	return course;
-    }
-    
-    @Transactional
+
 	public Course getCourse(SearchForm searchForm) {
     	University university = universityDao.findByUniversityName(searchForm.getUniversity());
-    	Subject subject=subjectDao.findBySubjectNameAndUniversity(searchForm.getSubject(),university);
+    	Subject subject  = subjectDao.findBySubjectNameAndUniversity(searchForm.getSubject(),university);
+
 		Course course = courseDao.findByCourseNameAndSubject(searchForm.getCourse(),subject);
 		return course;
 	}

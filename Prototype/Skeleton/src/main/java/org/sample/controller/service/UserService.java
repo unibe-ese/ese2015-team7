@@ -12,6 +12,7 @@ import org.sample.model.TimeSlot;
 import org.sample.model.Tutor;
 import org.sample.model.User;
 import org.sample.model.UserRole;
+import org.sample.model.dao.CourseDao;
 import org.sample.model.dao.TutorDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class UserService implements IUserDataService{
 	@Autowired	UserDao userDao;
 	@Autowired	TutorDao tutorDao;
 	@Autowired	SearchService searchService;
+	@Autowired	CourseDao courseDao;
 
 	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
 		String name = signupForm.getName();
@@ -88,13 +90,14 @@ public class UserService implements IUserDataService{
 		for( Grade grade : signupForm.getGrades() ) {
 			if(!grade.isRemove()){ // only save if grade wasn't "removed"
 				Tutor tutorLink = new Tutor();
-				tutorLink.setCourse( searchService.getCourseByName(grade.getCourse()) );
+				tutorLink.setCourse( courseDao.findByCourseName(grade.getCourse()) );
 				tutorLink.setUser(user);
 				tutorLink = tutorDao.save(tutorLink); // save object to DB
 			}
 		}
 	}
 	
+
 	public User getUserById(Long userId) {
 		return userDao.findOne(userId);
 	    }
