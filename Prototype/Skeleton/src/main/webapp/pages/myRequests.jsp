@@ -21,51 +21,17 @@
 <div class="myRequest-page" >
 
 
-<h1>myRequestPage</h1>
+<h2>myRequestPage</h2>
 
 
     <fieldset>
-    <table>
-				<thead>
-                	<tr>
-                    	<th>Tutor</th>
-                        <th>Course</th>
-                        <th></th>
-                        <th></th>
-                    
-                    </tr>
-                </thead>
-                <tbody>
-                	<tr>
-		                	<c:forEach items="${myRequests}" var="item">
-		                		<tr>
-									<td>
-										<c:out value="${item.tutor.name}" />
-									</td>
-									<td>
-								   		<c:out value="${item.course.courseName}" />
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
-										<button type=submit name=itemUser value="${item.tutor.email}">Visit Profile</button>
-								   		</form:form>
-								   
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
-								   		<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
-								   		<input name="courseId" type="hidden" value="${item.course.id}"/> 
-								   		</form:form>
-								   	</td>
-								   
-								</tr>
-							</c:forEach>
-					</tr>
-                </tbody>
-     </table>
-     
-
-      
+    	
+		<c:import url="requests/myOutgoingRequestsAccepted.jsp" />
+		
+		<p> </p>
+   		
+		<c:import url="requests/myOutgoingRequestsUnanwsered.jsp" />
+    
    	 </fieldset>
 
 </body>

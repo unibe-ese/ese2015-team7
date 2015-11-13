@@ -18,52 +18,15 @@
 <div class="inner">
 <div class="request-page" >
 
-<h1>RequestPage</h1>
+<h2>RequestPage</h2>
 
-    <fieldset>
-    <table>
-				<thead>
-                	<tr>
-                    	<th>Student</th>
-                        <th>Course</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<tr>
-		                	<c:forEach items="${requests}" var="item">
-		                		<tr>
-									<td>
-										<c:out value="${item.student.name}" />
-									</td>
-									<td>
-								   		<c:out value="${item.course.courseName}" />
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
-										<button type=submit name=itemUser value="${item.student.email}">Visit Profile</button>
-								   		</form:form>
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
-								   		<button type=submit name=acceptRequest value="${item.student.email}">Accept Request</button>
-								   		<input name="courseId" type="hidden" value="${item.course.id}"/> 
-								   		</form:form>
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
-								   		<button type=submit name=declineRequest value="${item.student.email}">Decline Request</button>
-								   		</form:form>
-								   	</td>
-								   	
-								</tr>
-							</c:forEach>
-					</tr>
-                </tbody>
-     </table>
-  </fieldset>
+ 	<fieldset>
+    	
+		<c:import url="requests/incomingRequestsAccepted.jsp" />
+   		
+		<c:import url="requests/incomingRequestsUnanwsered.jsp" />
+    
+   	 </fieldset>
 
 
 </body>
