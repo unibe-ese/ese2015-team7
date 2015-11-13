@@ -46,12 +46,15 @@
 								   		<c:out value="${item.course.courseName}" />
 								   	</td>
 								   	<td>
-								   		<!--  	<button type=submit name=visitProfile value="${item.student.email}">Visit Profile</button>-->
+								   		<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
+										<button type=submit name=itemUser value="${item.tutor.email}">Visit Profile</button>
+								   		</form:form>
+								   
 								   	</td>
 								   	<td>
 								   		<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
-								   	
 								   		<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
+								   		<input name="courseId" type="hidden" value="${item.course.id}"/> 
 								   		</form:form>
 								   	</td>
 								   

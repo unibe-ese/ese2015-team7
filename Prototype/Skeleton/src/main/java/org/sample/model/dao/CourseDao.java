@@ -10,4 +10,6 @@ public interface CourseDao extends CrudRepository<Course,Long> {
 
 	Course findByCourseName(String courseName);
 
+	Course findById(long id);
+
 }

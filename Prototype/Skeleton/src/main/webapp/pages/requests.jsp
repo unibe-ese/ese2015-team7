@@ -20,7 +20,6 @@
 
 <h1>RequestPage</h1>
 
-<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     <table>
 				<thead>
@@ -43,25 +42,29 @@
 								   		<c:out value="${item.course.courseName}" />
 								   	</td>
 								   	<td>
-								   		<!--  	<button type=submit name=visitProfile value="${item.student.email}">Visit Profile</button>-->
+								   		<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
+										<button type=submit name=itemUser value="${item.student.email}">Visit Profile</button>
+								   		</form:form>
 								   	</td>
 								   	<td>
+								   		<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
 								   		<button type=submit name=acceptRequest value="${item.student.email}">Accept Request</button>
+								   		<input name="courseId" type="hidden" value="${item.course.id}"/> 
+								   		</form:form>
 								   	</td>
 								   	<td>
+								   		<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
 								   		<button type=submit name=declineRequest value="${item.student.email}">Decline Request</button>
+								   		</form:form>
 								   	</td>
-								   		<!-- Remove button missing -->
+								   	
 								</tr>
 							</c:forEach>
 					</tr>
                 </tbody>
      </table>
-     
+  </fieldset>
 
-      
-   	 </fieldset>
-</form:form>
 
 </body>
 </html>

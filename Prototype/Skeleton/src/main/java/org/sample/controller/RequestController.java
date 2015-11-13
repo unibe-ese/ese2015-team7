@@ -122,12 +122,12 @@ public class RequestController {
 	 * @return ModelView with updated list of outgoing requests
 	 */
 	@RequestMapping(value = "/myRequests/action", method = RequestMethod.POST)
-    public ModelAndView myRequestAction(@RequestParam("deleteRequest") String tutorEmail){
+    public ModelAndView myRequestAction(@RequestParam(name="courseId")String courseId, @RequestParam("deleteRequest") String tutorEmail){
     	ModelAndView model = new ModelAndView("redirect:/myRequests");
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
     	User principal = userDao.findByEmail(principalEmail);
 	
-    	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail), principal);
+    	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail), principal,courseId);
   
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	model.addObject("requests", requests);
@@ -147,22 +147,19 @@ public class RequestController {
 	 * @return ModelView with updated requestPage
 	 */
 	@RequestMapping(value = "/requests/action", method = RequestMethod.POST)
-    public ModelAndView requestAction(@RequestParam(required=false,name="visitProfile") String studentEmail, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail,RedirectAttributes redirectAttrs){
+    public ModelAndView requestAction(@RequestParam(name="courseId")String courseId, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail,RedirectAttributes redirectAttrs){
     	ModelAndView model = new ModelAndView("redirect:/requests");
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
     	User principal = userDao.findByEmail(principalEmail);
     	
     	
-    	if (studentEmail != null){
-        	User user = userService.getUserByEmail(studentEmail);
-        	redirectAttrs.addFlashAttribute("user", user);
-            return new ModelAndView("redirect:/profile");
-    	}
-    	else if (acceptStudentEmail != null){
-    		iRequestService.acceptRequest(principal,userDao.findByEmail(acceptStudentEmail));
+   
+    	if (acceptStudentEmail != null){
+    		iRequestService.acceptRequest(principal,userDao.findByEmail(acceptStudentEmail),courseId);
+    		
     	}
     	else if (declineStudentEmail != null){
-    		iRequestService.declineRequest(principal, userDao.findByEmail(declineStudentEmail));
+    		iRequestService.declineRequest(principal, userDao.findByEmail(declineStudentEmail),courseId);
     	}
     	
   
