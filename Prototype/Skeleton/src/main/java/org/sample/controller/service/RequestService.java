@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
+import org.sample.model.dao.CourseDao;
 import org.sample.model.dao.RequestDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RequestService implements IRequestService{
 	
-	@Autowired
-	RequestDao requestDao;
-	
-	@Autowired
-	UserDao userDao;
+	@Autowired	RequestDao requestDao;
+	@Autowired	UserDao userDao;
+	@Autowired CourseDao courseDao;
 
 	
 
@@ -68,7 +67,7 @@ public class RequestService implements IRequestService{
         while(myRequestIter.hasNext())
         {
         	Request request = myRequestIter.next();
-        	if((request.getStudent().equals(principal))&&request.getIsActiv())
+        	if((request.getStudent().equals(principal)))
         		myRequestList.add(request);
         	
         }
@@ -82,24 +81,24 @@ public class RequestService implements IRequestService{
         while(requestIter.hasNext())
         {
         	Request request = requestIter.next();
-        	if((request.getTutor().equals(principal))&&request.getIsActiv())
+        	if((request.getTutor().equals(principal)))
         		requestList.add(request);
         }
 		return requestList;
 	}
 
 
-	public void deleteRequest(User tutor, User student) {
+	public void deleteRequest(User tutor, User student, String courseId) {
 		
-		Request request=requestDao.findByTutorAndStudent(tutor, student);
+		Request request=requestDao.findByTutorAndStudentAndCourse(tutor, student, courseDao.findById(Long.parseLong(courseId)));
 		request.setIsDeleted(true);
 		request.setIsActiv(false);
 		requestDao.save(request);
 	}
 
 
-	public void acceptRequest(User tutor, User student) {
-		Request request=requestDao.findByTutorAndStudent(tutor, student);
+	public void acceptRequest(User tutor, User student, String courseId) {
+		Request request=requestDao.findByTutorAndStudentAndCourse(tutor, student, courseDao.findById(Long.parseLong(courseId)));
 		request.setIsAccepted(true);
 		request.setIsActiv(false);
 		requestDao.save(request);
@@ -107,8 +106,8 @@ public class RequestService implements IRequestService{
 	}
 
 
-	public void declineRequest(User tutor, User student) {
-		Request request=requestDao.findByTutorAndStudent(tutor, student);
+	public void declineRequest(User tutor, User student, String courseId) {
+		Request request=requestDao.findByTutorAndStudentAndCourse(tutor, student, courseDao.findById(Long.parseLong(courseId)));
 		request.setIsDeclined(true);
 		request.setIsActiv(false);
 		requestDao.save(request);

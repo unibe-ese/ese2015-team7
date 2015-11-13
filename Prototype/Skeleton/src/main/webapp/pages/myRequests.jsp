@@ -21,47 +21,18 @@
 <div class="myRequest-page" >
 
 
-<h1>myRequestPage</h1>
+<h2>myRequestPage</h2>
 
 
-<form:form method="post" action="myRequests/action" modelAttribute="searchForm" id="myRequests" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-    <table>
-				<thead>
-                	<tr>
-                    	<th>Tutor</th>
-                        <th>Course</th>
-                        <th></th>
-                        <th></th>
-                    
-                    </tr>
-                </thead>
-                <tbody>
-                	<tr>
-		                	<c:forEach items="${myRequests}" var="item">
-		                		<tr>
-									<td>
-										<c:out value="${item.tutor.name}" />
-									</td>
-									<td>
-								   		<c:out value="${item.course.courseName}" />
-								   	</td>
-								   	<td>
-								   		<!--  	<button type=submit name=visitProfile value="${item.student.email}">Visit Profile</button>-->
-								   	</td>
-								   	<td>
-								   		<button type=submit name=deleteRequest value="${item.tutor.email}">delete</button>
-								   	</td>
-								   
-								</tr>
-							</c:forEach>
-					</tr>
-                </tbody>
-     </table>
-     
-
-      
+    	
+		<c:import url="requests/myOutgoingRequestsAccepted.jsp" />
+		
+		<p> </p>
+   		
+		<c:import url="requests/myOutgoingRequestsUnanwsered.jsp" />
+    
    	 </fieldset>
-</form:form>
+
 </body>
 </html>

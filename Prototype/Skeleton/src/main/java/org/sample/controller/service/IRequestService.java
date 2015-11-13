@@ -8,6 +8,7 @@ import org.sample.model.User;
 
 public interface IRequestService {
 
+
 	/**
 	 * checks if Request already exists or creates a new one which will be saved in the Database
 	 * @param tutorEmail
@@ -21,6 +22,7 @@ public interface IRequestService {
 	 * @param principal
 	 * @return
 	 */
+
 	ArrayList<Request> getAllMyRequests(User principal);
 
 	/**
@@ -31,13 +33,13 @@ public interface IRequestService {
 	ArrayList<Request> getAllRequests(User principal);
 
 	
-	void deleteRequest(User tutor, User student);
+	void deleteRequest(User tutor, User student, String courseId);
 
 	
-	void acceptRequest(User tutor, User student);
+	void acceptRequest(User tutor, User student, String courseId);
 
 	
-	void declineRequest(User tutor, User student);
+	void declineRequest(User tutor, User student, String courseId);
 
 	
 

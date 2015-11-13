@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+
 /**
  * The SearchController handles all requests in relationship with a search action. 
  * 
@@ -85,6 +86,7 @@ public class SearchController {
             	ArrayList<Tutor> tutors = searchService.getTutorsFromSearchForm(searchForm); 	
             	model.addObject("tutors", tutors);
             	
+
             	Course searchedCourse = searchService.getCourse(searchForm);
             	model.addObject("searchedCourse",searchedCourse);
             	

@@ -18,50 +18,16 @@
 <div class="inner">
 <div class="request-page" >
 
-<h1>RequestPage</h1>
+<h2>RequestPage</h2>
 
-<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
-    <fieldset>
-    <table>
-				<thead>
-                	<tr>
-                    	<th>Student</th>
-                        <th>Course</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<tr>
-		                	<c:forEach items="${requests}" var="item">
-		                		<tr>
-									<td>
-										<c:out value="${item.student.name}" />
-									</td>
-									<td>
-								   		<c:out value="${item.course.courseName}" />
-								   	</td>
-								   	<td>
-								   		<!--  	<button type=submit name=visitProfile value="${item.student.email}">Visit Profile</button>-->
-								   	</td>
-								   	<td>
-								   		<button type=submit name=acceptRequest value="${item.student.email}">Accept Request</button>
-								   	</td>
-								   	<td>
-								   		<button type=submit name=declineRequest value="${item.student.email}">Decline Request</button>
-								   	</td>
-								   		<!-- Remove button missing -->
-								</tr>
-							</c:forEach>
-					</tr>
-                </tbody>
-     </table>
-     
-
-      
+ 	<fieldset>
+    	
+		<c:import url="requests/incomingRequestsAccepted.jsp" />
+   		
+		<c:import url="requests/incomingRequestsUnanwsered.jsp" />
+    
    	 </fieldset>
-</form:form>
+
 
 </body>
 </html>
