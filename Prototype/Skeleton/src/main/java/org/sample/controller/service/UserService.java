@@ -7,7 +7,6 @@ import java.util.Set;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
-import org.sample.model.Grade;
 import org.sample.model.TimeSlot;
 import org.sample.model.UserCourse;
 import org.sample.model.UserCourseFormAttribute;
@@ -83,7 +82,7 @@ public class UserService implements IUserDataService{
 	
 	public void createAndSaveUserCourseFromForm(SignupForm signupForm, User user) {		
 		for( UserCourseFormAttribute userCourseFormAttribute : signupForm.getUserCourseList() ) {
-			if(userCourseFormAttribute.getCourse().equals("None"))
+			if(userCourseFormAttribute.getCourse() == null || userCourseFormAttribute.getCourse().equals("None"))
 				break;
 			
 			UserCourse tmpUserCourse = new UserCourse();

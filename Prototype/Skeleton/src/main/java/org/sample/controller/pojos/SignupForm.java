@@ -4,12 +4,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
-
-import org.sample.model.Grade;
 import org.sample.model.UserCourseFormAttributeFactory;
 import org.sample.model.TimeSlot;
 import org.sample.model.TimeSlotFactory;
-import org.sample.model.UserCourse;
 import org.sample.model.UserCourseFormAttribute;
 import org.springframework.util.AutoPopulatingList;
 

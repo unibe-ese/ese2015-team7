@@ -9,7 +9,6 @@ import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.IUserDataService;
 import org.sample.controller.service.SearchService;
 import org.sample.model.Course;
-import org.sample.model.Grade;
 import org.sample.model.UserCourseFormAttributeFactory;
 import org.sample.model.dao.UserCourseDao;
 import org.sample.model.Subject;
@@ -247,6 +246,7 @@ public class ProfileController {
 		    }
 		} else {
 		    model = new ModelAndView("editProfile");
+		    model.addObject("infoMessage", result.toString());
 		    System.out.println("Form hat fehler:\n" + result.toString());
 		}
 		return model;

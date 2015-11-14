@@ -6,7 +6,6 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.SearchService;
 import org.sample.controller.service.UserService;
-import org.sample.model.Grade;
 import org.sample.model.UserCourseFormAttributeFactory;
 import org.sample.model.User;
 import org.sample.model.UserCourseFormAttribute;
@@ -30,17 +29,17 @@ public class UserServiceTest {
 	@Autowired	SearchService searchService;
 	@Autowired	UserService userService;
 	private SignupForm signupForm, testSignupForm;
-	private UserCourseFormAttribute grade;
-	private AutoPopulatingList<UserCourseFormAttribute> grades;
+	private UserCourseFormAttribute formAttribute;
+	private AutoPopulatingList<UserCourseFormAttribute> userCourseList;
 	
 	@Before
 	public void setupSignup(){
-		grade = new UserCourseFormAttribute();
-		grade.setCourse("ESE");
-		grade.setGrade("6");
+		formAttribute = new UserCourseFormAttribute();
+		formAttribute.setCourse("ESE");
+		formAttribute.setGrade("6");
 		
-		grades = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
-		grades.add(grade);
+		userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
+		userCourseList.add(formAttribute);
 		
 		signupForm = new SignupForm();
 		signupForm.setId((long) 1500);
@@ -48,7 +47,7 @@ public class UserServiceTest {
 		signupForm.setEmail("CapAwe@CapAwe.awe");
 		signupForm.setBiography("I try to be .......... awesome...");
 		signupForm.setPassword("123456");
-		signupForm.setUserCourseList(grades);
+		signupForm.setUserCourseList(userCourseList);
 		
 		when(userDao.save(any(User.class))).then(returnsFirstArg());
 	}
@@ -67,7 +66,7 @@ public class UserServiceTest {
 	public void testTheSavingOfGrades(){
 		testSignupForm = userService.saveFrom(signupForm, null);
 		AutoPopulatingList<UserCourseFormAttribute> testList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
-		testList.add(grade);
+		testList.add(formAttribute);
 		assertEquals(testSignupForm.getUserCourseList(), testList);
 	}
 	
@@ -76,7 +75,6 @@ public class UserServiceTest {
 	public void testEmptyName(){
 		signupForm.setName("");
 		userService.saveFrom(signupForm);
-		
 	}
 	
 }

@@ -13,7 +13,10 @@
 	<form:form method="POST" modelAttribute="signupForm" action="editProfile" id="editProfileForm" cssClass="form-horizontal"  autocomplete="off">
 	    <fieldset>
 	       <c:if test="${not empty infoMessage}">
-	                <div>${infoMessage}</div>
+	                <!-- <div>${infoMessage}</div> -->
+	                <p style="color:red">
+	                	Bitte kontrolliere deine Eingaben!
+	                </p>
 	            </c:if>
 	
 	        <c:set var="nameErrors"><form:errors path="name"/></c:set>
