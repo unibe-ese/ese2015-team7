@@ -7,13 +7,13 @@ import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.service.SearchService;
 import org.sample.model.Course;
 import org.sample.model.Subject;
-import org.sample.model.Tutor;
+import org.sample.model.UserCourse;
 import org.sample.model.University;
 import org.sample.model.User;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.CourseDao;
 import org.sample.model.dao.SubjectDao;
-import org.sample.model.dao.TutorDao;
+import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UniversityDao;
 import org.sample.model.dao.UserDao;
 import org.junit.Before;
@@ -37,13 +37,13 @@ public class SearchServiceImplTest {
     @Autowired	UniversityDao universityDao;
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
-    @Autowired	TutorDao tutorDao;
+    @Autowired	UserCourseDao tutorDao;
     @Autowired	SearchService searchService;
     private SearchForm searchForm;
     private University uni, uni2, uni3;
     private Subject sub, sub2, sub3;
     private Course testCourse, course, course2, course3;
-    private Tutor tutor, tutor2;
+    private UserCourse tutor, tutor2;
     
     @Before
     public void setUp(){
@@ -81,11 +81,11 @@ public class SearchServiceImplTest {
     	course3.setCourseName("Swirling");
     	course3.setSubject(sub3);
     	    	    	
-    	tutor = new Tutor();
+    	tutor = new UserCourse();
     	tutor.setTutorsName("Vader");
     	tutor.setCourse(course);
 
-    	tutor2 = new Tutor();
+    	tutor2 = new UserCourse();
     	tutor2.setTutorsName("Darth");
     	tutor2.setCourse(course2);
     	
@@ -156,7 +156,7 @@ public class SearchServiceImplTest {
     	otherCourse.setSubject(new Subject());
     	
     	
-    	ArrayList<Tutor> tutorsList = new ArrayList<Tutor>();
+    	ArrayList<UserCourse> tutorsList = new ArrayList<UserCourse>();
     	tutorsList.add(tutor);
     	tutorsList.add(tutor2);
     	
@@ -164,9 +164,9 @@ public class SearchServiceImplTest {
     	when(courseDao.findByCourseName("ESE")).thenReturn(course);
     	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
     	
-		ArrayList<Tutor> tutors = searchService.getTutorsFromSearchForm(searchForm);
+		ArrayList<UserCourse> tutors = searchService.getTutorsFromSearchForm(searchForm);
 		
-		ArrayList<Tutor> testTutors = new ArrayList<Tutor>();
+		ArrayList<UserCourse> testTutors = new ArrayList<UserCourse>();
 		testTutors.add(tutor);
 		assertEquals(testTutors, tutors);
     }

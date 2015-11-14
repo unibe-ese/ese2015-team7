@@ -10,7 +10,7 @@ import org.sample.controller.service.SearchService;
 import org.sample.controller.service.UserService;
 import org.sample.model.Course;
 import org.sample.model.Subject;
-import org.sample.model.Tutor;
+import org.sample.model.UserCourse;
 import org.sample.model.University;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -83,7 +83,7 @@ public class SearchController {
     	ModelAndView model = new ModelAndView();
             try {
             	model = new ModelAndView("results");
-            	ArrayList<Tutor> tutors = searchService.getTutorsFromSearchForm(searchForm); 	
+            	ArrayList<UserCourse> tutors = searchService.getTutorsFromSearchForm(searchForm); 	
             	model.addObject("tutors", tutors);
             	
 

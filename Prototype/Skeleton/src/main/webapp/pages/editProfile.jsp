@@ -61,36 +61,37 @@
                         <th>Subject</th>
                         <th>Course</th>
                         <th>Grade</th>
+                        <th>Teaching</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                	<tr><input type="button" id="addGradeButton" value="Add Grade Row" /></tr>
-                	<c:if test="${fn:length(signupForm.grades) > 0}" >
-                	<c:forEach items="${signupForm.grades}" var="element" varStatus="i" begin="0">
-                		<form:hidden path="grades[${i.index}].remove" />
+                	<tr><input type="button" id="addGradeButton" value="Add Courses Row" /></tr>
+                	<c:if test="${fn:length(signupForm.userCourseList) > 0}" >
+                	<c:forEach items="${signupForm.userCourseList}" var="element" varStatus="i" begin="0">
+                		<form:hidden path="userCourseList[${i.index}].remove" />
                 		<tr id="tr${i.index}">
 							<td>
-								<form:select path="grades[${i.index}].university" id="field-University${i.index}" tabindex="1">
-						    		<form:option value='None' label="Select University"/>
+								<form:select  path="userCourseList[0].university" id="field-University${i.index}" tabindex="1">
+						    		<form:option value="None" label="Select University"/>
 						    		<form:options items="${universities}" itemValue="universityName"/>
 						    	</form:select>
 							</td>
 							<td>
-						   		<form:select path="grades[${i.index}].subject" id="field-Subject${i.index}" tabindex="1">
+						   		<form:select path="userCourseList[0].subject" id="field-Subject${i.index}" tabindex="1">
 						    		<form:option value='None' label="Select Subject"/>
 						    		<form:options items="${subjects}" itemValue="subjectName"/>
 						   		</form:select>
 						   	</td>
 						   	<td>
-						   		<form:select path="grades[${i.index}].course" id="field-Course${i.index}" tabindex="1">
+						   		<form:select path="userCourseList[${i.index}].course" id="field-Course${i.index}" tabindex="1">
 						    		<form:option value='None' label="Select Course"/>
 						    		<form:options items="${courses}" itemValue="courseName"/>
 						   		</form:select>
 						   	</td>
 						   	<td>
-						   		<form:select path="grades[${i.index}].grade" tabindex="1">
-						    		<form:option value='None' label="Select Grade"/>
+						   		<form:select path="userCourseList[${i.index}].grade" tabindex="1">
+						    		<form:option value='0' label="Select Grade"/>
 						    		<form:option value="1"/>
 						    		<form:option value="2"/>
 						    		<form:option value="3"/>
@@ -99,34 +100,37 @@
 						    		<form:option value="6"/>
 						   		</form:select>
 						   	</td>
+						   	<td>
+						   		<form:checkbox path="userCourseList[${i.index}].teaching" tabindex="1" />
+						   	</td>
 						    <td>
 						    	<button type="button" onclick="removeGradeRow(${i.index})">Remove</button>
 						    </td>
 						</tr>
 					</c:forEach>
 					</c:if>
-					<c:if test="${fn:length(signupForm.grades) == 0}" >
-					<form:hidden path="grades[0].remove" />
+					<c:if test="${fn:length(signupForm.userCourseList) == 0}" >
+					<form:hidden path="userCourseList[0].remove" />
 					<tr id="tr0">
                         <td>
-                        	<form:select path="grades[0].university" id="field-University0" tabindex="1">
+                        	<form:select path="userCourseList[0].university" id="field-University0" tabindex="1">
 				           		<form:option value='None' label="Select University"/>
 				           		<form:options items="${universities}" itemValue="universityName"/>
 		            		</form:select>
 		            	</td>
 		            	<td>
-		            		<form:select path="grades[0].subject" id="field-Subject0" tabindex="1">
+		            		<form:select path="userCourseList[0].subject" id="field-Subject0" tabindex="1">
 				           		<form:option value='None' label="Select Subject"/>
 		            		</form:select>
 		            	</td>
 		            	<td>
-		            		<form:select path="grades[0].course" id="field-Course0" tabindex="1">
+		            		<form:select path="userCourseList[0].course" id="field-Course0" tabindex="1">
 				           		<form:option value='None' label="Select Course"/>
 		            		</form:select>
 		            	</td>
 		            	<td>
-		            		<form:select path="grades[0].grade" tabindex="1">
-				           		<form:option value='None' label="Select Grade"/>
+		            		<form:select path="userCourseList[0].grade" tabindex="1">
+				           		<form:option value='0' label="Select Grade"/>
 				           		<form:option value="1"/>
 				           		<form:option value="2"/>
 				           		<form:option value="3"/>
@@ -135,6 +139,9 @@
 				           		<form:option value="6"/>
 		            		</form:select>
 		            	</td>
+		            	<td>
+					   		<form:checkbox path="userCourseList[0].teaching" tabindex="1" />
+					   	</td>
 		            	<td>
 					    	<button type="button" onclick="removeGradeRow(0)">Remove</button>
 					    </td>
@@ -319,7 +326,7 @@
 $(document).ready(function addGradeRowTrigger() {
 	
 	var countList = new Array();
-	<c:forEach items="${signupForm.grades}">
+	<c:forEach items="${signupForm.userCourseList}">
 	    var dummy= new Object();
 	    countList.push(dummy);
 	</c:forEach>
@@ -360,7 +367,7 @@ $(document).ready(function addTSTrigger() {
 </script>
 <script type="text/javascript">
 // add triggers to existing rows
-<c:forEach items="${signupForm.grades}" var="element" varStatus="i" begin="0">
+<c:forEach items="${signupForm.userCourseList}" var="element" varStatus="i" begin="0">
 	defineOptions("${i.index}");
 </c:forEach>
 
@@ -397,7 +404,7 @@ function defineOptions (index)
 function removeGradeRow (id)
 {
 	$("tr").remove("#tr" + id);
-	var elem = document.getElementById("grades" + id + ".remove");
+	var elem = document.getElementById("userCourseList" + id + ".remove");
 	elem.value = true;
 }
 function removeTSRow (id)

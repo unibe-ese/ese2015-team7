@@ -7,9 +7,10 @@ import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.SearchService;
 import org.sample.controller.service.UserService;
 import org.sample.model.Grade;
-import org.sample.model.GradeFactory;
+import org.sample.model.UserCourseFormAttributeFactory;
 import org.sample.model.User;
-import org.sample.model.dao.TutorDao;
+import org.sample.model.UserCourseFormAttribute;
+import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UserDao;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,23 +26,20 @@ import static org.mockito.AdditionalAnswers.*;
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/test.xml"})
 public class UserServiceTest {
 	@Autowired	UserDao userDao;
-	@Autowired	TutorDao tutorDao;
+	@Autowired	UserCourseDao tutorDao;
 	@Autowired	SearchService searchService;
 	@Autowired	UserService userService;
 	private SignupForm signupForm, testSignupForm;
-	private Grade grade;
-	private AutoPopulatingList<Grade> grades;
+	private UserCourseFormAttribute grade;
+	private AutoPopulatingList<UserCourseFormAttribute> grades;
 	
 	@Before
 	public void setupSignup(){
-		grade = new Grade();
-		grade.setId((long) 1000);
-		grade.setUniversity("Uni Bern");
-		grade.setSubject("IT");
+		grade = new UserCourseFormAttribute();
 		grade.setCourse("ESE");
 		grade.setGrade("6");
 		
-		grades = new AutoPopulatingList<Grade>(new GradeFactory());
+		grades = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
 		grades.add(grade);
 		
 		signupForm = new SignupForm();
@@ -50,7 +48,7 @@ public class UserServiceTest {
 		signupForm.setEmail("CapAwe@CapAwe.awe");
 		signupForm.setBiography("I try to be .......... awesome...");
 		signupForm.setPassword("123456");
-		signupForm.setGrades(grades);
+		signupForm.setUserCourseList(grades);
 		
 		when(userDao.save(any(User.class))).then(returnsFirstArg());
 	}
@@ -68,9 +66,9 @@ public class UserServiceTest {
 	@Test
 	public void testTheSavingOfGrades(){
 		testSignupForm = userService.saveFrom(signupForm, null);
-		AutoPopulatingList<Grade> testList = new AutoPopulatingList<Grade>(new GradeFactory());
+		AutoPopulatingList<UserCourseFormAttribute> testList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
 		testList.add(grade);
-		assertEquals(testSignupForm.getGrades(), testList);
+		assertEquals(testSignupForm.getUserCourseList(), testList);
 	}
 	
 	

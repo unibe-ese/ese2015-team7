@@ -9,11 +9,12 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.model.Grade;
 import org.sample.model.TimeSlot;
-import org.sample.model.Tutor;
+import org.sample.model.UserCourse;
+import org.sample.model.UserCourseFormAttribute;
 import org.sample.model.User;
 import org.sample.model.UserRole;
 import org.sample.model.dao.CourseDao;
-import org.sample.model.dao.TutorDao;
+import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +25,7 @@ import org.springframework.util.StringUtils;
 public class UserService implements IUserDataService{
 	
 	@Autowired	UserDao userDao;
-	@Autowired	TutorDao tutorDao;
+	@Autowired	UserCourseDao userCourseDao;
 	@Autowired	SearchService searchService;
 	@Autowired	CourseDao courseDao;
 
@@ -46,16 +47,6 @@ public class UserService implements IUserDataService{
 		user.setEmail(signupForm.getEmail());
 		
 		user.setBiography(signupForm.getBiography());
-		
-		ArrayList<Grade> arrayList = new ArrayList<Grade>();
-		ListIterator<Grade> itr = signupForm.getGrades().listIterator();
-		while(itr.hasNext())
-		{
-			Grade tmp = itr.next();
-			if(!tmp.isRemove())
-				arrayList.add(tmp);
-		}
-		user.setGrades(arrayList);
 		
 		ArrayList<TimeSlot> timeSlotList = new ArrayList<TimeSlot>();
 		ListIterator<TimeSlot> iter = signupForm.getTimeSlots().listIterator();
@@ -90,13 +81,21 @@ public class UserService implements IUserDataService{
 		return saveFrom(signupForm, null);
 	}
 	
-	public void createAndSaveTutorLinksFromForm(SignupForm signupForm, User user) {		
-		for( Grade grade : signupForm.getGrades() ) {
-			if(!grade.isRemove()){ // only save if grade wasn't "removed"
-				Tutor tutorLink = new Tutor();
-				tutorLink.setCourse( courseDao.findByCourseName(grade.getCourse()) );
-				tutorLink.setUser(user);
-				tutorLink = tutorDao.save(tutorLink); // save object to DB
+	public void createAndSaveUserCourseFromForm(SignupForm signupForm, User user) {		
+		for( UserCourseFormAttribute userCourseFormAttribute : signupForm.getUserCourseList() ) {
+			if(userCourseFormAttribute.getCourse().equals("None"))
+				break;
+			
+			UserCourse tmpUserCourse = new UserCourse();
+			tmpUserCourse.setUser(user);
+			tmpUserCourse.setCourse( courseDao.findByCourseName(userCourseFormAttribute.getCourse()) );
+			tmpUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()) );
+			tmpUserCourse.setTeaching(userCourseFormAttribute.isTeaching() );
+			
+			if(!userCourseFormAttribute.isRemove() && (userCourseFormAttribute.isTeaching() || !userCourseFormAttribute.getGrade().equals("0")) ){
+				userCourseDao.save(tmpUserCourse); // save object to DB
+			} else {
+				userCourseDao.delete(tmpUserCourse);
 			}
 		}
 	}

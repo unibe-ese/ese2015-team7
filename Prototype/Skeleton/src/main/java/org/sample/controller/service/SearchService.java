@@ -6,7 +6,7 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.model.Course;
 import org.sample.model.Subject;
-import org.sample.model.Tutor;
+import org.sample.model.UserCourse;
 import org.sample.model.University;
 
 public interface SearchService {
@@ -17,7 +17,7 @@ public interface SearchService {
 	 
 	 public ArrayList<Course> getCourses();
 	 
-	 public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException;
+	 public ArrayList<UserCourse> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException;
 	 	 
 	 public Course getCourse(SearchForm searchForm);
 

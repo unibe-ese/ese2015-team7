@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.validation.constraints.NotNull;
 
-import org.sample.model.Tutor;
+import org.sample.model.UserCourse;
 
 public class SearchForm 
 {	
@@ -16,13 +16,13 @@ public class SearchForm
     //@NotNull
     private String course;
     
-    private ArrayList<Tutor> tutors;
+    private ArrayList<UserCourse> tutors;
 
-	public ArrayList<Tutor> getTutors() {
+	public ArrayList<UserCourse> getTutors() {
 		return tutors;
 	}
 
-	public void setTutors(ArrayList<Tutor> tutors) {
+	public void setTutors(ArrayList<UserCourse> tutors) {
 		this.tutors = tutors;
 	}
 

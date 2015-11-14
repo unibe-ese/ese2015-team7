@@ -10,12 +10,15 @@ import org.sample.controller.service.IUserDataService;
 import org.sample.controller.service.SearchService;
 import org.sample.model.Course;
 import org.sample.model.Grade;
-import org.sample.model.GradeFactory;
+import org.sample.model.UserCourseFormAttributeFactory;
+import org.sample.model.dao.UserCourseDao;
 import org.sample.model.Subject;
 import org.sample.model.TimeSlot;
 import org.sample.model.TimeSlotFactory;
 import org.sample.model.University;
 import org.sample.model.User;
+import org.sample.model.UserCourse;
+import org.sample.model.UserCourseFormAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,7 +35,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * handels all requests concerning the editing and displaying of the profileData.
+ * handles all requests concerning the editing and displaying of the profileData.
  * 
  * @author simon
  *
@@ -51,6 +54,9 @@ public class ProfileController {
 	@Autowired
     SearchService searchService;
 	
+	@Autowired
+	UserCourseDao userCourseDao;
+	
 	/**
 	 * displays the profile data of the Principal if no User is entered
 	 * @param theUser
@@ -61,7 +67,6 @@ public class ProfileController {
     	ModelAndView model = new ModelAndView("profile");
     	User principal =userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     	
-    		
     	User user = principal;
     		if (theUser!=null)
     			user = theUser;
@@ -70,6 +75,9 @@ public class ProfileController {
     	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
     	model.addObject("principalName", principalName);
     	
+    	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>(); 
+        userCourses =  (ArrayList<UserCourse>) userCourseDao.findByUser(user);
+        model.addObject("userCourses", userCourses);
 
         return model;
     }
@@ -91,6 +99,10 @@ public class ProfileController {
     	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
     	model.addObject("principalName", principalName);
     	
+    	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>(); 
+        userCourses =  (ArrayList<UserCourse>) userCourseDao.findByUser(user);
+        model.addObject("userCourses", userCourses);
+    	
         return model;
     }
 	
@@ -110,13 +122,20 @@ public class ProfileController {
     	
     	
     	try{
-    	AutoPopulatingList<Grade> gradeList = new AutoPopulatingList<Grade>(new GradeFactory());
-    	ListIterator<Grade> itr = user.getGrades().listIterator();
+    	AutoPopulatingList<UserCourseFormAttribute> userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
+    	ListIterator<UserCourse> itr = userCourseDao.findByUser(user).listIterator();
     	while(itr.hasNext())
     	{
-    		gradeList.add(itr.next());
+    		UserCourse tmpUserCourse = itr.next();
+    		UserCourseFormAttribute formAttr = new UserCourseFormAttribute();
+    		formAttr.setUniversity(tmpUserCourse.getCourse().getSubject().getUniversity().toString());
+    		formAttr.setSubject(tmpUserCourse.getCourse().getSubject().toString());
+    		formAttr.setCourse(tmpUserCourse.getCourse().toString());
+    		formAttr.setGrade( String.valueOf(tmpUserCourse.getGrade()) );
+    		formAttr.setTeaching( tmpUserCourse.isTeaching() );
+    		userCourseList.add(formAttr);
     	}
-		form.setGrades(gradeList);} catch (Exception e){}
+		form.setUserCourseList(userCourseList);} catch (Exception e){}
 		
     	try{
 		AutoPopulatingList<TimeSlot> timeSlotList = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
@@ -186,7 +205,7 @@ public class ProfileController {
 	
 	@RequestMapping(value="/editProfileAppend", method = RequestMethod.GET)
 	protected String appendGradeField(@RequestParam Integer fieldId, ModelMap model)
-	{	
+	{
 		model.addAttribute("gradeNumber", fieldId);
 		return "template/gradeRow";
 	}
@@ -218,7 +237,7 @@ public class ProfileController {
 		    try {
 		
 			userService.saveFrom(signupForm, user);
-			userService.createAndSaveTutorLinksFromForm(signupForm, user);
+			userService.createAndSaveUserCourseFromForm(signupForm, user);
 			redirectAttributes.addFlashAttribute("infoMessage", "Du hast erfolgreich dein Profil bearbeitet!");
 	
 			model = new ModelAndView("redirect:/profile");

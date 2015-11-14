@@ -26,8 +26,6 @@ public class User {
     private String biography;
     
     @Column(columnDefinition = "LONGBLOB") // to store large data
-    private ArrayList<Grade> grades = new ArrayList<Grade>();
-    @Column(columnDefinition = "LONGBLOB") // to store large data
     private ArrayList<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
 
     @NaturalId(mutable=false)
@@ -79,14 +77,6 @@ public class User {
 
 	public void setBiography(String biography) {
 		this.biography = biography;
-	}
-
-	public ArrayList<Grade> getGrades() {
-		return grades;
-	}
-
-	public void setGrades(ArrayList<Grade> grades) {
-		this.grades = grades;
 	}
 
     public ArrayList<TimeSlot> getTimeSlots() {

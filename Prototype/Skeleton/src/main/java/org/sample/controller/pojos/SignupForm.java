@@ -6,9 +6,11 @@ import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
 import org.sample.model.Grade;
-import org.sample.model.GradeFactory;
+import org.sample.model.UserCourseFormAttributeFactory;
 import org.sample.model.TimeSlot;
 import org.sample.model.TimeSlotFactory;
+import org.sample.model.UserCourse;
+import org.sample.model.UserCourseFormAttribute;
 import org.springframework.util.AutoPopulatingList;
 
 
@@ -21,7 +23,7 @@ public class SignupForm {
     
     private String biography;
     // @Valid
-    private AutoPopulatingList<Grade> grades = new AutoPopulatingList<Grade>(new GradeFactory());
+    private AutoPopulatingList<UserCourseFormAttribute> userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
     // @Valid
     private AutoPopulatingList<TimeSlot> timeSlots = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
     
@@ -44,12 +46,12 @@ public class SignupForm {
 		this.name = name;
 	}
 
-	public AutoPopulatingList<Grade> getGrades() {
-		return grades;
+	public AutoPopulatingList<UserCourseFormAttribute> getUserCourseList() {
+		return userCourseList;
 	}
 
-	public void setGrades(AutoPopulatingList<Grade> grades) {
-		this.grades = grades;
+	public void setUserCourseList(AutoPopulatingList<UserCourseFormAttribute> userCourseList) {
+		this.userCourseList = userCourseList;
 	}
 
 	public AutoPopulatingList<TimeSlot> getTimeSlots() {

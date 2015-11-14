@@ -3,33 +3,25 @@ package org.sample.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.sample.model.pojos.TutorId;
+import org.sample.model.pojos.UserCourseId;
 
-//@IdClass(TutorId.class)
+@IdClass(UserCourseId.class)
 @Entity
-public class Tutor
+public class UserCourse
 {
-	
 	@Id
-	private long id;
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	//@Id
 	@OneToOne(targetEntity=User.class)
 	private User user;
     
-    //@Id
+    @Id
     @OneToOne(targetEntity=Course.class)
     private Course course;
+    
+    private int grade = 0;
+    
+    private boolean teaching = false;
     
     private String tutorsName;
     
@@ -41,13 +33,29 @@ public class Tutor
 		this.course = course;
 	}
 
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
+	public boolean isTeaching() {
+		return teaching;
+	}
+
+	public void setTeaching(boolean teaching) {
+		this.teaching = teaching;
+	}
+
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-		this.setTutorsName(this.user.getName().substring(0, this.user.getName().length()-1));
+		this.setTutorsName(this.user.getName().substring(0, this.user.getName().length()));
 	}
 
 	public String toString(){
