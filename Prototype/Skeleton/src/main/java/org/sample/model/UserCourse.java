@@ -58,8 +58,9 @@ public class UserCourse
 		this.setTutorsName(this.user.getName().substring(0, this.user.getName().length()));
 	}
 
-	public String toString(){
-		return user.getName();
+	@Override
+	public String toString() {
+		return "Tutor [user=" + user + ", course=" + course + ", tutorsName=" + tutorsName + "]";
 	}
 
 	public String getTutorsName() {

@@ -10,6 +10,7 @@
 <c:forEach items="${requests}" var="item" varStatus="loopIdx">
 	<c:if test="${ item.isAccepted &&notVisited}">
 	<c:set var="notVisited" value="false" />
+	<c:set var="visitedHeader" value="true" />
     <h3>Accepted Incoming Requests</h3>
     <table>
 				<thead>
@@ -50,5 +51,8 @@
 					</tr>
 					</c:if>
 </c:forEach> 
-  </tbody>
-</table>
+<c:if test="${visitedHeader}"> 
+ <c:set var="visitedHeader" value="false" />
+     </tbody> 
+</table> 
+</c:if>  
