@@ -25,7 +25,7 @@
 	</p>
 	
 	<div id="profile-frontpage">
-		<h3>Grades</h3>
+		<h3>Courses</h3>
 		<table class="default">
 		<thead>
                 	<tr>
@@ -33,15 +33,17 @@
                         <th>Subject</th>
                         <th>Course</th>
                         <th>Grade</th>
+                        <th>Teaching</th>
                         <th></th>
                     </tr>
                 </thead>
-		<c:forEach items="${user.grades}" var="item">
+		<c:forEach items="${userCourses}" var="item">
 		  <tr>
-		    	<td><c:out value="${item.university}" /></td>
-		    	<td><c:out value="${item.subject}" /></td>
+		    	<td><c:out value="${item.course.subject.university}" /></td>
+		    	<td><c:out value="${item.course.subject}" /></td>
 		    	<td><c:out value="${item.course}" /></td>
 		    	<td><c:out value="${item.grade}" /></td>
+		    	<td><c:out value="${item.teaching}" /></td>
 		  </tr>
 		  </c:forEach>
 		</table>

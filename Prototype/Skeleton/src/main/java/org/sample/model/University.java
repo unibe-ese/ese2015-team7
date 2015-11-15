@@ -23,6 +23,11 @@ public class University {
     @ManyToOne
     private Address address; 
     
+    public University(){
+    	universityName=null;
+    	city=null;
+    	country=null;
+    }
 
     public Long getUId() {
         return UId;
@@ -68,10 +73,6 @@ public class University {
 		return universityName;
 	}
 	
-	public boolean equals(University otherUni){
-		return (this.UId==otherUni.UId);
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

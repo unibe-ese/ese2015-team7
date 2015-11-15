@@ -7,12 +7,12 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.model.Course;
 import org.sample.model.Subject;
-import org.sample.model.Tutor;
+import org.sample.model.UserCourse;
 import org.sample.model.University;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.CourseDao;
 import org.sample.model.dao.SubjectDao;
-import org.sample.model.dao.TutorDao;
+import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UniversityDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class SearchServiceImpl implements SearchService {
     @Autowired	UniversityDao universityDao;
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
-    @Autowired	TutorDao tutorDao;
+    @Autowired	UserCourseDao tutorDao;
  
     
     @Transactional
@@ -69,22 +69,22 @@ public class SearchServiceImpl implements SearchService {
     }
         
     @Transactional
-    public ArrayList<Tutor> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException
+    public ArrayList<UserCourse> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException
     {
     	
     	String courseName = searchForm.getCourse();
 
         if(!StringUtils.isEmpty(courseName) && "Select Course".equalsIgnoreCase(courseName)) {
-            throw new InvalidUserException("Sorry, Select Course is not a valid name");
+            throw new InvalidUserException("You have not selected a course yet!");
         }
         
         Course course = courseDao.findByCourseName(courseName);
 
-        ArrayList<Tutor> tutorsList = new ArrayList<Tutor>();
-        Iterator<Tutor> tutorsIter	= tutorDao.findAll().iterator();
+        ArrayList<UserCourse> tutorsList = new ArrayList<UserCourse>();
+        Iterator<UserCourse> tutorsIter	= tutorDao.findAll().iterator();
         while(tutorsIter.hasNext())
         {
-        	Tutor tutor = tutorsIter.next();
+        	UserCourse tutor = tutorsIter.next();
         	if(tutor.getCourse().equals(course))
         		tutorsList.add(tutor);
         }

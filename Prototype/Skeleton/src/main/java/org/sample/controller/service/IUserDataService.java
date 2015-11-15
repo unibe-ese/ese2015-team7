@@ -29,7 +29,7 @@ public interface IUserDataService {
 	 * @param signupForm all information about the user.
 	 * @param user the user to whom the signupForm belongs.
 	 */
-	public void createAndSaveTutorLinksFromForm(SignupForm signupForm, User user);
+	public void createAndSaveUserCourseFromForm(SignupForm signupForm, User user);
 	
 	public User getUserById(Long userId);
 

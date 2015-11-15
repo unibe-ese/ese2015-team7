@@ -5,13 +5,13 @@ import java.io.Serializable;
 import org.sample.model.Course;
 import org.sample.model.User;
 
-public class TutorId implements Serializable{
+public class UserCourseId implements Serializable{
 	private static final long serialVersionUID = -1732951049318741876L;
 	
 	private User user;
 	private Course course;
 	
-	public TutorId() {}
+	public UserCourseId() {}
 	
 	public User getUser() {
 		return user;
@@ -43,7 +43,7 @@ public class TutorId implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TutorId other = (TutorId) obj;
+		UserCourseId other = (UserCourseId) obj;
 		if (course == null) {
 			if (other.course != null)
 				return false;
