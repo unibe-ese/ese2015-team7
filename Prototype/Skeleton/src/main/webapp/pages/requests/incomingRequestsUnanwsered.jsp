@@ -10,6 +10,7 @@
 <c:forEach items="${requests}" var="item" varStatus="activIdx">
 	<c:if test="${item.isActiv &&notVisited}">    
 	 <c:set var="notVisited" value="false" />
+	 <c:set var="visitedHeader" value="true" />
 	<h3>Unanwsered Incoming Requests</h3>
  	<table>
 				<thead>
@@ -54,5 +55,8 @@
 					</c:if>  
 					
 </c:forEach>  
+<c:if test="${visitedHeader}"> 
+ <c:set var="visitedHeader" value="false" />
      </tbody> 
 </table> 
+</c:if>  

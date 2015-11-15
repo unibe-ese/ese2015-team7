@@ -33,9 +33,19 @@ public class RequestService implements IRequestService{
 		Request oldRequest= requestDao.findByTutorAndStudentAndCourse(userDao.findByEmail(tutorEmail), userDao.findByEmail(studentEmail),course);
 		
 		Request request;
-		if (oldRequest != null)
+		if (oldRequest != null){
 			request=oldRequest;
-			else {
+			if (request.getIsDeleted()){
+				request.setIsDeleted(false);
+				request.setIsActiv(true);
+			}
+			if (request.getIsDeclined()){
+				request.setIsDeclined(false);
+				request.setIsActiv(true);
+			}
+				
+			
+		}else {
 				request= new Request();
 				
 				request.setCourse(course);

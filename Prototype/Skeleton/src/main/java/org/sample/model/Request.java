@@ -208,6 +208,11 @@ public class Request {
 		this.course = course;
 	}
 
+	@Override
+	public String toString() {
+		return "Request [id=" + id + ", student=" + student + ", tutor=" + tutor + ", course=" + course + "]";
+	}
+
 
 	
 	

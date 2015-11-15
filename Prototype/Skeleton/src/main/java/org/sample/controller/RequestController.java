@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.service.IRequestService;
 import org.sample.controller.service.UserService;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author mirko
  *
  */
+@SessionAttributes({"username"})
 @Controller
 public class RequestController {
 	
@@ -89,7 +92,7 @@ public class RequestController {
     	model.addObject("searchForm", new SearchForm());
     	session.removeAttribute("searchedCourse");
     	String username = principal.getName(); //gets principal and loads user from Database and gets his name
-    	model.addObject("username", username);
+    	session.setAttribute("username", username);
     	
         return model;
     }
@@ -111,7 +114,7 @@ public class RequestController {
     	model.addObject("requests", requests);
     	session.removeAttribute("searchedCourse");
     	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
-    	model.addObject("username", username);
+    	session.setAttribute("username", username);
     	
         return model;
     }
@@ -122,18 +125,19 @@ public class RequestController {
 	 * @return ModelView with updated list of outgoing requests
 	 */
 	@RequestMapping(value = "/myRequests/action", method = RequestMethod.POST)
-    public ModelAndView myRequestAction(@RequestParam(name="courseId")String courseId, @RequestParam("deleteRequest") String tutorEmail){
+    public ModelAndView myRequestAction(@RequestParam(name="courseId")String courseId, @RequestParam("deleteRequest") String tutorEmail,RedirectAttributes redirect){
     	ModelAndView model = new ModelAndView("redirect:/myRequests");
+    	
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
     	User principal = userDao.findByEmail(principalEmail);
 	
     	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail), principal,courseId);
   
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
-    	model.addObject("requests", requests);
+    	redirect.addFlashAttribute("requests", requests);
     	
     	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
-    	model.addObject("username", username);
+    	redirect.addFlashAttribute("username", username);
     	
         return model;
     }
@@ -147,12 +151,12 @@ public class RequestController {
 	 * @return ModelView with updated requestPage
 	 */
 	@RequestMapping(value = "/requests/action", method = RequestMethod.POST)
-    public ModelAndView requestAction(@RequestParam(name="courseId")String courseId, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail,RedirectAttributes redirectAttrs){
+    public ModelAndView requestAction(@RequestParam(name="courseId")String courseId, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail,RedirectAttributes redirect){
     	ModelAndView model = new ModelAndView("redirect:/requests");
     	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
     	User principal = userDao.findByEmail(principalEmail);
     	
-    	
+    try{  	
    
     	if (acceptStudentEmail != null){
     		iRequestService.acceptRequest(principal,userDao.findByEmail(acceptStudentEmail),courseId);
@@ -162,12 +166,15 @@ public class RequestController {
     		iRequestService.declineRequest(principal, userDao.findByEmail(declineStudentEmail),courseId);
     	}
     	
-  
+
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
-    	model.addObject("requests", requests);
+    	redirect.addFlashAttribute("requests", requests);
+	} catch (InvalidUserException e) {
+    	e.printStackTrace();
+    }
     	
     	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
-    	model.addObject("username", username);
+    	redirect.addFlashAttribute("username", username);
     	
         return model;
     }
