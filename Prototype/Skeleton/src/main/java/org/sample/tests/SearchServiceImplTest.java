@@ -37,7 +37,7 @@ public class SearchServiceImplTest {
     @Autowired	UniversityDao universityDao;
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
-    @Autowired	UserCourseDao tutorDao;
+    @Autowired	UserCourseDao userCourseDao;
     @Autowired	SearchService searchService;
     private SearchForm searchForm;
     private University uni, uni2, uni3;
@@ -156,11 +156,10 @@ public class SearchServiceImplTest {
     	otherCourse.setSubject(new Subject());
     	
     	
-    	ArrayList<UserCourse> tutorsList = new ArrayList<UserCourse>();
-    	tutorsList.add(tutor);
-    	tutorsList.add(tutor2);
+    	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
+    	userCourseList.add(tutor);
     	
-    	when(tutorDao.findAll()).thenReturn(tutorsList);
+    	when(userCourseDao.findByCourse(course)).thenReturn(userCourseList);
     	when(courseDao.findByCourseName("ESE")).thenReturn(course);
     	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
     	

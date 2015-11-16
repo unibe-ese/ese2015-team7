@@ -29,7 +29,7 @@ public class SearchServiceImpl implements SearchService {
     @Autowired	UniversityDao universityDao;
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
-    @Autowired	UserCourseDao tutorDao;
+    @Autowired	UserCourseDao userCourseDao;
  
     
     @Transactional
@@ -80,16 +80,9 @@ public class SearchServiceImpl implements SearchService {
         
         Course course = courseDao.findByCourseName(courseName);
 
-        ArrayList<UserCourse> tutorsList = new ArrayList<UserCourse>();
-        Iterator<UserCourse> tutorsIter	= tutorDao.findAll().iterator();
-        while(tutorsIter.hasNext())
-        {
-        	UserCourse tutor = tutorsIter.next();
-        	if(tutor.getCourse().equals(course))
-        		tutorsList.add(tutor);
-        }
+        ArrayList<UserCourse> userCourseList = userCourseDao.findByCourse(course);
 
-        return tutorsList;
+        return userCourseList;
     }
         
     @Transactional

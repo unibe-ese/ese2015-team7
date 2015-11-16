@@ -19,14 +19,12 @@
 </head>
 <body>
 
-<h1>Search Results</h1>
 
 <form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-    <c:forEach items="${userCourse}" var="item">
-
-
-	    <p><c:out value="${item.tutorsName}" /> <c:out value="${searchedCourse}" /> 
+    <h1>Search results for course: ${searchedCourse} of ${searchedCourse.subject}, ${searchedCourse.subject.university} </h1> 
+    <c:forEach items="${userCourses}" var="item">
+	    <p><c:out value="${item.tutorsName}" /> 
 	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
     </p>
     </c:forEach>
