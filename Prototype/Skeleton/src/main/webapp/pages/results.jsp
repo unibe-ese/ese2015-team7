@@ -23,7 +23,7 @@
 
 <form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-    <c:forEach items="${tutors}" var="item">
+    <c:forEach items="${userCourse}" var="item">
 
 
 	    <p><c:out value="${item.tutorsName}" /> <c:out value="${searchedCourse}" /> 

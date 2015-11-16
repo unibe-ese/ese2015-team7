@@ -40,7 +40,7 @@ public class SearchController {
 
 
     /**
-     * Loads searchPage and all possible Universitys/Subjects and Courses and 
+     * Loads searchPage and all possible Universities/Subjects and Courses and 
      * adds the Searchform for user input
      * 
      * @return ModelView of searchPage
@@ -49,16 +49,13 @@ public class SearchController {
     public ModelAndView searchUniversities() {
     	
     	ModelAndView model = new ModelAndView("search");
-        ArrayList<University> universities = new ArrayList<University>(); 
-        universities =  searchService.getUniversities();
+        ArrayList<University> universities = searchService.getUniversities();
     	model.addObject("universities", universities);
 
-    	ArrayList<Subject> subjects = new ArrayList<Subject>();
-    	subjects = searchService.getSubjects();
+    	ArrayList<Subject> subjects = searchService.getSubjects();
     	model.addObject("subjects", subjects);
 
-    	ArrayList<Course> courses = new ArrayList<Course>();
-    	courses = searchService.getCourses();
+    	ArrayList<Course> courses = searchService.getCourses();
     	model.addObject("courses", courses);
 
     	model.addObject("searchForm", new SearchForm());
@@ -83,8 +80,8 @@ public class SearchController {
     	ModelAndView model = new ModelAndView();
             try {
             	model = new ModelAndView("results");
-            	ArrayList<UserCourse> tutors = searchService.getTutorsFromSearchForm(searchForm); 	
-            	model.addObject("tutors", tutors);
+            	ArrayList<UserCourse> userCourses = searchService.getTutorsFromSearchForm(searchForm); 	
+            	model.addObject("userCourses", userCourses);
             	
 
             	Course searchedCourse = searchService.getCourse(searchForm);

@@ -20,7 +20,7 @@
 		<constructor-arg value="org.sample.model.dao.RequestDao" />
 	</bean>
 	<bean class="org.mockito.Mockito" factory-method="mock">
-		<constructor-arg value="org.sample.model.dao.TutorDao" />
+		<constructor-arg value="org.sample.model.dao.UserCourseDao" />
 	</bean>
 	<bean class="org.mockito.Mockito" factory-method="mock">
 		<constructor-arg value="org.sample.model.dao.AddressDao" />
