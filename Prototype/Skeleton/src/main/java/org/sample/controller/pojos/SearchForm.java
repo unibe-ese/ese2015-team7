@@ -1,10 +1,6 @@
 package org.sample.controller.pojos;
 
-import java.util.ArrayList;
-
 import javax.validation.constraints.NotNull;
-
-import org.sample.model.UserCourse;
 
 public class SearchForm 
 {	
@@ -16,15 +12,7 @@ public class SearchForm
     //@NotNull
     private String course;
     
-    private ArrayList<UserCourse> tutors;
-
-	public ArrayList<UserCourse> getTutors() {
-		return tutors;
-	}
-
-	public void setTutors(ArrayList<UserCourse> tutors) {
-		this.tutors = tutors;
-	}
+    private int grade;
 
 	public Long getId() {
         return id;
@@ -57,4 +45,12 @@ public class SearchForm
 	public void setId(Long id) {
         this.id = id;
     }
+	
+    public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
 }

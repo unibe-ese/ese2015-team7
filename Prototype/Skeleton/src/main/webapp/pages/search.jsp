@@ -28,9 +28,6 @@
                 <form:errors path="University" cssClass="help-inline" element="span"/>
             </div>
         </div>
-       <!-- <div class="form-actions">
-            <button type="button" class="btn" onclick="location.href='/Skeleton/searchSubjects'">Search University Subjects</button>
-        </div>-->
          <c:set var="SubjectErrors"><form:errors path="Subject"/></c:set>
         <div class="control-group<c:if test="${not empty SubjectErrors}"> error</c:if>">
             <label class="control-label" for="field-Subject">Subject</label>
@@ -51,6 +48,25 @@
                 <form:errors path="Course" cssClass="help-inline" element="span"/>
             </div>
         </div>
+        <button type="button" id="moreButton" class="btn btn-primary">More Criteria</button>
+        <c:set var="GradeErrors"><form:errors path="Grade"/></c:set>
+        <div id="grades" class="control-group<c:if test="${not empty GradeErrors}"> error</c:if>">
+            <label class="control-label" for="field-Grade">Grade</label>
+            <div class="controls">
+                <form:select path="grade" id="field-Grade" tabindex="1">
+				           		<form:option value='0' label="Select Grade"/>
+				           		<form:option value="1"/>
+				           		<form:option value="2"/>
+				           		<form:option value="3"/>
+				           		<form:option value="4"/>
+				           		<form:option value="5"/>
+				           		<form:option value="6"/>
+                </form:select>
+                <form:errors path="Grade" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        <button type="button" id="lessButton" class="btn btn-primary">Less Criteria</button>
+        
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Search</button> 
         </div>
@@ -60,6 +76,23 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+	$("#grades").hide();	
+	$("#lessButton").hide();
+
+	$("#moreButton").click(function(){
+		$("#grades").toggle();
+		$("#moreButton").toggle();
+		$("#lessButton").toggle();
+	});
+	
+	$("#lessButton").click(function(){
+		$("#grades").toggle();
+		$("#moreButton").toggle();
+		$("#lessButton").toggle();
+	});
+});
+
 $("#field-University").change(function(){
 	var uni = $(this).val();
 

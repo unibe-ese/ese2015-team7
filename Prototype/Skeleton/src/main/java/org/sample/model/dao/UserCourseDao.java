@@ -11,4 +11,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserCourseDao extends CrudRepository<UserCourse,Long> {
 	List<UserCourse> findByUser(User user);
 	ArrayList<UserCourse> findByCourse(Course course);
+	ArrayList<UserCourse> findByCourseAndGrade(Course course, int grade);
 }

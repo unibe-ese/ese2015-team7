@@ -81,6 +81,12 @@ public class SearchServiceImpl implements SearchService {
         Course course = courseDao.findByCourseName(courseName);
 
         ArrayList<UserCourse> userCourseList = userCourseDao.findByCourse(course);
+        
+        if(searchForm.getGrade()!=0)
+        {
+        	int grade = searchForm.getGrade();
+        	userCourseList = userCourseDao.findByCourseAndGrade(course, grade);
+        }
 
         return userCourseList;
     }
