@@ -3,6 +3,7 @@ package org.sample.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.sample.model.pojos.UserCourseId;
@@ -12,18 +13,18 @@ import org.sample.model.pojos.UserCourseId;
 public class UserCourse
 {
 	@Id
-	@OneToOne(targetEntity=User.class)
+	@ManyToOne(targetEntity=User.class)
 	private User user;
     
     @Id
-    @OneToOne(targetEntity=Course.class)
+    @ManyToOne(targetEntity=Course.class)
     private Course course;
     
     private int grade = 0;
     
     private boolean teaching = false;
     
-    private String tutorsName;
+    private String tutorsName; 
     
 	public Course getCourse() {
 		return course;
