@@ -19,12 +19,20 @@
 	                </p>
 	            </c:if>
 	
-	        <c:set var="nameErrors"><form:errors path="name"/></c:set>
+	        <c:set var="nameErrors"><form:errors path="firstName"/></c:set>
 	        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
-	            <label class="control-label" for="field-name">Name</label>
+	            <label class="control-label" for="field-name">First Name</label>
 	            <div class="controls">
-	                <form:input path="name" id="field-name" tabindex="1" maxlength="35"/>
-	                <form:errors path="name" cssClass="help-inline" element="span"/>
+	                <form:input path="firstName" id="field-fistName" tabindex="1" maxlength="35"/>
+	                <form:errors path="firstName" cssClass="help-inline" element="span"/>
+	            </div>
+	        </div>
+	        <c:set var="nameErrors"><form:errors path="lastName"/></c:set>
+	        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
+	            <label class="control-label" for="field-lastName">Last Name</label>
+	            <div class="controls">
+	                <form:input path="lastName" id="field-lastName" tabindex="1" maxlength="35"/>
+	                <form:errors path="lastName" cssClass="help-inline" element="span"/>
 	            </div>
 	        </div>
 	        <c:set var="passwordErrors"><form:errors path="password"/></c:set>

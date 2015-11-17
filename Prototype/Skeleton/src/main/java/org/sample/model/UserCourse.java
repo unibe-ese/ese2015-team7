@@ -55,7 +55,6 @@ public class UserCourse
 
 	public void setUser(User user) {
 		this.user = user;
-		this.setTutorsName(this.user.getName().substring(0, this.user.getName().length()));
 	}
 
 	@Override

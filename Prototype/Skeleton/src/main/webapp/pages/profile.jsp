@@ -16,7 +16,7 @@
 	</c:if>
 	
 	<!-- <img src="image/1212" height="75px" width="75px" align="left" /> -->
-	<h3><c:out value="${user.name}"/></h3>
+	<h3><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></h3>
 	<h4><c:out value="${user.email}"/></h4>
 	
 	<p>

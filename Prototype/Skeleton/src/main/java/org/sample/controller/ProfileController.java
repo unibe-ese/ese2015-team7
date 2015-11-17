@@ -90,9 +90,10 @@ public class ProfileController {
     public ModelAndView postProfile( @RequestParam("itemUser") String tutorEmail){
     	ModelAndView model = new ModelAndView("profile");
     	User user = userService.getUserByEmail(tutorEmail);
+    	User principal=userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     	model.addObject(user);
     	
-    	String username = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getFirstName()+" "+principal.getLastName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username);
     	
     	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
@@ -116,7 +117,8 @@ public class ProfileController {
 		User user = userService.getUserByEmail(principal.getName());
     	
     	SignupForm form = new SignupForm();
-    	form.setName(user.getName());
+    	form.setFirstName(user.getFirstName());
+    	form.setLastName(user.getLastName());
     	form.setBiography(user.getBiography());
     	
     	

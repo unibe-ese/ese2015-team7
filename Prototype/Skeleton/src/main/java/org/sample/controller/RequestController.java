@@ -66,8 +66,8 @@ public class RequestController {
     	User principal = userDao.findByEmail(principalEmail);
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests",myRequests);
-    	
-    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+ 
+    	String username = principal.getFirstName()+" "+principal.getLastName();
     	model.addObject("username", username); 
         return model;
     }
@@ -91,7 +91,7 @@ public class RequestController {
     	
     	model.addObject("searchForm", new SearchForm());
     	session.removeAttribute("searchedCourse");
-    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getFirstName()+" "+principal.getLastName();
     	session.setAttribute("username", username);
     	
         return model;
@@ -113,7 +113,7 @@ public class RequestController {
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	model.addObject("requests", requests);
     	session.removeAttribute("searchedCourse");
-    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getFirstName()+" "+principal.getLastName();
     	session.setAttribute("username", username);
     	
         return model;
@@ -136,7 +136,7 @@ public class RequestController {
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	redirect.addFlashAttribute("requests", requests);
     	
-    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getFirstName()+" "+principal.getLastName();
     	redirect.addFlashAttribute("username", username);
     	
         return model;
@@ -172,8 +172,8 @@ public class RequestController {
 	} catch (InvalidUserException e) {
     	e.printStackTrace();
     }
-    	
-    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+   
+		String username = principal.getFirstName()+" "+principal.getLastName();
     	redirect.addFlashAttribute("username", username);
     	
         return model;
