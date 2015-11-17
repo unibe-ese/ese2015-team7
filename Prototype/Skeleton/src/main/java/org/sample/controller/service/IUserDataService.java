@@ -36,6 +36,13 @@ public interface IUserDataService {
 	public User getUserByEmail(String email);
 	
 	/**
+	 * returns the principal user using the getUserByEmail method.
+	 * 
+	 * @return the principal user
+	 */
+	public User getPrincipalUser();
+	
+	/**
 	 * Compares the two params and return true if they are literally equal.
 	 * @param password The password of the user.
 	 * @param passwordVerify The password of the user again.

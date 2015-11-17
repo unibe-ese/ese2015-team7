@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.IUserDataService;
-import org.sample.controller.service.SearchService;
+import org.sample.controller.service.ISearchService;
 import org.sample.model.Course;
 import org.sample.model.UserCourseFormAttributeFactory;
 import org.sample.model.dao.UserCourseDao;
@@ -51,7 +51,7 @@ public class ProfileController {
     IUserDataService userService;
 	
 	@Autowired
-    SearchService searchService;
+    ISearchService searchService;
 	
 	@Autowired
 	UserCourseDao userCourseDao;
@@ -64,15 +64,15 @@ public class ProfileController {
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView profile(@RequestParam(required=false,name="user") User theUser){
     	ModelAndView model = new ModelAndView("profile");
-    	User principal =userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	User principal = userService.getPrincipalUser();
+    	String principalName=principal.getName();
+    	model.addObject("principalName", principalName);
     	
     	User user = principal;
     		if (theUser!=null)
     			user = theUser;
     	model.addObject(user);
     	
-    	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
-    	model.addObject("principalName", principalName);
     	
     	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>(); 
         userCourses =  (ArrayList<UserCourse>) userCourseDao.findByUser(user);
@@ -92,7 +92,7 @@ public class ProfileController {
     	User user = userService.getUserByEmail(tutorEmail);
     	model.addObject(user);
     	
-    	String username = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getName(); //gets principal and loads user from Database and gets his name
+    	String username = userService.getPrincipalUser().getName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username);
     	
     	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
@@ -113,7 +113,7 @@ public class ProfileController {
 	@ModelAttribute("signupForm")
 	public SignupForm getSignupForm(Principal principal)
 	{
-		User user = userService.getUserByEmail(principal.getName());
+		User user = userService.getPrincipalUser();
     	
     	SignupForm form = new SignupForm();
     	form.setName(user.getName());
@@ -196,7 +196,7 @@ public class ProfileController {
     public ModelAndView editProfile(Principal principal){
     	ModelAndView model = new ModelAndView("editProfile");
     	
-    	User user = userService.getUserByEmail(principal.getName());
+    	User user = userService.getPrincipalUser();
     	model.addObject(user);
     	
         return model;
@@ -219,7 +219,7 @@ public class ProfileController {
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
     public ModelAndView postProfile(Principal principal, @Validated(SignupForm.SignupValidatorGroup.class) SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
 		
-		User user = userService.getUserByEmail(principal.getName());
+		User user = userService.getPrincipalUser();
 		signupForm.setEmail(user.getEmail());
 		
 		ModelAndView model;

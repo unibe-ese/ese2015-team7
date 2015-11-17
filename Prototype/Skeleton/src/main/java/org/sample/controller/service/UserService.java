@@ -16,6 +16,7 @@ import org.sample.model.dao.CourseDao;
 import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -25,7 +26,7 @@ public class UserService implements IUserDataService{
 	
 	@Autowired	UserDao userDao;
 	@Autowired	UserCourseDao userCourseDao;
-	@Autowired	SearchService searchService;
+	@Autowired	ISearchService searchService;
 	@Autowired	CourseDao courseDao;
 
 	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
@@ -106,6 +107,10 @@ public class UserService implements IUserDataService{
 
     public User getUserByEmail(String email) {
     	return userDao.findByEmail(email);
+    }
+    
+    public User getPrincipalUser(){
+    	return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
 	public boolean validatePassword(String password, String passwordVerify) {

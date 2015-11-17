@@ -2,25 +2,28 @@
 package org.sample.tests;
 
 import org.junit.runner.RunWith;
-import org.sample.controller.exceptions.InvalidUserException;
+import org.sample.controller.SearchController;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.service.SearchService;
+import org.sample.controller.service.UserService;
 import org.sample.model.Course;
 import org.sample.model.Subject;
-import org.sample.model.UserCourse;
 import org.sample.model.University;
 import org.sample.model.User;
+import org.sample.model.UserCourse;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.CourseDao;
 import org.sample.model.dao.SubjectDao;
-import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UniversityDao;
+import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UserDao;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.servlet.ModelAndView;
+
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -29,8 +32,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/test.xml"})
-public class SearchServiceImplTest {
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/searchControllerTest.xml"})
+public class SearchControllerTest {
 	
     @Autowired	UserDao userDao;
     @Autowired	AddressDao addDao;
@@ -38,15 +41,17 @@ public class SearchServiceImplTest {
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
     @Autowired	UserCourseDao userCourseDao;
-    @Autowired	SearchService searchService;
+    @Autowired  UserService	userService;	
     private SearchForm searchForm;
     private University uni, uni2, uni3;
     private Subject sub, sub2, sub3;
-    private Course testCourse, course, course2, course3;
+    private Course course, course2, course3;
     private UserCourse tutor, tutor2;
+    @Autowired SearchController searchController;
+    @Autowired SearchService searchService;
     
     @Before
-    public void setUp(){
+    public void setUp(){    	
     	uni = new University();
     	uni.setUniversityName("Uni Bern");
     	
@@ -104,80 +109,42 @@ public class SearchServiceImplTest {
     
     
     @Test
-    public void testGetUniversities(){
+    public void testSearchUniversitiesSubjectsAndCourses(){
     	
     	ArrayList<University> unis = new ArrayList<University>();
     	unis.add(uni2);
     	unis.add(uni3);
     	
-    	when(universityDao.findAll()).thenReturn(unis);
-    	ArrayList<University> testUnis = searchService.getUniversities();
-    	
-    	assertEquals(unis, testUnis);    	
-    }
-    
+    	when(searchService.getUniversities()).thenReturn(unis);
 
-    @Test
-    public void testGetSubjects(){
     	ArrayList<Subject> subs = new ArrayList<Subject>();
     	subs.add(sub2);
     	subs.add(sub3);
     	
-    	when(subjectDao.findAll()).thenReturn(subs);
-    	ArrayList<Subject> testSubs = searchService.getSubjects();
+    	when(searchService.getSubjects()).thenReturn(subs);
     	
-    	assertEquals(subs, testSubs);    	
-    }
-    
-
-    @Test
-    public void testGetCourses(){
     	ArrayList<Course> courses = new ArrayList<Course>();
     	courses.add(course2);
     	courses.add(course3);
-    	
-    	when(courseDao.findAll()).thenReturn(courses);
-    	ArrayList<Course> testCourses = searchService.getCourses();
-    	
-    	assertEquals(courses, testCourses);    	
-    }
-    
 
-	@Test(expected = InvalidUserException.class)
-    public void testCourseNotSelected(){
-		searchForm.setCourse("Select Course");
-		searchService.getTutorsFromSearchForm(searchForm);
-	}
-	
-	@Test
-    public void testGetTutorsFromSearchForm(){
-    	Course otherCourse = new Course();
-    	otherCourse.setCourseName("Flying");
-    	otherCourse.setSubject(new Subject());
+    	when(searchService.getCourses()).thenReturn(courses);
     	
+    	User user = new User();
+    	user.setName("Hans Solo");
+    	when(userService.getPrincipalUser()).thenReturn(user);
     	
-    	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
-    	userCourseList.add(tutor);
+    	ModelAndView testModel = searchController.searchUniversitiesSubjectsAndCourses();
     	
-    	when(userCourseDao.findByCourse(course)).thenReturn(userCourseList);
-    	when(courseDao.findByCourseName("ESE")).thenReturn(course);
-    	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
+    	ModelAndView model = new ModelAndView();
+    	model.addObject("universities", unis);
+    	model.addObject("subjects", subs);
+    	model.addObject("courses", courses);
+    	model.addObject("username", user.getName());
     	
-		ArrayList<UserCourse> tutors = searchService.getTutorsFromSearchForm(searchForm);
-		
-		ArrayList<UserCourse> testTutors = new ArrayList<UserCourse>();
-		testTutors.add(tutor);
-		assertEquals(testTutors, tutors);
-    }
-    
-    
-    @Test
-    public void testGetCourse(){
-    	testCourse = new Course();
-    	testCourse = searchService.getCourse(searchForm);
-    	
-    	assertEquals(course, testCourse);
-    	
+    	assertEquals(model.getModel().get("universities"), testModel.getModel().get("universities"));
+    	assertEquals(model.getModel().get("subjects"), testModel.getModel().get("subjects"));
+    	assertEquals(model.getModel().get("courses"), testModel.getModel().get("courses"));
+    	assertEquals(model.getModel().get("username"), testModel.getModel().get("username"));
     }
 
 }

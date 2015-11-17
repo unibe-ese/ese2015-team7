@@ -12,4 +12,6 @@ public interface UserCourseDao extends CrudRepository<UserCourse,Long> {
 	List<UserCourse> findByUser(User user);
 	ArrayList<UserCourse> findByCourse(Course course);
 	ArrayList<UserCourse> findByCourseAndGrade(Course course, int grade);
+	ArrayList<UserCourse> findByCourseAndTeaching(Course course, boolean teaching);
+	ArrayList<UserCourse> findByCourseAndGradeAndTeaching(Course course, int grade, boolean teaching);
 }

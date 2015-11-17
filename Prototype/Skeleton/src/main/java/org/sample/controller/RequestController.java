@@ -15,7 +15,6 @@ import org.sample.model.Request;
 import org.sample.model.User;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,19 +54,17 @@ public class RequestController {
 	@RequestMapping(value = "/myRequests", method = RequestMethod.POST)
     public ModelAndView myRequestPost( @RequestParam("requestedUser") String tutorEmail, HttpSession session){
     	ModelAndView model = new ModelAndView("myRequests");
-    	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
+    	User principal = userService.getPrincipalUser();
+    	String principalEmail = principal.getEmail();
     	
     	Course course = (Course) session.getAttribute("searchedCourse");
-    	iRequestService.saveRequest(tutorEmail, SecurityContextHolder.getContext().getAuthentication().getName(), course);
+    	iRequestService.saveRequest(tutorEmail, principalEmail, course);
     	session.removeAttribute("searchedCourse");
     	
-    	
-    	
-    	User principal = userDao.findByEmail(principalEmail);
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests",myRequests);
     	
-    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username); 
         return model;
     }
@@ -82,9 +79,7 @@ public class RequestController {
 	@RequestMapping(value = "/myRequests", method = RequestMethod.GET)
     public ModelAndView myRequestGet( HttpSession session){
     	ModelAndView model = new ModelAndView("myRequests");
-    	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
-    	
-    	User principal = userDao.findByEmail(principalEmail);
+    	User principal = userService.getPrincipalUser();    	
     	
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests", myRequests);
@@ -106,14 +101,12 @@ public class RequestController {
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
     public ModelAndView requestGet(HttpSession session){
     	ModelAndView model = new ModelAndView("requests");
-    	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
-    	
-    	User principal = userDao.findByEmail(principalEmail);
+    	User principal = userService.getPrincipalUser();
     	
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	model.addObject("requests", requests);
     	session.removeAttribute("searchedCourse");
-    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
     	session.setAttribute("username", username);
     	
         return model;
@@ -128,15 +121,14 @@ public class RequestController {
     public ModelAndView myRequestAction(@RequestParam(name="courseId")String courseId, @RequestParam("deleteRequest") String tutorEmail,RedirectAttributes redirect){
     	ModelAndView model = new ModelAndView("redirect:/myRequests");
     	
-    	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
-    	User principal = userDao.findByEmail(principalEmail);
+    	User principal = userService.getPrincipalUser();
 	
     	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail), principal,courseId);
   
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	redirect.addFlashAttribute("requests", requests);
     	
-    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
     	redirect.addFlashAttribute("username", username);
     	
         return model;
@@ -153,8 +145,7 @@ public class RequestController {
 	@RequestMapping(value = "/requests/action", method = RequestMethod.POST)
     public ModelAndView requestAction(@RequestParam(name="courseId")String courseId, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail,RedirectAttributes redirect){
     	ModelAndView model = new ModelAndView("redirect:/requests");
-    	String principalEmail =SecurityContextHolder.getContext().getAuthentication().getName();
-    	User principal = userDao.findByEmail(principalEmail);
+    	User principal = userService.getPrincipalUser();
     	
     try{  	
    
@@ -173,7 +164,7 @@ public class RequestController {
     	e.printStackTrace();
     }
     	
-    	String username = userService.getUserByEmail(principalEmail).getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
     	redirect.addFlashAttribute("username", username);
     	
         return model;
