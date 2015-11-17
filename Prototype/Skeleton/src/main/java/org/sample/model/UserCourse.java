@@ -55,7 +55,6 @@ public class UserCourse
 
 	public void setUser(User user) {
 		this.user = user;
-		this.setTutorsName(this.user.getName().substring(0, this.user.getName().length()));
 	}
 
 	@Override
@@ -64,7 +63,14 @@ public class UserCourse
 	}
 
 	public String getTutorsName() {
-		return tutorsName;
+		String firstName = this.user.getFirstName();
+		String firstLf = ""+firstName.charAt(0);
+		String lastLf = ""+firstName.charAt(firstName.length()-1);
+		String lastName = this.user.getLastName();
+		String firstLl = ""+lastName.charAt(0);
+		String lastLl = ""+lastName.charAt(lastName.length()-1);
+		
+		return firstLf+lastLf+firstLl+lastLl;
 	}
 
 	public void setTutorsName(String tutorsName) {

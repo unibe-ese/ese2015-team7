@@ -30,20 +30,22 @@ public class UserService implements IUserDataService{
 	@Autowired	CourseDao courseDao;
 
 	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
-		String name = signupForm.getName();
+		String firstName = signupForm.getFirstName();
+		String lastName = signupForm.getLastName();
 		
-		if(StringUtils.isEmpty(name)){
+		if(StringUtils.isEmpty(firstName)||StringUtils.isEmpty(lastName)){
 			throw new InvalidUserException("Sorry, no empty names"); // throw exception
 		}
-		else if (!StringUtils.isEmpty(name) && "ESE".equalsIgnoreCase(name)) {
-		    throw new InvalidUserException("Sorry, ESE is not a valid name"); // throw exception
+		else if (firstName.length()<2|| lastName.length()<2) {
+		    throw new InvalidUserException("Sorry, Please Enter Names with more than 2 Letters"); // throw exception
 		}
 		
 
 		BCryptPasswordEncoder password = new BCryptPasswordEncoder();
 
 		User user = (userToUpdate == null) ? new User() : userToUpdate;
-		user.setName(signupForm.getName());
+		user.setFirstName(signupForm.getFirstName());
+		user.setLastName(signupForm.getLastName());
 		user.setEmail(signupForm.getEmail());
 		
 		user.setBiography(signupForm.getBiography());

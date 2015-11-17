@@ -63,8 +63,8 @@ public class RequestController {
     	
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests",myRequests);
-    	
-    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
+ 
+    	String username = principal.getWholeName();
     	model.addObject("username", username); 
         return model;
     }
@@ -86,7 +86,7 @@ public class RequestController {
     	
     	model.addObject("searchForm", new SearchForm());
     	session.removeAttribute("searchedCourse");
-    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getWholeName();
     	session.setAttribute("username", username);
     	
         return model;
@@ -106,7 +106,7 @@ public class RequestController {
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	model.addObject("requests", requests);
     	session.removeAttribute("searchedCourse");
-    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getWholeName();
     	session.setAttribute("username", username);
     	
         return model;
@@ -128,7 +128,7 @@ public class RequestController {
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	redirect.addFlashAttribute("requests", requests);
     	
-    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getWholeName();
     	redirect.addFlashAttribute("username", username);
     	
         return model;
@@ -163,8 +163,8 @@ public class RequestController {
 	} catch (InvalidUserException e) {
     	e.printStackTrace();
     }
-    	
-    	String username = principal.getName(); //gets principal and loads user from Database and gets his name
+    
+		String username = principal.getWholeName();
     	redirect.addFlashAttribute("username", username);
     	
         return model;

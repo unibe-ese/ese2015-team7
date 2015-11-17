@@ -16,8 +16,12 @@ public class SignupForm {
 	public interface SignupValidatorGroup {}
 
     private Long id;
-    private String name;
-    
+    @NotNull
+    @Pattern(regexp="\\w\\w+")
+    private String firstName;
+    @NotNull
+    @Pattern(regexp="\\w\\w+")
+    private String lastName;
     private String biography;
     // @Valid
     private AutoPopulatingList<UserCourseFormAttribute> userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
@@ -35,13 +39,7 @@ public class SignupForm {
     message = "Must be valid email address")
     private String email;
 
-    public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+ 
 
 	public AutoPopulatingList<UserCourseFormAttribute> getUserCourseList() {
 		return userCourseList;
@@ -98,4 +96,22 @@ public class SignupForm {
 	public void setPasswordVerify(String passwordVerify) {
 		this.passwordVerify = passwordVerify;
 	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
 }

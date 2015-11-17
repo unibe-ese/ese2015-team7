@@ -25,12 +25,19 @@
                 <div>${infoMessage}</div>
             </c:if>
 
-        <c:set var="nameErrors"><form:errors path="name"/></c:set>
-        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
-            <label class="control-label" for="field-name">Name</label>
+        <c:set var="firstNameErrors"><form:errors path="firstName"/></c:set>
+        <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
+            <label class="control-label" for="field-firstName">First Name</label>
             <div class="controls">
-                <form:input path="name" id="field-name" tabindex="1" maxlength="35" placeholder="Name"/>
-                <form:errors path="name" cssClass="help-inline" element="span"/>
+                <form:input path="firstName" id="field-firstName" tabindex="1" maxlength="35" placeholder="firstName"/>
+                <form:errors path="firstName" cssClass="help-inline" element="span"/>
+            </div>
+        </div><c:set var="lastNameErrors"><form:errors path="lastName"/></c:set>
+        <div class="control-group<c:if test="${not empty lastNameErrors}"> error</c:if>">
+            <label class="control-label" for="field-lastName">Last Name</label>
+            <div class="controls">
+                <form:input path="lastName" id="field-lastName" tabindex="1" maxlength="35" placeholder="lastName"/>
+                <form:errors path="lastName" cssClass="help-inline" element="span"/>
             </div>
         </div>
         <c:set var="emailErrors"><form:errors path="email"/></c:set>

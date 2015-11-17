@@ -57,7 +57,7 @@ public class UserController {
 
 	try {
 	    if (!userService.validatePassword(signupForm.getPassword(), signupForm.getPasswordVerify())) {
-		    redirectAttributes.addFlashAttribute("infoMessage", "Deine Passwörter stimmen nicht überein");
+		    redirectAttributes.addFlashAttribute("infoMessage", "Your passwords do not match");
 		    return new ModelAndView("redirect:/signUp");
 		}
 	} catch (Exception d) {}
@@ -68,12 +68,12 @@ public class UserController {
 	
 	    
 		if ( userService.getUserByEmail(signupForm.getEmail()) != null) {
-		    redirectAttributes.addFlashAttribute("infoMessage", "Ein User mit dieser E-Mail-Adressse existiert schon!");
+		    redirectAttributes.addFlashAttribute("infoMessage", "A user with this email exists already!");
 		    return new ModelAndView("redirect:/signUp");
 		}
 	
 		userService.saveFrom(signupForm);
-		redirectAttributes.addFlashAttribute("infoMessage", "Du hast dich erfolgreich registriert. Du kannst dich nun einloggen.");
+		redirectAttributes.addFlashAttribute("infoMessage", "You have successfuly registerd. You can now log in.");
 
 		model = new ModelAndView("redirect:/");
 	    } catch (InvalidUserException e) {

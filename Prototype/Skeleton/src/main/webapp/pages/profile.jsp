@@ -11,13 +11,15 @@
 
 	<h2>Profile</h2>
 	
-	<c:if test="${user.email == principalName}">
+	<c:if test="${user.email == principalEmail}">
 		<button type="button" class="btn-edit" onclick="location.href='/Skeleton/editProfile'">Edit</button>
 	</c:if>
 	
 	<!-- <img src="image/1212" height="75px" width="75px" align="left" /> -->
-	<h3><c:out value="${user.name}"/></h3>
+	<h3><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></h3>
+	<c:if test="${user.email == principalEmail}">
 	<h4><c:out value="${user.email}"/></h4>
+	</c:if>
 	
 	<p>
 		<button type="button" class="btn" onclick="switchDisplay('profile-frontpage', 'profile-timeslots')">Front Page</button>

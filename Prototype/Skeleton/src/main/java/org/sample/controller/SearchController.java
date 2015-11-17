@@ -12,6 +12,7 @@ import org.sample.model.Course;
 import org.sample.model.Subject;
 import org.sample.model.UserCourse;
 import org.sample.model.University;
+import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,8 +60,8 @@ public class SearchController {
 
     	model.addObject("searchForm", new SearchForm());
     	
-    	
-    	String username = userService.getPrincipalUser().getName(); //gets principal and loads user from Database and gets his name
+    	User principal=userService.getPrincipalUser();
+    	String username = principal.getWholeName();
     	model.addObject("username", username);
     	
         return model;

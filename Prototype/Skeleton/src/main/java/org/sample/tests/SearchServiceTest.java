@@ -43,7 +43,8 @@ public class SearchServiceTest {
     private University uni, uni2, uni3;
     private Subject sub, sub2, sub3;
     private Course testCourse, course, course2, course3;
-    private UserCourse tutor, tutor2;
+    private UserCourse userCourse, userCourse2;
+    private User user, user2;
     
     @Before
     public void setUp(){
@@ -80,14 +81,24 @@ public class SearchServiceTest {
     	course3 = new Course();
     	course3.setCourseName("Swirling");
     	course3.setSubject(sub3);
-    	    	    	
-    	tutor = new UserCourse();
-    	tutor.setTutorsName("Vader");
-    	tutor.setCourse(course);
-
-    	tutor2 = new UserCourse();
-    	tutor2.setTutorsName("Darth");
-    	tutor2.setCourse(course2);
+    	
+    	user = new User();
+    	user.setId(1l);
+    	user.setFirstName("Darth");
+    	
+    	user2 = new User();
+    	user.setId(2l);
+    	user2.setFirstName("Vader");
+    	
+    	userCourse = new UserCourse();
+    	userCourse.setUser(user);
+    	userCourse.setCourse(course);
+    	userCourse.setTeaching(true);
+    	
+    	userCourse2 = new UserCourse();
+    	userCourse2.setUser(user2);
+    	userCourse2.setCourse(course2);
+    	userCourse2.setTeaching(true);
     	
     	searchForm = new SearchForm();
     	searchForm.setCourse("ESE");
@@ -157,16 +168,16 @@ public class SearchServiceTest {
     	
     	
     	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
-    	userCourseList.add(tutor);
+    	userCourseList.add(userCourse);
     	
-    	when(userCourseDao.findByCourse(course)).thenReturn(userCourseList);
+    	when(userCourseDao.findByCourseAndTeaching(course, true)).thenReturn(userCourseList);
     	when(courseDao.findByCourseName("ESE")).thenReturn(course);
     	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
     	
 		ArrayList<UserCourse> tutors = searchService.getTutorsFromSearchForm(searchForm);
 		
 		ArrayList<UserCourse> testTutors = new ArrayList<UserCourse>();
-		testTutors.add(tutor);
+		testTutors.add(userCourse);
 		assertEquals(testTutors, tutors);
     }
     

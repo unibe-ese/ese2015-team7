@@ -19,7 +19,6 @@ import org.sample.model.User;
 import org.sample.model.UserCourse;
 import org.sample.model.UserCourseFormAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,8 +64,8 @@ public class ProfileController {
     public ModelAndView profile(@RequestParam(required=false,name="user") User theUser){
     	ModelAndView model = new ModelAndView("profile");
     	User principal = userService.getPrincipalUser();
-    	String principalName=principal.getName();
-    	model.addObject("principalName", principalName);
+    	String principalEmail = principal.getEmail();
+    	model.addObject("principalEmail", principalEmail);
     	
     	User user = principal;
     		if (theUser!=null)
@@ -90,13 +89,14 @@ public class ProfileController {
     public ModelAndView postProfile( @RequestParam("itemUser") String tutorEmail){
     	ModelAndView model = new ModelAndView("profile");
     	User user = userService.getUserByEmail(tutorEmail);
+    	User principal=userService.getPrincipalUser();
     	model.addObject(user);
     	
-    	String username = userService.getPrincipalUser().getName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getWholeName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username);
     	
-    	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
-    	model.addObject("principalName", principalName);
+    	String principalEmail=principal.getEmail();
+    	model.addObject("principalEmail", principalEmail);
     	
     	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>(); 
         userCourses =  (ArrayList<UserCourse>) userCourseDao.findByUser(user);
@@ -116,7 +116,8 @@ public class ProfileController {
 		User user = userService.getPrincipalUser();
     	
     	SignupForm form = new SignupForm();
-    	form.setName(user.getName());
+    	form.setFirstName(user.getFirstName());
+    	form.setLastName(user.getLastName());
     	form.setBiography(user.getBiography());
     	
     	

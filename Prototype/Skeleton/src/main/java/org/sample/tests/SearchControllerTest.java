@@ -130,7 +130,8 @@ public class SearchControllerTest {
     	when(searchService.getCourses()).thenReturn(courses);
     	
     	User user = new User();
-    	user.setName("Hans Solo");
+    	user.setFirstName("Hans");
+    	user.setLastName("Solo");
     	when(userService.getPrincipalUser()).thenReturn(user);
     	
     	ModelAndView testModel = searchController.searchUniversitiesSubjectsAndCourses();
@@ -139,7 +140,7 @@ public class SearchControllerTest {
     	model.addObject("universities", unis);
     	model.addObject("subjects", subs);
     	model.addObject("courses", courses);
-    	model.addObject("username", user.getName());
+    	model.addObject("username", user.getWholeName());
     	
     	assertEquals(model.getModel().get("universities"), testModel.getModel().get("universities"));
     	assertEquals(model.getModel().get("subjects"), testModel.getModel().get("subjects"));
