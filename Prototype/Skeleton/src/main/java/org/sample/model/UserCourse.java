@@ -22,9 +22,7 @@ public class UserCourse
     private int grade = 0;
     
     private boolean teaching = false;
-    
-    private String tutorsName; 
-    
+        
 	public Course getCourse() {
 		return course;
 	}
@@ -59,7 +57,7 @@ public class UserCourse
 
 	@Override
 	public String toString() {
-		return "Tutor [user=" + user + ", course=" + course + ", tutorsName=" + tutorsName + "]";
+		return "Tutor [user=" + user + ", course=" + course + ", tutorsName=" + getTutorsName()+ "]";
 	}
 
 	public String getTutorsName() {
@@ -72,10 +70,4 @@ public class UserCourse
 		
 		return firstLf+lastLf+firstLl+lastLl;
 	}
-
-	public void setTutorsName(String tutorsName) {
-		this.tutorsName = tutorsName;
-	}
-	
-
 }

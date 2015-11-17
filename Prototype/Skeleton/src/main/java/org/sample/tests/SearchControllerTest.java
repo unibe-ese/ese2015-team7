@@ -42,11 +42,11 @@ public class SearchControllerTest {
     @Autowired	CourseDao courseDao;
     @Autowired	UserCourseDao userCourseDao;
     @Autowired  UserService	userService;	
-    private SearchForm searchForm;
     private University uni, uni2, uni3;
     private Subject sub, sub2, sub3;
     private Course course, course2, course3;
-    private UserCourse tutor, tutor2;
+    private UserCourse userCourse, userCourse2, userCourse3;
+    private User user, user2, user3;
     @Autowired SearchController searchController;
     @Autowired SearchService searchService;
     
@@ -81,23 +81,36 @@ public class SearchControllerTest {
     	course2.setCourseName("Flying");
     	course2.setSubject(sub2);
     	
-
     	course3 = new Course();
     	course3.setCourseName("Swirling");
     	course3.setSubject(sub3);
     	    	    	
-    	tutor = new UserCourse();
-    	tutor.setTutorsName("Vader");
-    	tutor.setCourse(course);
-
-    	tutor2 = new UserCourse();
-    	tutor2.setTutorsName("Darth");
-    	tutor2.setCourse(course2);
+    	user = new User();
+    	user.setFirstName("Darth");
+    	user.setLastName("Vader");
+    	user.setId(1l);
     	
-    	searchForm = new SearchForm();
-    	searchForm.setCourse("ESE");
-    	searchForm.setSubject("Info");
-    	searchForm.setUniversity("Uni Bern");
+    	user2 = new User();
+    	user2.setFirstName("Luke");
+    	user2.setLastName("Skywalker");
+    	user2.setId(2l);	
+    	
+    	user3 = new User();
+    	user3.setFirstName("Darth");
+    	user3.setLastName("Sidius");
+    	user3.setId(3l);
+    	
+    	userCourse = new UserCourse();
+    	userCourse.setUser(user);
+    	userCourse.setCourse(course);
+
+    	userCourse2 = new UserCourse();
+    	userCourse2.setUser(user2);
+    	userCourse2.setCourse(course2);
+    	
+    	userCourse3 = new UserCourse();
+    	userCourse3.setUser(user3);
+    	userCourse3.setCourse(course);
     	
     	when(userDao.save(any(User.class))).then(returnsFirstArg());
     	
@@ -136,16 +149,35 @@ public class SearchControllerTest {
     	
     	ModelAndView testModel = searchController.searchUniversitiesSubjectsAndCourses();
     	
-    	ModelAndView model = new ModelAndView();
-    	model.addObject("universities", unis);
-    	model.addObject("subjects", subs);
-    	model.addObject("courses", courses);
-    	model.addObject("username", user.getWholeName());
+    	assertEquals("search", testModel.getViewName());
+    	assertEquals(unis, testModel.getModel().get("universities"));
+    	assertEquals(subs, testModel.getModel().get("subjects"));
+    	assertEquals(courses, testModel.getModel().get("courses"));
+    	assertEquals(user.getWholeName(), testModel.getModel().get("username"));
+    }
+    
+    @Test
+    public void testResults(){
     	
-    	assertEquals(model.getModel().get("universities"), testModel.getModel().get("universities"));
-    	assertEquals(model.getModel().get("subjects"), testModel.getModel().get("subjects"));
-    	assertEquals(model.getModel().get("courses"), testModel.getModel().get("courses"));
-    	assertEquals(model.getModel().get("username"), testModel.getModel().get("username"));
+    	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>();
+    	userCourses.add(userCourse);
+    	userCourses.add(userCourse3);
+    	    	
+    	Course searchedCourse = course;
+    	    	
+    	SearchForm searchForm = new SearchForm();
+    	searchForm.setCourse(searchedCourse.getCourseName());
+
+    	when(searchService.getTutorsFromSearchForm(searchForm)).thenReturn(userCourses);
+    	when(searchService.getCourse(searchForm)).thenReturn(searchedCourse);
+    	
+    	ModelAndView testModel = searchController.results(searchForm);
+    	
+    	assertEquals("results", testModel.getViewName());
+    	assertEquals(userCourses, testModel.getModel().get("userCourses"));
+    	assertEquals(searchedCourse, testModel.getModel().get("searchedCourse"));
+    	
+    	
     }
 
 }
