@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="org.sample.model.University" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <c:import url="template/header.jsp" />
@@ -18,13 +18,16 @@
 <link rel="stylesheet" href="/Skeleton/css/style.css" />
 </head>
 <body>
-
+<div class="outer" >
+<div align="center"> <h1>Search results for course: ${searchedCourse} of ${searchedCourse.subject}, ${searchedCourse.subject.university} </h1> </div>
+<div class="inner">
 
 <form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-    <h1>Search results for course: ${searchedCourse} of ${searchedCourse.subject}, ${searchedCourse.subject.university} </h1> 
+    
+
     <c:forEach items="${userCourses}" var="item">
-	    <p><c:out value="${item.tutorsName}" /> 
+	    <p>${fn:substring(item.user.firstName, 0, 2)}${fn:substring(item.user.lastName, 0, 2)}
 	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
     </p>
     </c:forEach>
@@ -43,5 +46,6 @@
         </div>
     </c:if>
 
-
+</div>
+</div>
 <c:import url="template/footer.jsp" />

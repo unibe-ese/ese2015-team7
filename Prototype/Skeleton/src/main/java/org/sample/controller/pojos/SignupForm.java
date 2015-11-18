@@ -17,10 +17,10 @@ public class SignupForm {
 
     private Long id;
     @NotNull
-    @Pattern(regexp="\\w\\w+")
+    @Pattern(regexp="\\w\\w+", message = "Your first name must be a word with more then two letters containing \"a-zA-Z0-9_\"")
     private String firstName;
     @NotNull
-    @Pattern(regexp="\\w\\w+")
+    @Pattern(regexp="\\w\\w+", message = "Your last name must be a Word with more then two letters containing \"a-zA-Z0-9_\"")
     private String lastName;
     private String biography;
     // @Valid
@@ -28,7 +28,7 @@ public class SignupForm {
     // @Valid
     private AutoPopulatingList<TimeSlot> timeSlots = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
     
-    @Size(groups= {SignupValidatorGroup.class, Default.class}, min = 6, max = 20, message = "Bitte wähle ein passwort mit mindestens 6 Zeichen.")
+    @Size(groups= {SignupValidatorGroup.class, Default.class}, min = 6, max = 20, message = "Your Password did not match, please try again!")
     private String password;
     
     private String passwordVerify;
@@ -36,7 +36,7 @@ public class SignupForm {
 
     @NotNull
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", 
-    message = "Must be valid email address")
+    message = "Please enter a valid E-Mail address.")
     private String email;
 
  

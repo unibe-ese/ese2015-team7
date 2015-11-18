@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     
  <c:set var="notVisited" value="true" />
 <c:forEach items="${myRequests}" var="item" varStatus="activIdx">
@@ -29,7 +29,7 @@
 
 		                		<tr>
 									<td>
-										<c:out value="${item.tutor.name}" />
+									${fn:substring(item.tutor.firstName, 0, 2)}${fn:substring(item.tutor.lastName, 0, 2)} 
 									</td>
 									<td>
 								   		<c:out value="${item.course.courseName}" />

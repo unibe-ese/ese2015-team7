@@ -23,12 +23,12 @@
                 </thead>
                 <tbody>
 				</c:if>   
-				<c:if test="${item.isActiv}">               
+				<c:if test="${item.isActiv}">  
                 	<tr>
 		                	
 		                		<tr>
 									<td>
-										<c:out value="${item.student.name}" />
+										${fn:substring(item.student.firstName, 0, 2)}${fn:substring(item.student.lastName, 0, 2)} 
 									</td>
 									<td>
 								   		<c:out value="${item.course.courseName}" />

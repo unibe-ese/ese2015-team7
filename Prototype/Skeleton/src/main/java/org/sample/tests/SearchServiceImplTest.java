@@ -82,11 +82,11 @@ public class SearchServiceImplTest {
     	course3.setSubject(sub3);
     	    	    	
     	tutor = new UserCourse();
-    	tutor.setTutorsName("Vader");
+
     	tutor.setCourse(course);
 
     	tutor2 = new UserCourse();
-    	tutor2.setTutorsName("Darth");
+
     	tutor2.setCourse(course2);
     	
     	searchForm = new SearchForm();

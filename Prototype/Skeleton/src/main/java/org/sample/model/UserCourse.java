@@ -23,7 +23,7 @@ public class UserCourse
     
     private boolean teaching = false;
     
-    private String tutorsName; 
+
     
 	public Course getCourse() {
 		return course;
@@ -59,16 +59,10 @@ public class UserCourse
 
 	@Override
 	public String toString() {
-		return "Tutor [user=" + user + ", course=" + course + ", tutorsName=" + tutorsName + "]";
+		return "UserCourse [user=" + user + ", course=" + course + ", grade=" + grade + ", teaching=" + teaching + "]";
 	}
 
-	public String getTutorsName() {
-		return tutorsName;
-	}
 
-	public void setTutorsName(String tutorsName) {
-		this.tutorsName = tutorsName;
-	}
 	
 
 }

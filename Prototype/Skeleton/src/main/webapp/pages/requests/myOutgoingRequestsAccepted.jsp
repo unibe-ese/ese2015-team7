@@ -30,7 +30,7 @@
 		                	 
 		                		<tr>
 									<td>
-										<c:out value="${item.tutor.name}" />
+										<c:out value="${fn:substring(item.student.firstName,1,2)}" /><c:out value="${fn:substring(item.student.LastName,1,2)}" />
 									</td>
 									<td>
 										<c:out value="${item.tutor.email}" />
