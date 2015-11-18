@@ -25,19 +25,19 @@
                 <div>${infoMessage}</div>
             </c:if>
 
-        <c:set var="nameErrors"><form:errors path="firstName"/></c:set>
-        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
+
+        <c:set var="firstNameErrors"><form:errors path="firstName"/></c:set>
+        <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
             <label class="control-label" for="field-firstName">First Name</label>
             <div class="controls">
-                <form:input path="firstName" id="field-firstName" tabindex="1" maxlength="35" placeholder="Name"/>
+                <form:input path="firstName" id="field-firstName" tabindex="1" maxlength="35" placeholder="firstName"/>
                 <form:errors path="firstName" cssClass="help-inline" element="span"/>
             </div>
-        </div>
-        <c:set var="nameErrors"><form:errors path="lastName"/></c:set>
-        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
+        </div><c:set var="lastNameErrors"><form:errors path="lastName"/></c:set>
+        <div class="control-group<c:if test="${not empty lastNameErrors}"> error</c:if>">
             <label class="control-label" for="field-lastName">Last Name</label>
             <div class="controls">
-                <form:input path="lastName" id="field-lastName" tabindex="1" maxlength="35" placeholder="Name"/>
+                <form:input path="lastName" id="field-lastName" tabindex="1" maxlength="35" placeholder="lastName"/>
                 <form:errors path="lastName" cssClass="help-inline" element="span"/>
             </div>
         </div>

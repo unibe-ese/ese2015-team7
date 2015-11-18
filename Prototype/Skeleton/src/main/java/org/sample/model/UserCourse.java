@@ -22,9 +22,7 @@ public class UserCourse
     private int grade = 0;
     
     private boolean teaching = false;
-    
 
-    
 	public Course getCourse() {
 		return course;
 	}
@@ -59,10 +57,12 @@ public class UserCourse
 
 	@Override
 	public String toString() {
+
 		return "UserCourse [user=" + user + ", course=" + course + ", grade=" + grade + ", teaching=" + teaching + "]";
 	}
 
 
 	
+
 
 }

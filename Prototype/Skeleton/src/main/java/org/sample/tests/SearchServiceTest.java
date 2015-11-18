@@ -4,7 +4,7 @@ package org.sample.tests;
 import org.junit.runner.RunWith;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.service.SearchService;
+import org.sample.controller.service.ISearchService;
 import org.sample.model.Course;
 import org.sample.model.Subject;
 import org.sample.model.UserCourse;
@@ -30,7 +30,7 @@ import static org.mockito.AdditionalAnswers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/test.xml"})
-public class SearchServiceImplTest {
+public class SearchServiceTest {
 	
     @Autowired	UserDao userDao;
     @Autowired	AddressDao addDao;
@@ -38,12 +38,13 @@ public class SearchServiceImplTest {
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
     @Autowired	UserCourseDao userCourseDao;
-    @Autowired	SearchService searchService;
+    @Autowired	ISearchService searchService;
     private SearchForm searchForm;
     private University uni, uni2, uni3;
     private Subject sub, sub2, sub3;
     private Course testCourse, course, course2, course3;
-    private UserCourse tutor, tutor2;
+    private UserCourse userCourse, userCourse2;
+    private User user, user2;
     
     @Before
     public void setUp(){
@@ -80,14 +81,26 @@ public class SearchServiceImplTest {
     	course3 = new Course();
     	course3.setCourseName("Swirling");
     	course3.setSubject(sub3);
-    	    	    	
-    	tutor = new UserCourse();
 
-    	tutor.setCourse(course);
+    	
+    	user = new User();
+    	user.setId(1l);
+    	user.setFirstName("Darth");
+    	
+    	user2 = new User();
+    	user.setId(2l);
+    	user2.setFirstName("Vader");
+    	
+    	userCourse = new UserCourse();
+    	userCourse.setUser(user);
+    	userCourse.setCourse(course);
+    	userCourse.setTeaching(true);
+    	
+    	userCourse2 = new UserCourse();
+    	userCourse2.setUser(user2);
+    	userCourse2.setCourse(course2);
+    	userCourse2.setTeaching(true);
 
-    	tutor2 = new UserCourse();
-
-    	tutor2.setCourse(course2);
     	
     	searchForm = new SearchForm();
     	searchForm.setCourse("ESE");
@@ -157,16 +170,16 @@ public class SearchServiceImplTest {
     	
     	
     	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
-    	userCourseList.add(tutor);
+    	userCourseList.add(userCourse);
     	
-    	when(userCourseDao.findByCourse(course)).thenReturn(userCourseList);
+    	when(userCourseDao.findByCourseAndTeaching(course, true)).thenReturn(userCourseList);
     	when(courseDao.findByCourseName("ESE")).thenReturn(course);
     	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
     	
 		ArrayList<UserCourse> tutors = searchService.getTutorsFromSearchForm(searchForm);
 		
 		ArrayList<UserCourse> testTutors = new ArrayList<UserCourse>();
-		testTutors.add(tutor);
+		testTutors.add(userCourse);
 		assertEquals(testTutors, tutors);
     }
     
