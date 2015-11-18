@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <c:import url="template/header.jsp" />
@@ -16,7 +17,14 @@
 	</c:if>
 	
 	<!-- <img src="image/1212" height="75px" width="75px" align="left" /> -->
-	<h3><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></h3>
+	<c:choose>
+		<c:when test="${user.email == principalEmail}">
+			<h3><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></h3>
+		</c:when>
+		<c:otherwise>
+			<h3><c:out value="${fn:substring(user.firstName, 0, 2)}${fn:substring(user.lastName, 0, 2)}"/></h3>
+		</c:otherwise>
+	</c:choose>
 	<c:if test="${user.email == principalEmail}">
 	<h4><c:out value="${user.email}"/></h4>
 	</c:if>
