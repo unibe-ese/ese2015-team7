@@ -15,8 +15,9 @@
     <table>
 				<thead>
                 	<tr>
-                    	<th><h4>Tutor</h4></th>
-                        <th><h4>E-Mail</h4></th>
+                    	<th><h4>Firstname</h4></th>
+                    	<th><h4>Lastname</h4></th>
+                    	<th><h4>E-Mail</h4></th>
                         <th><h4>Course</h4></th>
                         <th></th>
                     </tr>
@@ -30,7 +31,10 @@
 		                	 
 		                		<tr>
 									<td>
-										<c:out value="${fn:substring(item.student.firstName,1,2)}" /><c:out value="${fn:substring(item.student.LastName,1,2)}" />
+										${item.tutor.firstName}
+									</td>
+									<td>
+										${item.tutor.lastName}
 									</td>
 									<td>
 										<c:out value="${item.tutor.email}" />

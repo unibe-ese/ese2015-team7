@@ -22,15 +22,7 @@ public class Course {
     @NotNull
     @ManyToOne (targetEntity=Subject.class)
     private Subject subject;
-    
-    public Course(){
-    	courseName=null;
-    	year=0;
-    	semester=null;
-    	subject=null;
-    }
-    
-    
+        
     public Long getId() {
         return id;
     }

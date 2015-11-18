@@ -16,13 +16,12 @@
 				<thead>
                 	<tr>
                 		
-                    	<th><h4>Student</h4></th>
+                    	<th><h4>First name</h4></th>
+                    	<th><h4>Last name</h4></th>
                         <th><h4>E-Mail</h4></th>
                         <th><h4>Course</h4></th>
-                        <th></th>
-                       
-                        
-                    
+                        <th>		   </th>
+                      
                     </tr>
                 </thead>
                
@@ -30,11 +29,12 @@
 				</c:if>
 				<c:if test="${ item.isAccepted}">
                 	<tr>
-		                	
-		                	 
 		                		<tr>
 									<td>
-										<c:out value="${fn:substring(item.student.firstName,1,2)}" /><c:out value="${fn:substring(item.student.LastName,1,2)}" />
+										${item.student.firstName}
+									</td>
+									<td>
+										${item.student.lastName}
 									</td>
 									<td>
 										<c:out value="${item.student.email}" />

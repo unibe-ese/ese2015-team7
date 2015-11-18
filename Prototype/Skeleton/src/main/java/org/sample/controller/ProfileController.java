@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.IUserDataService;
-import org.sample.controller.service.SearchService;
+import org.sample.controller.service.ISearchService;
 import org.sample.model.Course;
 import org.sample.model.UserCourseFormAttributeFactory;
 import org.sample.model.dao.UserCourseDao;
@@ -19,7 +19,6 @@ import org.sample.model.User;
 import org.sample.model.UserCourse;
 import org.sample.model.UserCourseFormAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,7 +50,7 @@ public class ProfileController {
     IUserDataService userService;
 	
 	@Autowired
-    SearchService searchService;
+    ISearchService searchService;
 	
 	@Autowired
 	UserCourseDao userCourseDao;
@@ -64,15 +63,15 @@ public class ProfileController {
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView profile(@RequestParam(required=false,name="user") User theUser){
     	ModelAndView model = new ModelAndView("profile");
-    	User principal =userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	User principal = userService.getPrincipalUser();
+    	String principalEmail = principal.getEmail();
+    	model.addObject("principalEmail", principalEmail);
     	
     	User user = principal;
     		if (theUser!=null)
     			user = theUser;
     	model.addObject(user);
     	
-    	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
-    	model.addObject("principalName", principalName);
     	
     	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>(); 
         userCourses =  (ArrayList<UserCourse>) userCourseDao.findByUser(user);
@@ -90,14 +89,14 @@ public class ProfileController {
     public ModelAndView postProfile( @RequestParam("itemUser") String tutorEmail){
     	ModelAndView model = new ModelAndView("profile");
     	User user = userService.getUserByEmail(tutorEmail);
-    	User principal=userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	User principal=userService.getPrincipalUser();
     	model.addObject(user);
     	
-    	String username = principal.getFirstName()+" "+principal.getLastName(); //gets principal and loads user from Database and gets his name
+    	String username = principal.getWholeName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username);
     	
-    	String principalName=SecurityContextHolder.getContext().getAuthentication().getName();
-    	model.addObject("principalName", principalName);
+    	String principalEmail=principal.getEmail();
+    	model.addObject("principalEmail", principalEmail);
     	
     	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>(); 
         userCourses =  (ArrayList<UserCourse>) userCourseDao.findByUser(user);
@@ -114,7 +113,7 @@ public class ProfileController {
 	@ModelAttribute("signupForm")
 	public SignupForm getSignupForm(Principal principal)
 	{
-		User user = userService.getUserByEmail(principal.getName());
+		User user = userService.getPrincipalUser();
     	
     	SignupForm form = new SignupForm();
     	form.setFirstName(user.getFirstName());
@@ -198,7 +197,7 @@ public class ProfileController {
     public ModelAndView editProfile(Principal principal){
     	ModelAndView model = new ModelAndView("editProfile");
     	
-    	User user = userService.getUserByEmail(principal.getName());
+    	User user = userService.getPrincipalUser();
     	model.addObject(user);
     	
         return model;
@@ -221,7 +220,7 @@ public class ProfileController {
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
     public ModelAndView postProfile(Principal principal, @Validated(SignupForm.SignupValidatorGroup.class) SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
 		
-		User user = userService.getUserByEmail(principal.getName());
+		User user = userService.getPrincipalUser();
 		signupForm.setEmail(user.getEmail());
 		
 		ModelAndView model;

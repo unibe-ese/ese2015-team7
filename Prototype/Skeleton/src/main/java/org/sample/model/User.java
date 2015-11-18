@@ -114,6 +114,10 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public String getWholeName() {
+		return this.firstName+" "+this.lastName;
+	}
 
 	@Override
 	public String toString() {

@@ -23,12 +23,6 @@ public class University {
     @ManyToOne
     private Address address; 
     
-    public University(){
-    	universityName=null;
-    	city=null;
-    	country=null;
-    }
-
     public Long getUId() {
         return UId;
     }

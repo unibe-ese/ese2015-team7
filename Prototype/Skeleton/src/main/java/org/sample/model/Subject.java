@@ -20,14 +20,7 @@ public class Subject {
     @NotNull
     @ManyToOne (targetEntity=University.class)
     private University university;
-    
-    public Subject(){
-    	subjectName=null;
-    	degreeLevel=null;
-    	university=null;
-    }
-    
-    
+        
     public Long getId() {
         return id;
     }

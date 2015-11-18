@@ -6,7 +6,7 @@ import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.service.SearchService;
+import org.sample.controller.service.ISearchService;
 import org.sample.controller.service.UserService;
 import org.sample.model.Course;
 import org.sample.model.Subject;
@@ -14,7 +14,6 @@ import org.sample.model.UserCourse;
 import org.sample.model.University;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SearchController {
 
     @Autowired
-    SearchService searchService;
+    ISearchService searchService;
     
     @Autowired
     UserService	userService;	
@@ -47,7 +46,7 @@ public class SearchController {
      * @return ModelView of searchPage
      */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView searchUniversities() {
+    public ModelAndView searchUniversitiesSubjectsAndCourses() {
     	
     	ModelAndView model = new ModelAndView("search");
         ArrayList<University> universities = searchService.getUniversities();
@@ -61,9 +60,8 @@ public class SearchController {
 
     	model.addObject("searchForm", new SearchForm());
     	
-    	
-    	User principal=userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-    	String username = principal.getFirstName()+" "+principal.getLastName();
+    	User principal=userService.getPrincipalUser();
+    	String username = principal.getWholeName();
     	model.addObject("username", username);
     	
         return model;

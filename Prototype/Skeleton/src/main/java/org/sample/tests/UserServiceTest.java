@@ -4,7 +4,7 @@ package org.sample.tests;
 import org.junit.runner.RunWith;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
-import org.sample.controller.service.SearchService;
+import org.sample.controller.service.ISearchService;
 import org.sample.controller.service.UserService;
 import org.sample.model.UserCourseFormAttributeFactory;
 import org.sample.model.User;
@@ -26,7 +26,7 @@ import static org.mockito.AdditionalAnswers.*;
 public class UserServiceTest {
 	@Autowired	UserDao userDao;
 	@Autowired	UserCourseDao tutorDao;
-	@Autowired	SearchService searchService;
+	@Autowired	ISearchService searchService;
 	@Autowired	UserService userService;
 	private SignupForm signupForm, testSignupForm;
 	private UserCourseFormAttribute formAttribute;

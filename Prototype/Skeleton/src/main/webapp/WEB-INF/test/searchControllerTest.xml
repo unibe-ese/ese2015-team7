@@ -25,9 +25,15 @@
 	<bean class="org.mockito.Mockito" factory-method="mock">
 		<constructor-arg value="org.sample.model.dao.AddressDao" />
 	</bean>
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.controller.service.SearchService" />
+	</bean>
+	<bean class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="org.sample.controller.service.UserService" />
+	</bean>
+	
 
 	<!-- AUTOWIRE services -->
 	<bean class="org.sample.controller.service.RequestService" />
-	<bean class="org.sample.controller.service.SearchService" />
-	<bean class="org.sample.controller.service.UserService" />	
+	<bean class="org.sample.controller.SearchController" />
 </beans>
