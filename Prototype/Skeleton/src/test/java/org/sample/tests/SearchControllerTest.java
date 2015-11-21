@@ -1,5 +1,5 @@
-
 package org.sample.tests;
+
 
 import org.junit.runner.RunWith;
 import org.sample.controller.SearchController;
@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/test/searchControllerTest.xml"})
+@ContextConfiguration(locations={"file:src/test/java/org/sample/tests/test/searchControllerTest.xml"})
 public class SearchControllerTest {
 	
     @Autowired	UserDao userDao;
