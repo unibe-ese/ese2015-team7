@@ -83,9 +83,26 @@ public class SearchController {
             	ArrayList<UserCourse> userCourses = searchService.getTutorsFromSearchForm(searchForm); 	
             	model.addObject("userCourses", userCourses);
             	
+            	University searchedUniversity = searchService.getUniversity(searchForm);
+            	if(searchedUniversity==null){
+            		searchedUniversity = new University();
+            		searchedUniversity.setUniversityName("All");
+            	}
+            	model.addObject("searchedUniversity", searchedUniversity);
+            	
+            	Subject searchedSubject = searchService.getSubject(searchForm);
+            	if(searchedSubject==null){
+            		searchedSubject = new Subject();
+            		searchedSubject.setSubjectName("All");
+            	}
+            	model.addObject("searchedSubject", searchedSubject);
 
             	Course searchedCourse = searchService.getCourse(searchForm);
-            	model.addObject("searchedCourse",searchedCourse);
+            	if(searchedCourse==null){
+            		searchedCourse = new Course();
+            		searchedCourse.setCourseName("All");
+            	}
+            	model.addObject("searchedCourse", searchedCourse);
             	
             } catch (InvalidUserException e) {
             	e.printStackTrace();

@@ -20,6 +20,8 @@ public interface ISearchService {
 	 public ArrayList<UserCourse> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException;
 	 	 
 	 public Course getCourse(SearchForm searchForm);
+	 public Subject getSubject(SearchForm searchForm);
+	 public University getUniversity(SearchForm searchForm);
 
 
 }

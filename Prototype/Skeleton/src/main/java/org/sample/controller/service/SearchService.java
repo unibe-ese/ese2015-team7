@@ -71,34 +71,54 @@ public class SearchService implements ISearchService {
     @Transactional
     public ArrayList<UserCourse> getTutorsFromSearchForm(SearchForm searchForm) throws InvalidUserException
     {
-    	
+    	String universityName = searchForm.getUniversity();
+    	String subjectName = searchForm.getSubject();    	
     	String courseName = searchForm.getCourse();
+        int grade = searchForm.getGrade();
+    	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
 
-        if(!StringUtils.isEmpty(courseName) && "Select Course".equalsIgnoreCase(courseName)) {
-            throw new InvalidUserException("You have not selected a course yet!");
+        if(!StringUtils.isEmpty(courseName) && !"Select Course".equalsIgnoreCase(courseName)) {
+        	Course course = courseDao.findByCourseName(courseName);
+            userCourseList = userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, grade, true);
         }
-        
-        Course course = courseDao.findByCourseName(courseName);
-
-        ArrayList<UserCourse> userCourseList = userCourseDao.findByCourseAndTeaching(course, true);
-        
-        if(searchForm.getGrade()!=0)
-        {
-        	int grade = searchForm.getGrade();
-        	userCourseList = userCourseDao.findByCourseAndGradeAndTeaching(course, grade, true);
+        else if(!StringUtils.isEmpty(subjectName) && !"Select Subject".equalsIgnoreCase(subjectName)){
+        	Subject subject = subjectDao.findBySubjectName(subjectName);
+        	ArrayList<Course> coursesList = courseDao.findBySubject(subject);
+            for(Course course : coursesList){
+                userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, grade, true));
+            }
         }
-
+        else if(!StringUtils.isEmpty(universityName) && !"Select University".equalsIgnoreCase(universityName)){
+        	University university = universityDao.findByUniversityName(universityName);
+        	ArrayList<Subject> subjectsList = subjectDao.findByUniversity(university);
+        	for(Subject subject : subjectsList){
+	        	ArrayList<Course> coursesList = courseDao.findBySubject(subject);
+	            for(Course course : coursesList){
+	                userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, grade, true));
+	            }
+        	}
+        }  
+        else{
+        	userCourseList = userCourseDao.findByTeachingAndMinimumGrade(grade, true);
+        }
         return userCourseList;
     }
-        
-    @Transactional
 
 	public Course getCourse(SearchForm searchForm) {
-    	University university = universityDao.findByUniversityName(searchForm.getUniversity());
-    	Subject subject  = subjectDao.findBySubjectNameAndUniversity(searchForm.getSubject(),university);
-
+    	Subject subject  = getSubject(searchForm);
 		Course course = courseDao.findByCourseNameAndSubject(searchForm.getCourse(),subject);
 		return course;
+	}
+	
+	public University getUniversity(SearchForm searchForm) {
+    	University university = universityDao.findByUniversityName(searchForm.getUniversity());		
+    	return university;
+	}
+	
+	public Subject getSubject(SearchForm searchForm) {
+    	University university = getUniversity(searchForm);
+		Subject subject = subjectDao.findBySubjectNameAndUniversity(searchForm.getSubject(),university);
+		return subject;
 	}
 }
     

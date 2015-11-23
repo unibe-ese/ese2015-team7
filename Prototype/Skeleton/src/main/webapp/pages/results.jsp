@@ -18,23 +18,15 @@
 <link rel="stylesheet" href="/Skeleton/css/style.css" />
 </head>
 <body>
-<div class="outer" >
-<div align="center"> <h1>Search results for course: ${searchedCourse} of ${searchedCourse.subject}, ${searchedCourse.subject.university} </h1> </div>
-<div class="inner">
-
-<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
-    <fieldset>
-    
-
+<div align="left" >
+<h1>Search results for <br> course: ${searchedCourse}, subject: ${searchedSubject}, university: ${searchedUniversity} </h1>
+<div align="left">
+<form:form method="post" action="profile" modelAttribute="searchForm" id="results"  autocomplete="off">
     <c:forEach items="${userCourses}" var="item">
-	    <p>${fn:substring(item.user.firstName, 0, 2)}${fn:substring(item.user.lastName, 0, 2)}
+	    <p>${fn:substring(item.user.firstName, 0, 2)}${fn:substring(item.user.lastName, 0, 2)}, course: ${item.course}, subject: ${item.course.subject}, university: ${item.course.subject.university} 
 	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
     </p>
     </c:forEach>
-   
-
-
-    </fieldset>
 </form:form>
 
 
