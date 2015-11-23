@@ -78,18 +78,18 @@ public class SearchService implements ISearchService {
     	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
 
         if(!StringUtils.isEmpty(courseName) && !"Select Course".equalsIgnoreCase(courseName)) {
-        	Course course = courseDao.findByCourseName(courseName);
+        	Course course = getCourse(searchForm);
             userCourseList = userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, grade, true);
         }
         else if(!StringUtils.isEmpty(subjectName) && !"Select Subject".equalsIgnoreCase(subjectName)){
-        	Subject subject = subjectDao.findBySubjectName(subjectName);
+        	Subject subject = getSubject(searchForm);
         	ArrayList<Course> coursesList = courseDao.findBySubject(subject);
             for(Course course : coursesList){
                 userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, grade, true));
             }
         }
         else if(!StringUtils.isEmpty(universityName) && !"Select University".equalsIgnoreCase(universityName)){
-        	University university = universityDao.findByUniversityName(universityName);
+        	University university = getUniversity(searchForm);
         	ArrayList<Subject> subjectsList = subjectDao.findByUniversity(university);
         	for(Subject subject : subjectsList){
 	        	ArrayList<Course> coursesList = courseDao.findBySubject(subject);
@@ -104,12 +104,6 @@ public class SearchService implements ISearchService {
         return userCourseList;
     }
 
-	public Course getCourse(SearchForm searchForm) {
-    	Subject subject  = getSubject(searchForm);
-		Course course = courseDao.findByCourseNameAndSubject(searchForm.getCourse(),subject);
-		return course;
-	}
-	
 	public University getUniversity(SearchForm searchForm) {
     	University university = universityDao.findByUniversityName(searchForm.getUniversity());		
     	return university;
@@ -119,6 +113,12 @@ public class SearchService implements ISearchService {
     	University university = getUniversity(searchForm);
 		Subject subject = subjectDao.findBySubjectNameAndUniversity(searchForm.getSubject(),university);
 		return subject;
+	}
+	
+	public Course getCourse(SearchForm searchForm) {
+    	Subject subject  = getSubject(searchForm);
+		Course course = courseDao.findByCourseNameAndSubject(searchForm.getCourse(),subject);
+		return course;
 	}
 }
     

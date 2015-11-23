@@ -66,7 +66,7 @@ public class SearchController {
     	
         return model;
     }
-    
+        
 
     /**
      * shows all Results for the specified SearchRequest in Searchform.
@@ -107,6 +107,22 @@ public class SearchController {
             } catch (InvalidUserException e) {
             	e.printStackTrace();
             }
+
+        ArrayList<University> universities = searchService.getUniversities();
+    	model.addObject("universities", universities);
+
+    	ArrayList<Subject> subjects = searchService.getSubjects();
+    	model.addObject("subjects", subjects);
+
+    	ArrayList<Course> courses = searchService.getCourses();
+    	model.addObject("courses", courses);
+
+    	model.addObject("searchForm", new SearchForm());
+    	
+    	User principal=userService.getPrincipalUser();
+    	String username = principal.getWholeName();
+    	model.addObject("username", username);
+    	
     	return model;
     }
 }

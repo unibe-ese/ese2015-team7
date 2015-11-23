@@ -18,6 +18,10 @@
 <link rel="stylesheet" href="/Skeleton/css/style.css" />
 </head>
 <body>
+
+<c:import url="template/searchTemplate.jsp" />
+<br>
+
 <div align="left" >
 <h1>Search results for <br> course: ${searchedCourse}, subject: ${searchedSubject}, university: ${searchedUniversity} </h1>
 <div align="left">

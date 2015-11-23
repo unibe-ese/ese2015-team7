@@ -86,7 +86,7 @@
 	</div>
 	
 	<p><button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>
-	<c:if test="${user.email != principalName && not empty searchedCourse}">
+	<c:if test="${user.email != principalEmail && not empty searchedCourse}">
 		<form:form method="post" action="myRequests" modelAttribute="searchForm" id="profile" cssClass="form-horizontal"  autocomplete="off">
    		 	<p><button type=submit name=requestedUser value="${user.email}">Send Request</button></p>    
 		</form:form>
