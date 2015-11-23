@@ -97,9 +97,9 @@ $("#field-University").change(function(){
 	var uni = $(this).val();
 
 	$('#field-Subject').empty();
-	$('#field-Subject').append("<option value="+"Select Subject"+">"+"Select Subject"+"</option>");
+	$('#field-Subject').append("<option value="+"\"Select Subject\""+">"+"Select Subject"+"</option>");
 	$('#field-Course').empty();
-	$('#field-Course').append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
+	$('#field-Course').append("<option value="+"\"Select Course\""+">"+"Select Course"+"</option>");
 	<c:forEach items="${subjects}" var="subject">
 		if("${subject.university.universityName}"==uni){
 			$('#field-Subject').append("<option value="+"\""+"${subject}"+"\""+">"+"${subject}"+"</option>");
@@ -111,7 +111,7 @@ $("#field-Subject").change(function(){
 	var subject = $(this).val();
 
 	$('#field-Course').empty();
-	$('#field-Course').append("<option value="+"Select Course"+">"+"Select Course"+"</option>");
+	$('#field-Course').append("<option value="+"\"Select Course\""+">"+"Select Course"+"</option>");
 	<c:forEach items="${courses}" var="course">
 		if("${course.subject.subjectName}"==subject){
 			$('#field-Course').append("<option value="+"\""+"${course}"+"\""+">"+"${course}"+"</option>");
