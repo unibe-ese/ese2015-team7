@@ -171,7 +171,7 @@ public class SearchServiceTest {
     	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
     	userCourseList.add(userCourse);
     	
-    	when(userCourseDao.findByCourseAndTeaching(course, true)).thenReturn(userCourseList);
+    	//when(userCourseDao.findByCourseAndTeaching(course, true)).thenReturn(userCourseList);
     	when(courseDao.findByCourseName("ESE")).thenReturn(course);
     	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
     	

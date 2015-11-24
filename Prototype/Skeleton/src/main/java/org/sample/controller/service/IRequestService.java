@@ -41,6 +41,8 @@ public interface IRequestService {
 	
 	void declineRequest(User tutor, User student, String courseId);
 
+	String getStateMessage(ArrayList<Request> requests);
+
 	
 
 }

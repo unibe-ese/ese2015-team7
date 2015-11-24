@@ -63,6 +63,7 @@ public class RequestController {
     	
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests",myRequests);
+    	model.addObject("message",iRequestService.getStateMessage(myRequests));
  
     	String username = principal.getWholeName();
     	model.addObject("username", username); 
@@ -83,6 +84,7 @@ public class RequestController {
     	
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests", myRequests);
+    	model.addObject("message",iRequestService.getStateMessage(myRequests));
     	
     	model.addObject("searchForm", new SearchForm());
     	session.removeAttribute("searchedCourse");
@@ -105,6 +107,7 @@ public class RequestController {
     	
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	model.addObject("requests", requests);
+    	model.addObject("message",iRequestService.getStateMessage(requests));
     	session.removeAttribute("searchedCourse");
     	String username = principal.getWholeName();
     	session.setAttribute("username", username);
@@ -124,9 +127,11 @@ public class RequestController {
     	User principal = userService.getPrincipalUser();
 	
     	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail), principal,courseId);
-  
+    	redirect.addFlashAttribute("infoMessage", "You successfully deleted the Request!");
+    	
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
-    	redirect.addFlashAttribute("requests", requests);
+    	redirect.addFlashAttribute("myRequests", requests);
+    	redirect.addFlashAttribute("message",iRequestService.getStateMessage(requests));
     	
     	String username = principal.getWholeName();
     	redirect.addFlashAttribute("username", username);
@@ -151,15 +156,18 @@ public class RequestController {
    
     	if (acceptStudentEmail != null){
     		iRequestService.acceptRequest(principal,userDao.findByEmail(acceptStudentEmail),courseId);
-    		
+    		redirect.addFlashAttribute("infoMessage", "You successfully accepted the Request!");
     	}
     	else if (declineStudentEmail != null){
     		iRequestService.declineRequest(principal, userDao.findByEmail(declineStudentEmail),courseId);
+    		redirect.addFlashAttribute("infoMessage", "You successfully declined the Request!");
     	}
     	
 
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	redirect.addFlashAttribute("requests", requests);
+    	redirect.addFlashAttribute("message",iRequestService.getStateMessage(requests));
+    	
 	} catch (InvalidUserException e) {
     	e.printStackTrace();
     }
@@ -169,4 +177,7 @@ public class RequestController {
     	
         return model;
     }
+
+
+
 }

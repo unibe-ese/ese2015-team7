@@ -62,42 +62,12 @@
         
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Login</button>
-            <button type="button" class="btn" onclick="location.href='/Skeleton/signup'">SignUp</button>
-        </div>
-    </fieldset>
-</form:form>
-
-
-
-
-
-<!--
-<form:form method="post" modelAttribute="loginForm" action="validate" id="loginForm" cssClass="form-horizontal"  autocomplete="off">
-    <fieldset>
-
-        <c:set var="nameErrors"><form:errors path="name"/></c:set>
-        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
-            <label class="control-label" for="field-name">Name</label>
-            <div class="controls">
-                <form:input path="name" id="field-name" tabindex="1" maxlength="35" placeholder="Name"/>
-                <form:errors path="name" cssClass="help-inline" element="span"/>
-            </div>
-        </div>
-        <c:set var="passwordErrors"><form:errors path="password"/></c:set>
-        <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
-            <label class="control-label" for="field-password">Password</label>
-            <div class="controls">
-                <form:password path="password" id="field-password" tabindex="1" maxlength="35" placeholder="Password"/>
-                <form:errors path="password" cssClass="help-inline" element="span"/>
-            </div>
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Login</button>
             <button type="button" class="btn" onclick="location.href='/Skeleton/signUp'">SignUp</button>
         </div>
     </fieldset>
 </form:form>
--->
+
+
 
 </div>
 </div>

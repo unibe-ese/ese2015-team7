@@ -20,6 +20,9 @@
 
 <h2>RequestPage</h2>
 
+	<c:if test="${not empty infoMessage}">
+        <div>${infoMessage}</div>
+    </c:if>
  	<fieldset>
     	
 		<c:import url="requests/incomingRequestsAccepted.jsp" />
@@ -27,7 +30,9 @@
 		<c:import url="requests/incomingRequestsUnanwsered.jsp" />
     
    	 </fieldset>
-
+	<c:if test="${not empty infoMessage}">
+        <div>${message}</div>
+    </c:if>
 </div>
 </div>
 </body>

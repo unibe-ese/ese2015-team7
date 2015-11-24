@@ -28,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jannis
  *
  */
-@SessionAttributes({"username","searchedCourse"})
+@SessionAttributes({"username"})
 @Controller
 public class SearchController {
 
@@ -56,7 +56,7 @@ public class SearchController {
     	model.addObject("subjects", subjects);
 
     	ArrayList<Course> courses = searchService.getCourses();
-    	model.addObject("courses", courses);
+    	model.addObject("coursesw", courses);
 
     	model.addObject("searchForm", new SearchForm());
     	

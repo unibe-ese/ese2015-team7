@@ -23,7 +23,10 @@
 
 <h2>myRequestPage</h2>
 
-
+	<c:if test="${not empty infoMessage}">
+        <div>${infoMessage}</div>
+    </c:if>
+    
     <fieldset>
     	
 		<c:import url="requests/myOutgoingRequestsAccepted.jsp" />
@@ -33,6 +36,9 @@
 		<c:import url="requests/myOutgoingRequestsUnanwsered.jsp" />
     
    	 </fieldset>
+   	 <c:if test="${not empty infoMessage}">
+        <div>${message}</div>
+    </c:if>
 
 </body>
 </html>

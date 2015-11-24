@@ -34,7 +34,7 @@ public class UserController {
 	 * @param message informs User about mistakes he did (not equal passwords)
 	 * @return ModelView signupPage
 	 */
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
     public ModelAndView register(@ModelAttribute("infoMessage") String message) {
 	ModelAndView model = new ModelAndView("signUp");
 	model.addObject("signupForm", new SignupForm());

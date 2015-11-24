@@ -30,8 +30,13 @@ public class RequestService implements IRequestService{
 	
 	@Transactional
 	public void saveRequest(String tutorEmail, String studentEmail, Course course) {
-		Request oldRequest= requestDao.findByTutorAndStudentAndCourse(userDao.findByEmail(tutorEmail), userDao.findByEmail(studentEmail),course);
 		
+		Request oldRequest;
+		try{
+			oldRequest= requestDao.findByTutorAndStudentAndCourse(userDao.findByEmail(tutorEmail), userDao.findByEmail(studentEmail),course);
+		}catch (Exception e){
+			oldRequest=null;
+		}
 		Request request;
 		if (oldRequest != null){
 			request=oldRequest;
@@ -123,6 +128,31 @@ public class RequestService implements IRequestService{
 		requestDao.save(request);
 		
 	}
+
+
+
+
+
+	@Override
+	public String getStateMessage(ArrayList<Request> requests) {
+		Boolean acceptedNotExists=true;
+		Boolean unanwserNotExists=true;
+		String message=null;
+    	for (Request request:requests){
+    		if (!request.getIsAccepted())
+    			acceptedNotExists=false;
+    		if (!request.getIsActiv())
+    			unanwserNotExists=false;
+    	}
+    	if (acceptedNotExists&&!unanwserNotExists)
+    		message= "You have no Accped Requests";
+    	else if (!acceptedNotExists&&unanwserNotExists)
+    		message= "You have no Unanwsered Requests";
+    	else if (acceptedNotExists&&unanwserNotExists)
+    		message= "You have no Accepted and no Unanwsered Requests";
+    	return message;
+	}
+	
 
 
 
