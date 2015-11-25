@@ -27,12 +27,9 @@
     
     <fieldset>
     	
+		<c:import url="requests/myOutgoingRequestsUnanwsered.jsp" />
 		<c:import url="requests/myOutgoingRequestsAccepted.jsp" />
 		
-		<p> </p>
-   		
-		<c:import url="requests/myOutgoingRequestsUnanwsered.jsp" />
-    
    	 </fieldset>
    	 <c:if test="${not empty infoMessage}">
         <div>${message}</div>
