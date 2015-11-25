@@ -1,9 +1,14 @@
 package org.sample.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 
 import org.sample.controller.pojos.LoginForm;
+import org.sample.controller.service.IRequestService;
 import org.sample.controller.service.UserService;
-
+import org.sample.model.Request;
+import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +26,8 @@ public class IndexController {
 
     @Autowired
     UserService	userService;	
+    @Autowired
+    IRequestService requestService;
     
     /**
      * loads Login Page named index
@@ -45,5 +52,17 @@ public class IndexController {
     public String securityError(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("infoMessage", "You do have no permission to do that!");
         return "redirect:/";
+    }
+    
+    @RequestMapping(value = "/loginningIn", method = RequestMethod.GET)
+    public String loginningIn(HttpSession session) {
+    	User principal = userService.getPrincipalUser();
+    	session.setAttribute("username", principal.getWholeName());
+    	ArrayList<Request> requests = requestService.getAllRequests(principal);
+    	for (Request request:requests){
+    		if (request.getIsActiv())
+    			return "redirect:/requests";
+    	}
+    	return "redirect:/search";
     }
 }

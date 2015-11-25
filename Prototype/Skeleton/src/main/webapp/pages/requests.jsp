@@ -15,7 +15,7 @@
 <c:import url="template/header.jsp" />
 <div class="request-page" >
 
-<h2>RequestPage</h2>
+<h2>Incoming Requests</h2>
 
 	<c:if test="${not empty infoMessage}">
         <div>${infoMessage}</div>

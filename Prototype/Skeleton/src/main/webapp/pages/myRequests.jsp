@@ -19,7 +19,7 @@
 <div class="myRequest-page" >
 
 
-<h2>myRequestPage</h2>
+<h2>Outgoing Requests</h2>
 
 	<c:if test="${not empty infoMessage}">
         <div>${infoMessage}</div>
