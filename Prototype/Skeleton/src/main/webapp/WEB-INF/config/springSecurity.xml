@@ -17,7 +17,7 @@
 		<security:intercept-url pattern="/requests" access="isAuthenticated()"/>	
 		<security:intercept-url pattern="/myRequests" access="isAuthenticated()"/>		
 		<security:intercept-url pattern="/editProfile" access="isAuthenticated()"/>	
-		<security:form-login login-page="/" authentication-failure-url="/?error=true" default-target-url="/search" />
+		<security:form-login login-page="/" authentication-failure-url="/?error=true" default-target-url="/requests" />
 		<security:logout invalidate-session="true" logout-success-url="/"/>
 	</security:http>
 	
