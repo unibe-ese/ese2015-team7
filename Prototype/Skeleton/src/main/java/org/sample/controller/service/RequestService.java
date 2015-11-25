@@ -4,11 +4,12 @@ package org.sample.controller.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
+import org.sample.model.UserCourse;
 import org.sample.model.dao.CourseDao;
 import org.sample.model.dao.RequestDao;
+import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,16 +25,19 @@ public class RequestService implements IRequestService{
 	@Autowired	RequestDao requestDao;
 	@Autowired	UserDao userDao;
 	@Autowired CourseDao courseDao;
+	@Autowired UserCourseDao userCourseDao;
 
 	
 
 	
 	@Transactional
-	public void saveRequest(String tutorEmail, String studentEmail, Course course) {
+	public void saveRequest(long userCourseId, String studentEmail) {
+		
+		User student = userDao.findByEmail(studentEmail);
 		
 		Request oldRequest;
 		try{
-			oldRequest= requestDao.findByTutorAndStudentAndCourse(userDao.findByEmail(tutorEmail), userDao.findByEmail(studentEmail),course);
+			oldRequest= requestDao.findByUserCourseIdAndStudent(userCourseId, student);
 		}catch (Exception e){
 			oldRequest=null;
 		}
@@ -53,9 +57,9 @@ public class RequestService implements IRequestService{
 		}else {
 				request= new Request();
 				
-				request.setCourse(course);
-				request.setStudent(userDao.findByEmail(studentEmail));
-				request.setTutor(userDao.findByEmail(tutorEmail));
+				UserCourse userCourse = userCourseDao.findByUserCourseId(userCourseId);
+				request.setUserCourse(userCourse);
+				request.setStudent(student);
 			}
 				
 		
@@ -69,24 +73,8 @@ public class RequestService implements IRequestService{
 		requestDao.save(request);
 	}
 
-
-
-
-
 	public ArrayList<Request> getAllMyRequests(User principal) {
-	
-		
-        ArrayList<Request> myRequestList = new ArrayList<Request>();
-        
-        Iterator<Request> myRequestIter	= requestDao.findAll().iterator();
-        while(myRequestIter.hasNext())
-        {
-        	Request request = myRequestIter.next();
-        	if((request.getStudent().equals(principal)))
-        		myRequestList.add(request);
-        	
-        }
-       
+        ArrayList<Request> myRequestList = requestDao.findByStudent(principal);
 		return myRequestList;
 	}
 
@@ -96,42 +84,35 @@ public class RequestService implements IRequestService{
         while(requestIter.hasNext())
         {
         	Request request = requestIter.next();
-        	if((request.getTutor().equals(principal)))
+        	if((request.getUserCourse().getUser().equals(principal)))
         		requestList.add(request);
         }
 		return requestList;
 	}
 
-
-	public void deleteRequest(User tutor, User student, String courseId) {
+	public void deleteRequest(long id) {
 		
-		Request request=requestDao.findByTutorAndStudentAndCourse(tutor, student, courseDao.findById(Long.parseLong(courseId)));
+		Request request=requestDao.findById(id);
 		request.setIsDeleted(true);
 		request.setIsActiv(false);
-		requestDao.save(request);
+		requestDao.delete(request);
 	}
 
-
-	public void acceptRequest(User tutor, User student, String courseId) {
-		Request request=requestDao.findByTutorAndStudentAndCourse(tutor, student, courseDao.findById(Long.parseLong(courseId)));
+	public void acceptRequest(long id) {
+		Request request=requestDao.findById(id);
 		request.setIsAccepted(true);
 		request.setIsActiv(false);
 		requestDao.save(request);
 		
 	}
 
-
-	public void declineRequest(User tutor, User student, String courseId) {
-		Request request=requestDao.findByTutorAndStudentAndCourse(tutor, student, courseDao.findById(Long.parseLong(courseId)));
+	public void declineRequest(long id) {
+		Request request=requestDao.findById(id);
 		request.setIsDeclined(true);
 		request.setIsActiv(false);
-		requestDao.save(request);
+		requestDao.delete(request);
 		
 	}
-
-
-
-
 
 	@Override
 	public String getStateMessage(ArrayList<Request> requests) {
@@ -139,22 +120,17 @@ public class RequestService implements IRequestService{
 		Boolean unanwserNotExists=true;
 		String message=null;
     	for (Request request:requests){
-    		if (!request.getIsAccepted())
+    		if (request.getIsAccepted())
     			acceptedNotExists=false;
-    		if (!request.getIsActiv())
+    		if (request.getIsActiv())
     			unanwserNotExists=false;
     	}
     	if (acceptedNotExists&&!unanwserNotExists)
-    		message= "You have no Accped Requests";
+    		message= "You have no Accepted Requests";
     	else if (!acceptedNotExists&&unanwserNotExists)
     		message= "You have no Unanwsered Requests";
     	else if (acceptedNotExists&&unanwserNotExists)
     		message= "You have no Accepted and no Unanwsered Requests";
     	return message;
 	}
-	
-
-
-
-
 }

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.service.IRequestService;
+import org.sample.controller.service.ISelectService;
 import org.sample.controller.service.UserService;
-import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
 import org.sample.model.dao.UserDao;
@@ -40,6 +40,9 @@ public class RequestController {
 	IRequestService iRequestService;
 	
 	@Autowired
+	ISelectService selectService;
+	
+	@Autowired
 	UserDao userDao;
 
 	
@@ -52,14 +55,12 @@ public class RequestController {
 	 * @return ModelView to new myRequestPage
 	 */
 	@RequestMapping(value = "/myRequests", method = RequestMethod.POST)
-    public ModelAndView myRequestPost( @RequestParam("requestedUser") String tutorEmail, HttpSession session){
+    public ModelAndView myRequestPost( @RequestParam("userCourseId") long userCourseId){
     	ModelAndView model = new ModelAndView("myRequests");
     	User principal = userService.getPrincipalUser();
     	String principalEmail = principal.getEmail();
     	
-    	Course course = (Course) session.getAttribute("searchedCourse");
-    	iRequestService.saveRequest(tutorEmail, principalEmail, course);
-    	session.removeAttribute("searchedCourse");
+    	iRequestService.saveRequest(userCourseId, principalEmail);
     	
     	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
     	model.addObject("myRequests",myRequests);
@@ -73,7 +74,6 @@ public class RequestController {
 	
 	/**
 	 * gets all myRequests (outgoing Requests) 
-	 * Deletes searched Course if available
 	 * @param session  --if available
 	 * @return ModelView with all outgoing requests
 	 */
@@ -87,7 +87,6 @@ public class RequestController {
     	model.addObject("message",iRequestService.getStateMessage(myRequests));
     	
     	model.addObject("searchForm", new SearchForm());
-    	session.removeAttribute("searchedCourse");
     	String username = principal.getWholeName();
     	session.setAttribute("username", username);
     	
@@ -96,7 +95,6 @@ public class RequestController {
 	
 	/**
 	 * gets all requests ( Incoming Requests)
-	 * deletes searchedCourse if available
 	 * @param session --if available searchedCourse 
 	 * @return MOdelView with all incoming Requests
 	 */
@@ -108,7 +106,6 @@ public class RequestController {
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
     	model.addObject("requests", requests);
     	model.addObject("message",iRequestService.getStateMessage(requests));
-    	session.removeAttribute("searchedCourse");
     	String username = principal.getWholeName();
     	session.setAttribute("username", username);
     	
@@ -121,12 +118,12 @@ public class RequestController {
 	 * @return ModelView with updated list of outgoing requests
 	 */
 	@RequestMapping(value = "/myRequests/action", method = RequestMethod.POST)
-    public ModelAndView myRequestAction(@RequestParam(name="courseId")String courseId, @RequestParam("deleteRequest") String tutorEmail,RedirectAttributes redirect){
+    public ModelAndView myRequestAction(@RequestParam("deleteRequest") long id,RedirectAttributes redirect){
     	ModelAndView model = new ModelAndView("redirect:/myRequests");
     	
     	User principal = userService.getPrincipalUser();
 	
-    	iRequestService.deleteRequest(userDao.findByEmail(tutorEmail), principal,courseId);
+    	iRequestService.deleteRequest(id);
     	redirect.addFlashAttribute("infoMessage", "You successfully deleted the Request!");
     	
     	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
@@ -148,18 +145,18 @@ public class RequestController {
 	 * @return ModelView with updated requestPage
 	 */
 	@RequestMapping(value = "/requests/action", method = RequestMethod.POST)
-    public ModelAndView requestAction(@RequestParam(name="courseId")String courseId, @RequestParam(required=false,name="acceptRequest") String acceptStudentEmail,@RequestParam(required=false,name="declineRequest") String declineStudentEmail,RedirectAttributes redirect){
+    public ModelAndView requestAction(@RequestParam(required=false, defaultValue="0",name="acceptRequest") long acceptedId,@RequestParam(required=false, defaultValue="0", name="declineRequest") long declinedId,RedirectAttributes redirect){
     	ModelAndView model = new ModelAndView("redirect:/requests");
     	User principal = userService.getPrincipalUser();
     	
     try{  	
    
-    	if (acceptStudentEmail != null){
-    		iRequestService.acceptRequest(principal,userDao.findByEmail(acceptStudentEmail),courseId);
+    	if (acceptedId!=0){
+    		iRequestService.acceptRequest(acceptedId);
     		redirect.addFlashAttribute("infoMessage", "You successfully accepted the Request!");
     	}
-    	else if (declineStudentEmail != null){
-    		iRequestService.declineRequest(principal, userDao.findByEmail(declineStudentEmail),courseId);
+    	else if (declinedId!=0){
+    		iRequestService.declineRequest(declinedId);
     		redirect.addFlashAttribute("infoMessage", "You successfully declined the Request!");
     	}
     	

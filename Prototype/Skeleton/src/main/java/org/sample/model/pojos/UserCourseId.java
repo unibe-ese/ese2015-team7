@@ -10,6 +10,7 @@ public class UserCourseId implements Serializable{
 	
 	private User user;
 	private Course course;
+	private long userCourseId;
 	
 	public UserCourseId() {}
 	
@@ -25,6 +26,15 @@ public class UserCourseId implements Serializable{
 	public void setCourse(Course course) {
 		this.course = course;
 	}
+
+	public long getUserCourseId() {
+		return userCourseId;
+	}
+
+	public void setUserCourseId(long userCourseId) {
+		this.userCourseId = userCourseId;
+	}
+
 
 	@Override
 	public int hashCode() {

@@ -16,6 +16,7 @@ import org.sample.controller.service.RequestService;
 import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
+import org.sample.model.UserCourse;
 import org.sample.model.dao.RequestDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +64,8 @@ public class RequestServiceTest {
     	
     	when(userDao.save(any(User.class))).then(returnsFirstArg());
     	
-    	when(requestDao.findByTutorAndStudent(any(User.class), any(User.class))).thenReturn(request);
-    	when(requestDao.findByTutorAndStudentAndCourse(any(User.class), any(User.class),any(Course.class))).thenReturn(request);
+    	when(requestDao.findByUserCourseIdAndStudent(any(int.class), any(User.class))).thenReturn(request);
+    	when(requestDao.findByUserCourseIdAndStudent(any(int.class), any(User.class))).thenReturn(request);
     	//when(requestDao.findAll().iterator()).thenReturn(testRequestList.iterator());
     }
 	
@@ -82,12 +83,15 @@ public class RequestServiceTest {
 	@Test
 	public void deleteRequestTest(){
 	}
+	
+	// needs to be updated
 	@Test
 	public void acceptRequestTest(){
-		Request req=requestDao.findByTutorAndStudent(tutor, student);
+		Request req=requestDao.findByUserCourseIdAndStudent(userCourseId, student);
 		assertEquals(new Request(), req);
 	}
 	
+	// needs to be updated
 	@Test
 	public void declineRequestTest(){
 		

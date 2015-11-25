@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -155,12 +155,15 @@ public class SearchServiceTest {
     }
     
 
-	@Test(expected = InvalidUserException.class)
+    // needs to be udpated
+	@Test
     public void testCourseNotSelected(){
 		searchForm.setCourse("Select Course");
 		searchService.getTutorsFromSearchForm(searchForm);
+		assertTrue(false);
 	}
 	
+	// needs to be updated
 	@Test
     public void testGetTutorsFromSearchForm(){
     	Course otherCourse = new Course();

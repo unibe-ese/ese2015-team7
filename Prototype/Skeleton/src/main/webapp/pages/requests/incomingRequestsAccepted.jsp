@@ -12,44 +12,47 @@
 	<c:set var="notVisited" value="false" />
 	<c:set var="visitedHeader" value="true" />
     <h3>Accepted Incoming Requests</h3>
-    <table>
-				<thead>
+    <table style="width:70%">
+				<thead align="left">
                 	<tr>
-                		
                     	<th><h4>First name</h4></th>
                     	<th><h4>Last name</h4></th>
                         <th><h4>E-Mail</h4></th>
                         <th><h4>Course</h4></th>
-                        <th>		   </th>
-                      
+                        <th><h4>Subject</h4></th>
+                        <th><h4>University</h4></th>                      
                     </tr>
                 </thead>
                
-                <tbody> 
+                <tbody align="left"> 
 				</c:if>
 				<c:if test="${ item.isAccepted}">
-                	<tr>
-		                		<tr>
-									<td>
-										${item.student.firstName}
-									</td>
-									<td>
-										${item.student.lastName}
-									</td>
-									<td>
-										<c:out value="${item.student.email}" />
-									</td>
-									<td>
-								   		<c:out value="${item.course.courseName}" />
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
-										<button type=submit name=itemUser value="${item.tutor.email}">Visit Profile</button>
-								   		</form:form>
-								   	</td>
-								</tr>
-					</tr>
-					</c:if>
+                		<tr>
+							<td>
+								${item.student.firstName}
+							</td>
+							<td>
+								${item.student.lastName}
+							</td>
+							<td>
+								<c:out value="${item.student.email}" />
+							</td>
+							<td>
+						   		<c:out value="${item.course.courseName}" />
+						   	</td>
+						   	<td>
+						   		<c:out value="${item.subject.subjectName}" />
+						   	</td>
+						   	<td>
+						   		<c:out value="${item.university.universityName}" />
+						   	</td>
+						   	<td>
+						   		<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
+								<button type=submit name=studentsEmail value="${item.studentsEmail}">Visit Profile</button>
+						   		</form:form>
+						   	</td>
+						</tr>
+				</c:if>
 </c:forEach> 
 <c:if test="${visitedHeader}"> 
  <c:set var="visitedHeader" value="false" />

@@ -1,6 +1,7 @@
 package org.sample.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
@@ -19,9 +20,21 @@ public class UserCourse
     @ManyToOne(targetEntity=Course.class)
     private Course course;
     
+    @Id
+    @GeneratedValue
+    private long userCourseId;
+    
     private int grade = 0;
     
     private boolean teaching = false;
+
+	public long getUserCourseId() {
+		return userCourseId;
+	}
+
+	public void setUserCourseId(long userCourseId) {
+		this.userCourseId = userCourseId;
+	}
 
 	public Course getCourse() {
 		return course;

@@ -28,7 +28,7 @@
 <form:form method="post" action="profile" modelAttribute="searchForm" id="results"  autocomplete="off">
     <c:forEach items="${userCourses}" var="item">
 	    <p>${fn:substring(item.user.firstName, 0, 2)}${fn:substring(item.user.lastName, 0, 2)}, course: ${item.course}, subject: ${item.course.subject}, university: ${item.course.subject.university} 
-	    <button type=submit name=itemUser value="${item.user.email}">Visit Profile</button>
+	    <button type=submit name=userCourseId value="${item.userCourseId}">Visit Profile</button>
     </p>
     </c:forEach>
 </form:form>

@@ -56,7 +56,7 @@ public class SearchController {
     	model.addObject("subjects", subjects);
 
     	ArrayList<Course> courses = searchService.getCourses();
-    	model.addObject("coursesw", courses);
+    	model.addObject("courses", courses);
 
     	model.addObject("searchForm", new SearchForm());
     	
@@ -116,12 +116,12 @@ public class SearchController {
 
     	ArrayList<Course> courses = searchService.getCourses();
     	model.addObject("courses", courses);
-
-    	model.addObject("searchForm", new SearchForm());
     	
     	User principal=userService.getPrincipalUser();
     	String username = principal.getWholeName();
     	model.addObject("username", username);
+    	
+    	model.addObject("searchForm", new SearchForm());
     	
     	return model;
     }

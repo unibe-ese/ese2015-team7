@@ -2,7 +2,6 @@ package org.sample.controller.service;
 
 import java.util.ArrayList;
 
-import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
 
@@ -15,7 +14,7 @@ public interface IRequestService {
 	 * @param studentEmail
 	 * @param course
 	 */
-	void saveRequest(String tutorEmail, String studentEmail, Course course);
+	void saveRequest(long userCourseId, String studentEmail);
 
 	/**¨
 	 *gets all outgoing Requests of entered Principal
@@ -33,13 +32,13 @@ public interface IRequestService {
 	ArrayList<Request> getAllRequests(User principal);
 
 	
-	void deleteRequest(User tutor, User student, String courseId);
+	void deleteRequest(long id);
 
 	
-	void acceptRequest(User tutor, User student, String courseId);
+	void acceptRequest(long id);
 
 	
-	void declineRequest(User tutor, User student, String courseId);
+	void declineRequest(long id);
 
 	String getStateMessage(ArrayList<Request> requests);
 

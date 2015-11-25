@@ -13,9 +13,6 @@
 </head>
 <body>
 <c:import url="template/header.jsp" />
-<div class="outer">
-
-<div class="inner">
 <div class="request-page" >
 
 <h2>RequestPage</h2>
@@ -33,7 +30,6 @@
 	<c:if test="${not empty infoMessage}">
         <div>${message}</div>
     </c:if>
-</div>
 </div>
 </body>
 </html>

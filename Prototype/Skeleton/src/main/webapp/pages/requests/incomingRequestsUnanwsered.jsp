@@ -12,47 +12,50 @@
 	 <c:set var="notVisited" value="false" />
 	 <c:set var="visitedHeader" value="true" />
 	<h3>Unanwsered Incoming Requests</h3>
- 	<table>
-				<thead>
+    <table style="width:60%">
+				<thead align="left">
                 	<tr>
                     	<th><h4>Student</h4></th>
                         <th><h4>Course</h4></th>
-                        <th></th>
-                        <th></th>
+                        <th><h4>Subject</h4></th>
+                        <th><h4>University</h4></th>
+                        <th>		   </th>                      
                     </tr>
                 </thead>
-                <tbody>
-				</c:if>   
+               
+                <tbody align="left"> 
+	</c:if>   
 				<c:if test="${item.isActiv}">  
-                	<tr>
-		                	
-		                		<tr>
-									<td>
-										${fn:substring(item.student.firstName, 0, 2)}${fn:substring(item.student.lastName, 0, 2)} 
-									</td>
-									<td>
-								   		<c:out value="${item.course.courseName}" />
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
-										<button type=submit name=itemUser value="${item.student.email}">Visit Profile</button>
-								   		</form:form>
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
-								   		<button type=submit name=acceptRequest value="${item.student.email}">Accept Request</button>
-								   		<input name="courseId" type="hidden" value="${item.course.id}"/> 
-								   		</form:form>
-								   	</td>
-								   	<td>
-								   		<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
-								   		<button type=submit name=declineRequest value="${item.student.email}">Decline Request</button>
-								   		<input name="courseId" type="hidden" value="${item.course.id}"/> 
-								   		</form:form>
-								   	</td>
-								</tr>
-					</tr>
-					</c:if>  
+                		<tr>
+							<td>
+								${fn:substring(item.student.firstName, 0, 2)}${fn:substring(item.student.lastName, 0, 2)} 
+							</td>
+							<td>
+						   		<c:out value="${item.course.courseName}" />
+						   	</td>
+						   	<td>
+						   		<c:out value="${item.subject.subjectName}" />
+						   	</td>
+						   	<td>
+						   		<c:out value="${item.university.universityName}" />
+						   	</td>
+						   	<td>
+						   		<form:form method="post" action="profile" modelAttribute="searchForm" id="results" cssClass="form-horizontal"  autocomplete="off">
+								<button type=submit name=studentsEmail value="${item.studentsEmail}">Visit Profile</button>
+						   		</form:form>
+						   	</td>
+						   	<td>
+						   		<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
+						   		<button type=submit name=acceptRequest value="${item.id}">Accept Request</button>
+						   		</form:form>
+						   	</td>
+						   	<td>
+						   		<form:form method="post" action="requests/action" modelAttribute="searchForm" id="requests" cssClass="form-horizontal"  autocomplete="off">
+						   		<button type=submit name=declineRequest value="${item.id}">Decline Request</button>
+						   		</form:form>
+						   	</td>
+						</tr>
+				</c:if>  
 					
 </c:forEach>  
 <c:if test="${visitedHeader}"> 

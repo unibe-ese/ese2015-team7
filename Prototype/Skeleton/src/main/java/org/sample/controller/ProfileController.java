@@ -8,8 +8,11 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.IUserDataService;
 import org.sample.controller.service.ISearchService;
+import org.sample.controller.service.ISelectService;
 import org.sample.model.Course;
+import org.sample.model.Request;
 import org.sample.model.UserCourseFormAttributeFactory;
+import org.sample.model.dao.RequestDao;
 import org.sample.model.dao.UserCourseDao;
 import org.sample.model.Subject;
 import org.sample.model.TimeSlot;
@@ -54,6 +57,11 @@ public class ProfileController {
 	
 	@Autowired
 	UserCourseDao userCourseDao;
+	@Autowired
+	RequestDao requestDao;
+	
+	@Autowired
+	ISelectService selectService;
 	
 	/**
 	 * displays the profile data of the Principal if no User is entered
@@ -86,12 +94,37 @@ public class ProfileController {
 	 * @return ModelView profile of the entered Tutor.
 	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public ModelAndView postProfile( @RequestParam("itemUser") String tutorEmail){
+    public ModelAndView postProfile(@RequestParam(required=false, defaultValue="0", name="userCourseId") long userCourseId, @RequestParam(required=false, name="studentsEmail") String studentsEmail){
     	ModelAndView model = new ModelAndView("profile");
-    	User user = userService.getUserByEmail(tutorEmail);
     	User principal=userService.getPrincipalUser();
-    	model.addObject(user);
+    	User user = new User();
     	
+    	if(studentsEmail!=null){
+    		user = userService.getUserByEmail(studentsEmail);
+    		userCourseId=0;
+    	}
+    	else if(userCourseId!=0)
+    	{
+	    	user = selectService.getUserFromUserCourseId(userCourseId);
+	    	Request outgoingRequestWithUserCourse = requestDao.findByUserCourseIdAndStudent(userCourseId, principal);
+	    	if(outgoingRequestWithUserCourse==null||(!outgoingRequestWithUserCourse.getIsAccepted()&&!outgoingRequestWithUserCourse.getIsActiv()))
+	    	{
+		    	Course selectedCourse = selectService.getCourseFromUserCourseId(userCourseId);
+		    	model.addObject("selectedCourse", selectedCourse);
+		    	
+		    	Subject selectedSubject = selectService.getSubjectFromUserCourseId(userCourseId);
+		    	model.addObject("selectedSubject", selectedSubject);
+		    	
+		    	University selectedUniversity = selectService.getUniversityFromUserCourseId(userCourseId);
+		    	model.addObject("selectedUniversity", selectedUniversity);
+	    	}
+	    	else{
+	    		userCourseId=0;
+	    	}
+    	}
+    	
+    	model.addObject("userCourseId", userCourseId);
+    	model.addObject(user);
     	String username = principal.getWholeName(); //gets principal and loads user from Database and gets his name
     	model.addObject("username", username);
     	

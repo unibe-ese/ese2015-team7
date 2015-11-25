@@ -33,14 +33,11 @@ public class Request {
 	
 	
 	@NotNull
-	@ManyToOne(targetEntity=User.class)
-	private User tutor;
+	@ManyToOne(targetEntity=UserCourse.class)
+	private UserCourse userCourse;
 	
-	@NotNull
-	@ManyToOne(targetEntity=Course.class)
-	private Course course;
-	
-	
+	private long userCourseId;
+
 	//Date date;
 	@NotNull
 	Boolean isActiv;
@@ -71,13 +68,48 @@ public class Request {
 		this.student = student;
 	}
 
-	public User getTutor() {
-		return tutor;
+	public UserCourse getUserCourse() {
+		return userCourse;
 	}
 
-	public void setTutor(User tutor) {
-		this.tutor = tutor;
+	public void setUserCourse(UserCourse userCourse) {
+		this.userCourseId = userCourse.getUserCourseId();
+		this.userCourse = userCourse;
 	}
+	
+	public long getUserCourseId() {
+		return userCourseId;
+	}
+
+	public void setUserCourseId(long userCourseId) {
+		this.userCourseId = userCourseId;
+	}
+	
+	public Course getCourse(){
+		return userCourse.getCourse();
+	}
+	
+	public Subject getSubject(){
+		return getCourse().getSubject();
+	}
+	
+	public University getUniversity(){
+		return getSubject().getUniversity();
+	}
+	
+	public User getTutor(){
+		return userCourse.getUser();
+	}
+	
+	public String getTutorsEmail(){
+		return getTutor().getEmail();
+	}
+	
+	public String getStudentsEmail(){
+		return getStudent().getEmail();
+	}
+	
+	
 
 	public Boolean getIsActiv() {
 		return isActiv;
@@ -139,7 +171,7 @@ public class Request {
 		result = prime * result + ((newAnwser == null) ? 0 : newAnwser.hashCode());
 		result = prime * result + ((newRequest == null) ? 0 : newRequest.hashCode());
 		result = prime * result + ((student == null) ? 0 : student.hashCode());
-		result = prime * result + ((tutor == null) ? 0 : tutor.hashCode());
+		result = prime * result + ((userCourse == null) ? 0 : userCourse.hashCode());
 		return result;
 	}
 
@@ -192,25 +224,17 @@ public class Request {
 				return false;
 		} else if (!student.equals(other.student))
 			return false;
-		if (tutor == null) {
-			if (other.tutor != null)
+		if (userCourse == null) {
+			if (other.userCourse != null)
 				return false;
-		} else if (!tutor.equals(other.tutor))
+		} else if (!userCourse.equals(other.userCourse))
 			return false;
 		return true;
 	}
 
-	public Course getCourse() {
-		return course;
-	}
-
-	public void setCourse(Course course) {
-		this.course = course;
-	}
-
 	@Override
 	public String toString() {
-		return "Request [id=" + id + ", student=" + student + ", tutor=" + tutor + ", course=" + course + "]";
+		return "Request [id=" + id + ", student=" + student + ", tutor=" + userCourse.getUser() + ", course=" + userCourse.getCourse() + "]";
 	}
 
 
