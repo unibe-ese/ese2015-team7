@@ -1,5 +1,7 @@
 package org.sample.controller.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.sample.controller.pojos.SignupForm;
 import org.sample.model.User;
 
@@ -49,5 +51,6 @@ public interface IUserDataService {
 	 * @return true if password is literally equal to passwordVerify.
 	 */
 	public boolean validatePassword(String password, String passwordVerify);
+
 
 }
