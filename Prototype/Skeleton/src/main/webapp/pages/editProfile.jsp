@@ -15,7 +15,7 @@
 	       <c:if test="${not empty infoMessage}">
 	                <!-- <div>${infoMessage}</div> -->
 	                <p style="color:red">
-	                	Bitte kontrolliere deine Eingaben!
+	                	Please take a look at your entries.
 	                </p>
 	            </c:if>
 	
@@ -35,24 +35,28 @@
 	                <form:errors path="lastName" cssClass="help-inline" element="span"/>
 	            </div>
 	        </div>
-	        <c:set var="passwordErrors"><form:errors path="password"/></c:set>
-	        <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
-	            <label class="control-label" for="field-password">Password</label>
-	            <div class="controls">
-	                <form:password path="password" id="field-password" tabindex="1" maxlength="35" placeholder="Password"/>
-	                <form:errors path="password" cssClass="help-inline" element="span"/>
-	            </div>
-	        </div>
 	        
-	        <c:set var="passwordVerifyErrors"><form:errors path="passwordVerify"/></c:set>
-	        <div class="control-group<c:if test="${not empty passwordVerifyErrors}"> error</c:if>">
-	        
-	            <label class="control-label" for="field-passwordVerify">confirm Password</label>
-	            <div class="controls">
-	                <form:password path="passwordVerify" id="field-passwordVerify" tabindex="1" maxlength="35" placeholder="Password"/>
-	                <form:errors path="passwordVerify" cssClass="help-inline" element="span"/>
-	            </div>
+	        <button type="button" id="moreButton" class="btn btn-primary">Change password</button>
+	        <div id="changePassword">
+		        <c:set var="passwordErrors"><form:errors path="password"/></c:set>
+		        <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
+		            <label class="control-label" for="field-password">Password</label>
+		            <div class="controls">
+		                <form:password path="password" id="field-password" tabindex="1" maxlength="35" placeholder="Password"/>
+		                <form:errors path="password" cssClass="help-inline" element="span"/>
+		            </div>
+		        </div>
+		        <c:set var="passwordVerifyErrors"><form:errors path="passwordVerify"/></c:set>
+		        <div class="control-group<c:if test="${not empty passwordVerifyErrors}"> error</c:if>">
+		            <label class="control-label" for="field-passwordVerify">confirm Password</label>
+		            <div class="controls">
+		                <form:password path="passwordVerify" id="field-passwordVerify" tabindex="1" maxlength="35" placeholder="Password"/>
+		                <form:errors path="passwordVerify" cssClass="help-inline" element="span"/>
+		            </div>
+		        </div>
 	        </div>
+	        <button type="button" id="lessButton" class="btn btn-primary">Cancel</button>
+	        
 	        <c:set var="biographyErrors"><form:errors path="biography"/></c:set>
 	        <div class="control-group<c:if test="${not empty biographyErrors}"> error</c:if>">
 	        
@@ -424,4 +428,25 @@ function removeTSRow (id)
 	var elem = document.getElementById("timeSlots" + id + ".remove");
 	elem.value = true;
 }
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#changePassword").hide();	
+	$("#lessButton").hide();
+
+	$("#moreButton").click(function(){
+		toggleChangePasswordElements();
+	});
+	
+	$("#lessButton").click(function(){
+		toggleChangePasswordElements();
+	});
+	
+	function toggleChangePasswordElements()
+	{
+		$("#changePassword").toggle();
+		$("#moreButton").toggle();
+		$("#lessButton").toggle();
+	}
+});
 </script>

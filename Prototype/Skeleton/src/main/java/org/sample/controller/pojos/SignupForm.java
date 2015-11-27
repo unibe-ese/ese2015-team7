@@ -33,7 +33,8 @@ public class SignupForm {
     // @Valid
     private AutoPopulatingList<TimeSlot> timeSlots = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
     
-    @Size(groups= {SignupValidatorGroup.class, Default.class}, min = 6, max = 20, message = "Your Password did not match, please try again!")
+    @Pattern(groups= {SignupValidatorGroup.class}, regexp = "^$|^[0-9_a-zA-Z]{6,20}$", message="Your Password has to match 6 to 20 characters, please try again!")
+    @Size(groups= {Default.class}, min = 6, max = 20, message = "Your Password has to match 6 to 20 characters, please try again!")
     private String password;
     
     private String passwordVerify;

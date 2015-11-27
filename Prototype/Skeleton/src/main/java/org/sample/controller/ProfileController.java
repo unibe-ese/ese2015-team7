@@ -256,7 +256,7 @@ public class ProfileController {
 	
 		try {
 		    if (!userService.validatePassword(signupForm.getPassword(), signupForm.getPasswordVerify())) {
-			    redirectAttributes.addFlashAttribute("infoMessage", "Deine Passwörter stimmen nicht überein");
+			    redirectAttributes.addFlashAttribute("infoMessage", "Your passwords do not match!");
 			    return new ModelAndView("redirect:/editProfile");
 			}
 		} catch (Exception d) {}
@@ -267,7 +267,7 @@ public class ProfileController {
 		
 			userService.saveFrom(signupForm, user);
 			userService.createAndSaveUserCourseFromForm(signupForm, user);
-			redirectAttributes.addFlashAttribute("infoMessage", "Du hast erfolgreich dein Profil bearbeitet!");
+			redirectAttributes.addFlashAttribute("infoMessage", "You successfully edited your profile!");
 	
 			model = new ModelAndView("redirect:/profile");
 		    } catch (InvalidUserException e) {
@@ -277,7 +277,7 @@ public class ProfileController {
 		} else {
 		    model = new ModelAndView("editProfile");
 		    model.addObject("infoMessage", result.toString());
-		    System.out.println("Form hat fehler:\n" + result.toString());
+		    // System.out.println("Form has errors:\n" + result.toString());
 		}
 		return model;
 	}

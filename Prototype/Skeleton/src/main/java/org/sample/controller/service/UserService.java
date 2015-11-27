@@ -37,11 +37,11 @@ public class UserService implements IUserDataService{
 			throw new InvalidUserException("Sorry, no empty names"); // throw exception
 		}
 		else if (firstName.length()<2|| lastName.length()<2) {
-		    throw new InvalidUserException("Sorry, Please Enter Names with more than 2 Letters"); // throw exception
+		    throw new InvalidUserException("Sorry, please enter names with more than 2 letters"); // throw exception
 		}
 		
 
-		BCryptPasswordEncoder password = new BCryptPasswordEncoder();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 		User user = (userToUpdate == null) ? new User() : userToUpdate;
 		user.setFirstName(signupForm.getFirstName());
@@ -60,7 +60,11 @@ public class UserService implements IUserDataService{
 		}
 		user.setTimeSlots(timeSlotList);
 
-		user.setPassword(password.encode(signupForm.getPassword()));
+		String password = signupForm.getPassword();
+		if(password.isEmpty())
+			user.setPassword(user.getPassword());
+		else
+			user.setPassword(passwordEncoder.encode(password));
 
 		user.setEnabled(true);
 
@@ -86,7 +90,7 @@ public class UserService implements IUserDataService{
 	public void createAndSaveUserCourseFromForm(SignupForm signupForm, User user) {		
 		for( UserCourseFormAttribute userCourseFormAttribute : signupForm.getUserCourseList() ) {
 			if(userCourseFormAttribute.getCourse() == null || userCourseFormAttribute.getCourse().equals("None"))
-				break;
+				continue;
 			
 			UserCourse tmpUserCourse = new UserCourse();
 			tmpUserCourse.setUser(user);
