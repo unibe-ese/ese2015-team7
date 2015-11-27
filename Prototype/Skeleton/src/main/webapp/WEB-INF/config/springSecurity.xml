@@ -13,7 +13,7 @@
 		<security:intercept-url pattern="/" access="permitAll" />	
 		<security:intercept-url pattern="/profile" access="isAuthenticated()"/>	
 		
-		<security:intercept-url pattern="/create/**" access="isAnonymous()"/>
+		<security:intercept-url pattern="/create/**" access="permitAll"/>
 		<security:intercept-url pattern="/loginningIn" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/search" access="isAuthenticated()"/>	
 		<security:intercept-url pattern="/requests" access="isAuthenticated()"/>	
