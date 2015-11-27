@@ -1,5 +1,11 @@
 package org.sample.model;
 
+/**
+ * This class represents a row of courses in editProfile.jsp
+ * 
+ * @author Team7
+ *
+ */
 public class UserCourseFormAttribute {
 	
 	private String user;

@@ -13,7 +13,13 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NaturalId;
 
-
+/**
+ * This entity represents a user.
+ * A user acts as a student and a tutor at the same time; there is no distinction.
+ * 
+ * @author Team7
+ *
+ */
 @Entity
 public class User {
 

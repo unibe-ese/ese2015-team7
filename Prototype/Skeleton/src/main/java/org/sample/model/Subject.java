@@ -6,7 +6,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-
+/**
+ * <p>This entity represents a subject.</p>
+ * It belongs to an university.
+ * @author Team7
+ *
+ */
 @Entity
 public class Subject {
 

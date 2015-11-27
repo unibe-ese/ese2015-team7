@@ -9,12 +9,15 @@ import javax.validation.constraints.Pattern;
 
 import org.sample.controller.pojos.SignupForm.SignupValidatorGroup;
 
+/**
+ * This entity represents the time periods a user is able to teach.
+ * 
+ * @author Team7
+ *
+ */
 @Entity
 public class TimeSlot implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

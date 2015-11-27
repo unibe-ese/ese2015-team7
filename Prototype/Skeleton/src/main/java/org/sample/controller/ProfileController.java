@@ -38,11 +38,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 /**
  * handles all requests concerning the editing and displaying of the profileData.
  * 
- * @author simon
- *
- */
-/**
- * @author mirko
+ * @author Team7
  *
  */
 @SessionAttributes("username")

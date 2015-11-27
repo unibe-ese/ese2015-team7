@@ -24,8 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * The SearchController handles all requests in relationship with a search action. 
  * 
- * 
- * @author Jannis
+ * @author Team7
  *
  */
 @SessionAttributes({"username"})

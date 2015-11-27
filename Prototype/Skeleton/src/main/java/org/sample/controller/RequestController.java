@@ -25,7 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * handels all requests which belong to request of a tutor action.
- * @author mirko
+ * 
+ * @author Team7
  *
  */
 @SessionAttributes({"username"})

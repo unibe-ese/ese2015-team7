@@ -17,9 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * @author mirko
+ * This Controller handles all requests about to Login page which is the landing Page of this project.
+ * 
+ * @author Team7
  *
- *This Controller handles all requests about to Login page which is the landing Page of this project.
  */
 @Controller
 public class IndexController {

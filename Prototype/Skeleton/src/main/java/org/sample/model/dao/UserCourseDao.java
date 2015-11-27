@@ -9,6 +9,11 @@ import org.sample.model.UserCourse;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+/**
+ * 
+ * @author Team7
+ *
+ */
 public interface UserCourseDao extends CrudRepository<UserCourse,Long> {
 	List<UserCourse> findByUser(User user);
 	ArrayList<UserCourse> findByCourse(Course course);

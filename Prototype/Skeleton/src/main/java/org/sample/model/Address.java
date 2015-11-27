@@ -4,7 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
+/**
+ * <p>This entity represents an address.</p>
+ * It simply holds a street.
+ * 
+ * @author Team7
+ *
+ */
 @Entity
 public class Address {
 	  @Id

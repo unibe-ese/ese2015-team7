@@ -2,6 +2,12 @@ package org.sample.controller.pojos;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * This is the form used for searching.
+ * 
+ * @author Team7
+ *
+ */
 public class SearchForm 
 {	
     private Long id;

@@ -9,6 +9,13 @@ import org.sample.model.Subject;
 import org.sample.model.UserCourse;
 import org.sample.model.University;
 
+/**
+ * <p>This is the interface to work with searches.</p>
+ * It provides getting data from the database.
+ * 
+ * @author Team7
+ *
+ */
 public interface ISearchService {
 	
 	 public ArrayList<University> getUniversities();

@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import org.sample.model.Request;
 import org.sample.model.User;
 
+/**
+ * <p>This is the interface to work with requests.</p>
+ * It provides storing, deleting and getting data from the database.
+ * 
+ * @author Team7
+ *
+ */
 public interface IRequestService {
 
 

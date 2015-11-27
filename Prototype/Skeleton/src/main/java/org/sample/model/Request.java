@@ -7,6 +7,12 @@ import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * <p>This entity represents a request.</p>
+ * 
+ * @author Team7
+ *
+ */
 @Entity
 public class Request {
 	

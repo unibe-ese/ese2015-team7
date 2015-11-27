@@ -5,6 +5,12 @@ import java.io.Serializable;
 import org.sample.model.Course;
 import org.sample.model.User;
 
+/**
+ * This class represents the primary-key for the class UserCourse.
+ * 
+ * @author Team7
+ *
+ */
 public class UserCourseId implements Serializable{
 	private static final long serialVersionUID = -1732951049318741876L;
 	

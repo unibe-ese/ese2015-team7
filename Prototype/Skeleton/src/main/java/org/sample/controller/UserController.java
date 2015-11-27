@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 /**
  * This Controller handles all actions with the User object.
  * 
- * @author mirko
+ * @author Team7
  *
  */
 

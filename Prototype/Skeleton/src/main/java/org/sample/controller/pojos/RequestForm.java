@@ -4,6 +4,12 @@ package org.sample.controller.pojos;
 
 import org.sample.model.User;
 
+/**
+ * This is the form used for requests.
+ * 
+ * @author Team7
+ *
+ */
 public class RequestForm {
 	
     private Long id;

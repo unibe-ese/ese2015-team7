@@ -10,7 +10,12 @@ import org.sample.model.TimeSlotFactory;
 import org.sample.model.UserCourseFormAttribute;
 import org.springframework.util.AutoPopulatingList;
 
-
+/**
+ * This is the form used to sign up and edit the profile.
+ * 
+ * @author Team7
+ *
+ */
 public class SignupForm {
 
 	public interface SignupValidatorGroup {}

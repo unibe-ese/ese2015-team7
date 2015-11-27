@@ -8,7 +8,7 @@ import javax.validation.constraints.Pattern;
 /**
  * This is the form used to login.
  * 
- * @author mirko
+ * @author Team7
  *
  */
 public class LoginForm {

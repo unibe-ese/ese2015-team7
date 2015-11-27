@@ -7,7 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-
+/**
+ * <p>This entity represents an university.</p>
+ * It's the root of all courses.
+ * @author Team7
+ *
+ */
 @Entity
 public class University {
 

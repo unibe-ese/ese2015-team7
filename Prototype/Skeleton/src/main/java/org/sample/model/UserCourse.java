@@ -8,6 +8,13 @@ import javax.persistence.ManyToOne;
 
 import org.sample.model.pojos.UserCourseId;
 
+/**
+ * <p>This entity represents the connection between users and courses.</p>
+ * It holds the information about who teaches what and who has what grades.
+ * 
+ * @author Team7
+ *
+ */
 @IdClass(UserCourseId.class)
 @Entity
 public class UserCourse

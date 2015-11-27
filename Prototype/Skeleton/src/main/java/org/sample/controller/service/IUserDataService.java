@@ -1,10 +1,15 @@
 package org.sample.controller.service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.sample.controller.pojos.SignupForm;
 import org.sample.model.User;
 
+/**
+ * <p>This is the interface to work with user data.</p>
+ * It provides storing and getting data from the database.
+ * 
+ * @author Team7
+ *
+ */
 public interface IUserDataService {
 
 	/**

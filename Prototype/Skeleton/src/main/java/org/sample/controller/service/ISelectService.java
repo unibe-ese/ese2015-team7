@@ -6,6 +6,13 @@ import org.sample.model.University;
 import org.sample.model.User;
 import org.sample.model.UserCourse;
 
+/**
+ * <p>This is the interface to work with database queries regarding the search page.</p>
+ * It provides getting data from the database.
+ * 
+ * @author Team7
+ *
+ */
 public interface ISelectService {
 	
 	public UserCourse getUserCourseFromUserCourseId(long userCourseId);

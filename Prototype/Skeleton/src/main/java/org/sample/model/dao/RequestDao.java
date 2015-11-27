@@ -6,6 +6,11 @@ import org.sample.model.Request;
 import org.sample.model.User;
 import org.springframework.data.repository.CrudRepository;
 
+/**
+ * 
+ * @author Team7
+ *
+ */
 public interface RequestDao extends CrudRepository<Request,Long> {
 	
 	Request findByUserCourseIdAndStudent(long userCourseId, User student);

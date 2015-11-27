@@ -7,6 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * <p>This entity represents a user role.</p>
+ * Example: <ul><li>ROLE_USER</li> <li>ROLE_ADMIN</li></ul>
+ * 
+ * @author Team7
+ *
+ */
 @Entity
 @Table(name = "user_roles")
 public class UserRole {
