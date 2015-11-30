@@ -2,6 +2,10 @@ package org.sample.model.pojos;
 
 import java.io.Serializable;
 
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
 import org.sample.model.Course;
 import org.sample.model.User;
 
@@ -11,13 +15,18 @@ import org.sample.model.User;
  * @author Team7
  *
  */
+@Embeddable
 public class UserCourseId implements Serializable{
 	private static final long serialVersionUID = -1732951049318741876L;
 	
 
 	
 	private long userCourseId;
+    @NotNull
+	@ManyToOne
 	private User user;
+    @NotNull
+	@ManyToOne
 	private Course course;
 	
 	public UserCourseId() {}

@@ -76,6 +76,8 @@
                 hibernate.cache.use_query_cache = true
                 hibernate.generate_statistics = true
                 hibernate.hbm2ddl.auto = update
+                hibernate.cache.timeToIdleSeconds="120"
+				hibernate.cache.timeToLiveSeconds="120"
             </value>
   	      
         </property>

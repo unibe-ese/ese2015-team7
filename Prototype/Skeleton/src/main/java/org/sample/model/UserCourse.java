@@ -1,11 +1,15 @@
 package org.sample.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.ForeignKey;
 
 /**
  * <p>This entity represents the connection between users and courses.</p>
@@ -15,20 +19,25 @@ import org.hibernate.annotations.ForeignKey;
  *
  */
 @Entity
+@Table(
+	    uniqueConstraints=
+	        @UniqueConstraint(columnNames={"user", "course"})
+	)
 public class UserCourse
 {
     @Id
     @GeneratedValue
     private long userCourseId;
     
-	@ManyToOne
-    @ForeignKey(name = "COURSE_ID")
+    @NotNull
+    @ManyToOne(targetEntity=Course.class,  fetch=FetchType.EAGER)
+    @JoinColumn(name="course")
     private Course course;
     
-    @ManyToOne
-	@ForeignKey(name="USER_ID")
+    @NotNull
+    @ManyToOne(targetEntity=User.class,  fetch=FetchType.EAGER)
+    @JoinColumn(name="user")
 	private User user;
-    
     
     
     private int grade = 0;
