@@ -1,7 +1,6 @@
 package org.sample.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.sample.model.Course;
 import org.sample.model.User;
@@ -22,7 +21,7 @@ public interface UserCourseDao extends CrudRepository<UserCourse,Long> {
 	UserCourse findByUserCourseId(long userCourseId);
 	
 	@Query("Select uc From UserCourse uc WHERE uc.user=?1")
-	List<UserCourse> findByUser(User user);
+	ArrayList<UserCourse> findByUser(User user);
 	
 	@Query("Select uc From UserCourse uc WHERE uc.user=?1 AND uc.course=?2")
 	UserCourse findByUserAndCourse(User user, Course course);

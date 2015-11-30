@@ -70,7 +70,7 @@
 			<br>
 			
 			<table>
-				<thead>
+				<thead align="left">
                 	<tr>
                     	<th>University</th>
                         <th>Subject</th>
@@ -80,36 +80,30 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody align="left">
                 	<tr><input type="button" id="addGradeButton" value="Add Courses Row" /></tr>
                 	<c:if test="${fn:length(signupForm.userCourseList) > 0}" >
                 	<c:forEach items="${signupForm.userCourseList}" var="element" varStatus="i" begin="0">
                 		<form:hidden path="userCourseList[${i.index}].remove" />
                 		<tr id="tr${i.index}">
 							<td>
-								<form:select  path="userCourseList[0].university" id="field-University${i.index}" tabindex="1">
-						    		<form:option value="None" label="Select University"/>
-						    		<form:options items="${universities}" itemValue="universityName"/>
-						    	</form:select>
+								<form:form  path="userCourseList[${i.index}].university" id="field-University${i.index}" tabindex="1">
+						    		<c:out value="${element.university}" />
+						    	</form:form>
 							</td>
 							<td>
-						   		<form:select path="userCourseList[0].subject" id="field-Subject${i.index}" tabindex="1">
-						    		<form:option value='None' label="Select Subject"/>
-						    		<form:options items="${subjects}" itemValue="subjectName"/>
-						   		</form:select>
+						   		<form:form path="userCourseList[${i.index}].subject" id="field-Subject${i.index}" tabindex="1">
+						    		<c:out value="${element.subject}" />
+						   		</form:form>
 						   	</td>
 						   	<td>
-						   		<form:select path="userCourseList[${i.index}].course" id="field-Course${i.index}" tabindex="1">
-						    		<form:option value='None' label="Select Course"/>
-						    		<form:options items="${courses}" itemValue="courseName"/>
-						   		</form:select>
+						   		<form:form path="userCourseList[${i.index}].course" id="field-Course${i.index}" tabindex="1">
+						    		<c:out value="${element.course}" />
+						   		</form:form>
 						   	</td>
 						   	<td>
 						   		<form:select path="userCourseList[${i.index}].grade" tabindex="1">
 						    		<form:option value='0' label="Select Grade"/>
-						    		<form:option value="1"/>
-						    		<form:option value="2"/>
-						    		<form:option value="3"/>
 						    		<form:option value="4"/>
 						    		<form:option value="5"/>
 						    		<form:option value="6"/>
@@ -146,9 +140,6 @@
 		            	<td>
 		            		<form:select path="userCourseList[0].grade" tabindex="1">
 				           		<form:option value='0' label="Select Grade"/>
-				           		<form:option value="1"/>
-				           		<form:option value="2"/>
-				           		<form:option value="3"/>
 				           		<form:option value="4"/>
 				           		<form:option value="5"/>
 				           		<form:option value="6"/>

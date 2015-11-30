@@ -2,6 +2,7 @@ package org.sample.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ListIterator;
 
 import org.sample.controller.exceptions.InvalidUserException;
@@ -78,7 +79,7 @@ public class ProfileController {
     	
     	
     	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>(); 
-        userCourses =  (ArrayList<UserCourse>) userCourseDao.findByUser(user);
+        userCourses =  userCourseDao.findByUser(user);
         model.addObject("userCourses", userCourses);
 
         return model;
@@ -128,7 +129,7 @@ public class ProfileController {
     	model.addObject("principalEmail", principalEmail);
     	
     	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>(); 
-        userCourses =  (ArrayList<UserCourse>) userCourseDao.findByUser(user);
+        userCourses =  userCourseDao.findByUser(user);
         model.addObject("userCourses", userCourses);
     	
         return model;
@@ -152,7 +153,7 @@ public class ProfileController {
     	
     	try{
     	AutoPopulatingList<UserCourseFormAttribute> userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
-    	ListIterator<UserCourse> itr = userCourseDao.findByUser(user).listIterator();
+    	Iterator<UserCourse> itr = userCourseDao.findByUser(user).iterator();
     	while(itr.hasNext())
     	{
     		UserCourse tmpUserCourse = itr.next();
@@ -204,18 +205,6 @@ public class ProfileController {
 		return subjects;
 	}
 	
-	/**
-	 * Serve model with courses.
-	 * @return the courses from the database.
-	 */
-	@ModelAttribute("courses")
-	public ArrayList<Course> getCourses()
-	{
-    	
-		ArrayList<Course> courses = new ArrayList<Course>();
-    	courses = searchService.getCourses();
-		return courses;
-	}
 	
 	/**
 	 * <p>Called when the form is initially displayed</p>
@@ -228,6 +217,18 @@ public class ProfileController {
     	
     	User user = userService.getPrincipalUser();
     	model.addObject(user);
+    	
+     	ArrayList<Course> courses = searchService.getCourses();
+     	ArrayList<Course> nonUserCourses = new ArrayList<Course>();
+     	for(Course course : courses)
+     	{
+     		if(userCourseDao.findByUserAndCourse(user, course)==null)
+     		{
+     			nonUserCourses.add(course);
+     		}
+     	}
+     	
+     	model.addObject("courses", nonUserCourses);
     	
         return model;
     }

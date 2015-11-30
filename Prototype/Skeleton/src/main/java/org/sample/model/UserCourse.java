@@ -11,6 +11,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 
+
 /**
  * <p>This entity represents the connection between users and courses.</p>
  * It holds the information about who teaches what and who has what grades.
@@ -83,6 +84,15 @@ public class UserCourse
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public University getUniversity(){
+		return this.course.getSubject().getUniversity();
+	}
+	
+	public Subject getSubject(){
+		return this.course.getSubject();
+	}
+	
 
 	@Override
 	public String toString() {

@@ -1,11 +1,13 @@
 package org.sample.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.NotNull;
+
 
 /**
  * <p>This entity represents a request.</p>
@@ -39,7 +41,7 @@ public class Request {
 	
 	
 	@NotNull
-	@ManyToOne(targetEntity=UserCourse.class)
+	@ManyToOne(targetEntity=UserCourse.class, cascade = CascadeType.ALL)
 	private UserCourse userCourse;
 	
 	private long userCourseId;

@@ -94,18 +94,32 @@ public class UserService implements IUserDataService{
 				continue;
 			
 			Course course =  courseDao.findByCourseName(userCourseFormAttribute.getCourse());
-			UserCourse tmpUserCourse = new UserCourse();
+			if(course==null)
+			{
+				break;
+			}
+			UserCourse givenUserCourse = userCourseDao.findByUserAndCourse(user, course);
+			boolean givenUserCourseExists = (givenUserCourse!=null);
 			
-			if(!userCourseFormAttribute.isRemove()){
-				tmpUserCourse.setUser(user);
-				tmpUserCourse.setCourse(course);
-				tmpUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()) );
-				tmpUserCourse.setTeaching(userCourseFormAttribute.isTeaching() );
-				
-				userCourseDao.save(tmpUserCourse); // save object to DB
-			} else {
-				tmpUserCourse=userCourseDao.findByUserAndCourse(user, course);
-				userCourseDao.delete(tmpUserCourse);
+			if(!userCourseFormAttribute.isRemove()&&!givenUserCourseExists){
+				givenUserCourse = new UserCourse();
+				givenUserCourse.setUser(user);
+				givenUserCourse.setCourse(course);
+				givenUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()));
+				givenUserCourse.setTeaching(userCourseFormAttribute.isTeaching());
+				userCourseDao.save(givenUserCourse); // save object to DB
+			}
+			else if(!userCourseFormAttribute.isRemove()&&givenUserCourseExists){
+				userCourseDao.delete(givenUserCourse);
+				givenUserCourse = new UserCourse();
+				givenUserCourse.setUser(user);
+				givenUserCourse.setCourse(course);
+				givenUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()));
+				givenUserCourse.setTeaching(userCourseFormAttribute.isTeaching());
+				userCourseDao.save(givenUserCourse); // save object to DB
+			}
+			else if(userCourseFormAttribute.isRemove()&&givenUserCourseExists) {
+				userCourseDao.delete(givenUserCourse);
 			}
 		}
 	}
