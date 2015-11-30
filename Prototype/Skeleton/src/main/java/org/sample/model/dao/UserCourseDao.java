@@ -15,9 +15,14 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface UserCourseDao extends CrudRepository<UserCourse,Long> {
-	List<UserCourse> findByUser(User user);
-	ArrayList<UserCourse> findByCourse(Course course);
+	//List<UserCourse> findByUser(User user);
+	//ArrayList<UserCourse> findByCourse(Course course);
+	//UserCourse findByUserCourseId(long userCourseId);
+	
 	UserCourse findByUserCourseId(long userCourseId);
+	
+	@Query("Select uc From UserCourse uc WHERE uc.user=?1")
+	List<UserCourse> findByUser(User user);
 	
 	@Query("SELECT uc FROM UserCourse uc WHERE uc.course= ?1 AND uc.teaching= ?3 AND uc.grade>= ?2")
 	ArrayList<UserCourse> findByCourseAndTeachingAndMinimumGrade(Course course, int grade, boolean teaching);

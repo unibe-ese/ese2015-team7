@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 /**
@@ -77,6 +78,7 @@ public class SearchController {
     @RequestMapping(value = "/results", method = RequestMethod.POST)
     public ModelAndView results(@Valid SearchForm searchForm) {
     	ModelAndView model = new ModelAndView();
+    	
             try {
             	model = new ModelAndView("results");
             	ArrayList<UserCourse> userCourses = searchService.getTutorsFromSearchForm(searchForm); 	
@@ -122,6 +124,61 @@ public class SearchController {
     	
     	model.addObject("searchForm", new SearchForm());
     	
+    	return model;
+    }
+    
+    @RequestMapping(value = "/results", method = RequestMethod.GET)
+    public ModelAndView resultsGet(@Valid SearchForm searchForm, RedirectAttributes redirect) {
+    	ModelAndView model = new ModelAndView();
+
+    	model = new ModelAndView("redirect:/results");
+    	redirect.addFlashAttribute("searchForm", searchForm);
+    	/*
+            try {
+            	model = new ModelAndView("results");
+            	ArrayList<UserCourse> userCourses = searchService.getTutorsFromSearchForm(searchForm); 	
+            	model.addObject("userCourses", userCourses);
+            	
+            	University searchedUniversity = searchService.getUniversity(searchForm);
+            	if(searchedUniversity==null){
+            		searchedUniversity = new University();
+            		searchedUniversity.setUniversityName("All");
+            	}
+            	model.addObject("searchedUniversity", searchedUniversity);
+            	
+            	Subject searchedSubject = searchService.getSubject(searchForm);
+            	if(searchedSubject==null){
+            		searchedSubject = new Subject();
+            		searchedSubject.setSubjectName("All");
+            	}
+            	model.addObject("searchedSubject", searchedSubject);
+
+            	Course searchedCourse = searchService.getCourse(searchForm);
+            	if(searchedCourse==null){
+            		searchedCourse = new Course();
+            		searchedCourse.setCourseName("All");
+            	}
+            	model.addObject("searchedCourse", searchedCourse);
+            	
+            } catch (InvalidUserException e) {
+            	e.printStackTrace();
+            }
+
+        ArrayList<University> universities = searchService.getUniversities();
+    	model.addObject("universities", universities);
+
+    	ArrayList<Subject> subjects = searchService.getSubjects();
+    	model.addObject("subjects", subjects);
+
+    	ArrayList<Course> courses = searchService.getCourses();
+    	model.addObject("courses", courses);
+    	
+    	User principal=userService.getPrincipalUser();
+    	String username = principal.getWholeName();
+    	model.addObject("username", username);
+    	
+    	model.addObject("searchForm", new SearchForm());
+    	*/
     	return model;
     }
 }

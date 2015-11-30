@@ -3,10 +3,9 @@ package org.sample.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
-import org.sample.model.pojos.UserCourseId;
+import org.hibernate.annotations.ForeignKey;
 
 /**
  * <p>This entity represents the connection between users and courses.</p>
@@ -15,27 +14,28 @@ import org.sample.model.pojos.UserCourseId;
  * @author Team7
  *
  */
-@IdClass(UserCourseId.class)
 @Entity
 public class UserCourse
 {
-	@Id
-	@ManyToOne(targetEntity=User.class)
-	private User user;
-    
-    @Id
-    @ManyToOne(targetEntity=Course.class)
-    private Course course;
-    
     @Id
     @GeneratedValue
     private long userCourseId;
+    
+	@ManyToOne
+    @ForeignKey(name = "COURSE_ID")
+    private Course course;
+    
+    @ManyToOne
+	@ForeignKey(name="USER_ID")
+	private User user;
+    
+    
     
     private int grade = 0;
     
     private boolean teaching = false;
 
-	public long getUserCourseId() {
+    public long getUserCourseId() {
 		return userCourseId;
 	}
 

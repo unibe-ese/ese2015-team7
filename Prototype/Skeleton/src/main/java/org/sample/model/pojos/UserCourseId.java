@@ -14,9 +14,11 @@ import org.sample.model.User;
 public class UserCourseId implements Serializable{
 	private static final long serialVersionUID = -1732951049318741876L;
 	
+
+	
+	private long userCourseId;
 	private User user;
 	private Course course;
-	private long userCourseId;
 	
 	public UserCourseId() {}
 	

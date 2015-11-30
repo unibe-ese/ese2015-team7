@@ -1,5 +1,6 @@
 package org.sample.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,6 +22,8 @@ public class Course {
 
     @NotNull
     private String courseName;
+
+    @Column(name = "year", columnDefinition = "int default 0")
     private int year;
     private String semester;
 
