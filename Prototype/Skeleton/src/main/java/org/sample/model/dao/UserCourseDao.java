@@ -24,6 +24,9 @@ public interface UserCourseDao extends CrudRepository<UserCourse,Long> {
 	@Query("Select uc From UserCourse uc WHERE uc.user=?1")
 	List<UserCourse> findByUser(User user);
 	
+	@Query("Select uc From UserCourse uc WHERE uc.user=?1 AND uc.course=?2")
+	UserCourse findByUserAndCourse(User user, Course course);
+	
 	@Query("SELECT uc FROM UserCourse uc WHERE uc.course= ?1 AND uc.teaching= ?3 AND uc.grade>= ?2")
 	ArrayList<UserCourse> findByCourseAndTeachingAndMinimumGrade(Course course, int grade, boolean teaching);
 	

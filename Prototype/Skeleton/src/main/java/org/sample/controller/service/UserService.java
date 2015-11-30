@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
+import org.sample.model.Course;
 import org.sample.model.TimeSlot;
 import org.sample.model.UserCourse;
 import org.sample.model.UserCourseFormAttribute;
@@ -92,15 +93,18 @@ public class UserService implements IUserDataService{
 			if(userCourseFormAttribute.getCourse() == null || userCourseFormAttribute.getCourse().equals("None"))
 				continue;
 			
+			Course course =  courseDao.findByCourseName(userCourseFormAttribute.getCourse());
 			UserCourse tmpUserCourse = new UserCourse();
-			tmpUserCourse.setUser(user);
-			tmpUserCourse.setCourse( courseDao.findByCourseName(userCourseFormAttribute.getCourse()) );
-			tmpUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()) );
-			tmpUserCourse.setTeaching(userCourseFormAttribute.isTeaching() );
 			
-			if(!userCourseFormAttribute.isRemove() && (userCourseFormAttribute.isTeaching() || !userCourseFormAttribute.getGrade().equals("0")) ){
+			if(!userCourseFormAttribute.isRemove()){
+				tmpUserCourse.setUser(user);
+				tmpUserCourse.setCourse(course);
+				tmpUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()) );
+				tmpUserCourse.setTeaching(userCourseFormAttribute.isTeaching() );
+				
 				userCourseDao.save(tmpUserCourse); // save object to DB
 			} else {
+				tmpUserCourse=userCourseDao.findByUserAndCourse(user, course);
 				userCourseDao.delete(tmpUserCourse);
 			}
 		}
