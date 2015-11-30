@@ -8,12 +8,14 @@ import java.util.Set;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.model.Course;
+import org.sample.model.Request;
 import org.sample.model.TimeSlot;
 import org.sample.model.UserCourse;
 import org.sample.model.UserCourseFormAttribute;
 import org.sample.model.User;
 import org.sample.model.UserRole;
 import org.sample.model.dao.CourseDao;
+import org.sample.model.dao.RequestDao;
 import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ public class UserService implements IUserDataService{
 	@Autowired	UserCourseDao userCourseDao;
 	@Autowired	ISearchService searchService;
 	@Autowired	CourseDao courseDao;
+	@Autowired	RequestDao requestDao;
 
 	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
 		String firstName = signupForm.getFirstName();
@@ -110,15 +113,13 @@ public class UserService implements IUserDataService{
 				userCourseDao.save(givenUserCourse); // save object to DB
 			}
 			else if(!userCourseFormAttribute.isRemove()&&givenUserCourseExists){
-				userCourseDao.delete(givenUserCourse);
-				givenUserCourse = new UserCourse();
-				givenUserCourse.setUser(user);
-				givenUserCourse.setCourse(course);
 				givenUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()));
 				givenUserCourse.setTeaching(userCourseFormAttribute.isTeaching());
 				userCourseDao.save(givenUserCourse); // save object to DB
 			}
 			else if(userCourseFormAttribute.isRemove()&&givenUserCourseExists) {
+				ArrayList<Request> relatedRequests = requestDao.findByUserCourseId(givenUserCourse.getUserCourseId());
+				requestDao.delete(relatedRequests);
 				userCourseDao.delete(givenUserCourse);
 			}
 		}

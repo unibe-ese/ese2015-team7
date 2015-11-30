@@ -16,5 +16,6 @@ public interface RequestDao extends CrudRepository<Request,Long> {
 	Request findByUserCourseIdAndStudent(long userCourseId, User student);
 	Request findById(long id);
 	ArrayList<Request> findByStudent(User student);
+	ArrayList<Request> findByUserCourseId(long userCourseId);
 
 }
