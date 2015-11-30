@@ -44,12 +44,14 @@
         <button type="button" id="moreButton" class="btn btn-primary">More Criteria</button>
         <c:set var="GradeErrors"><form:errors path="Grade"/></c:set>
         <div id="grades" class="control-group<c:if test="${not empty GradeErrors}"> error</c:if>">
-            <label class="control-label" for="field-Grade">Grade</label>
+            <label class="control-label" for="field-Grade">Minimum Grade</label>
             <div class="controls">
                 <form:select path="grade" id="field-Grade" tabindex="1">
 				           		<form:option value='0' label="Select Grade"/>
 				           		<form:option value="4"/>
+				           		<form:option value="4.5"/>
 				           		<form:option value="5"/>
+				           		<form:option value="5.5"/>
 				           		<form:option value="6"/>
                 </form:select>
                 <form:errors path="Grade" cssClass="help-inline" element="span"/>

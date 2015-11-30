@@ -41,7 +41,7 @@ public class UserCourse
 	private User user;
     
     
-    private int grade = 0;
+    private float grade = 0;
     
     private boolean teaching = false;
 
@@ -61,11 +61,11 @@ public class UserCourse
 		this.course = course;
 	}
 
-	public int getGrade() {
+	public float getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	public void setGrade(float grade) {
 		this.grade = grade;
 	}
 

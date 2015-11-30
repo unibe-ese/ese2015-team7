@@ -108,12 +108,12 @@ public class UserService implements IUserDataService{
 				givenUserCourse = new UserCourse();
 				givenUserCourse.setUser(user);
 				givenUserCourse.setCourse(course);
-				givenUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()));
+				givenUserCourse.setGrade( getGradeFromString(userCourseFormAttribute.getGrade()));
 				givenUserCourse.setTeaching(userCourseFormAttribute.isTeaching());
 				userCourseDao.save(givenUserCourse); // save object to DB
 			}
 			else if(!userCourseFormAttribute.isRemove()&&givenUserCourseExists){
-				givenUserCourse.setGrade( Integer.parseInt(userCourseFormAttribute.getGrade()));
+				givenUserCourse.setGrade( getGradeFromString(userCourseFormAttribute.getGrade()));
 				givenUserCourse.setTeaching(userCourseFormAttribute.isTeaching());
 				userCourseDao.save(givenUserCourse); // save object to DB
 			}
@@ -136,6 +136,10 @@ public class UserService implements IUserDataService{
     
     public User getPrincipalUser(){
     	return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+    
+    public float getGradeFromString(String grade){
+    	return Float.parseFloat(grade);
     }
 
 	public boolean validatePassword(String password, String passwordVerify) {
