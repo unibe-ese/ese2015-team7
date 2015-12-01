@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,7 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Team7
  *
  */
-
+@SessionAttributes({"username"})
 @Controller
 public class UserController {
 	
@@ -67,7 +68,7 @@ public class UserController {
 	if (!result.hasErrors()) {
 		
 	    model = checkValidityAndRegistersNewUser(signupForm, redirectAttributes, model);
-	    model = authenticateUserAndSetSession(signupForm, request, model);
+	    model = authenticateUserAndSetSession(signupForm, request, redirectAttributes, model);
 	    
 	} else {
 	    model = new ModelAndView("signUp");
@@ -113,7 +114,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	private ModelAndView authenticateUserAndSetSession(SignupForm signupForm, HttpServletRequest request,
+	private ModelAndView authenticateUserAndSetSession(SignupForm signupForm, HttpServletRequest request,RedirectAttributes redirectAttributes,
 			ModelAndView model) {
 		// perform login authentication
 		
@@ -130,8 +131,12 @@ public class UserController {
 		 
 		      // redirect into secured main page if authentication successful
 		      if(authenticatedUser.isAuthenticated()) {
+		    	 model =  new ModelAndView("redirect:/help");
+		    	 model.addObject("username", principal.getWholeName());
+		    	 redirectAttributes.addFlashAttribute("username", principal.getWholeName());
 		        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-		        return new ModelAndView("redirect:/search");
+		        
+		        return model;
 		      }
 		      else{
 		    	  model = new ModelAndView("signUp");

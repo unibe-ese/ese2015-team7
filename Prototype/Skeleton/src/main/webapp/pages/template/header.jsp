@@ -14,12 +14,14 @@
 		<script src="/Skeleton/js/skel.min.js"></script>
 		<script src="/Skeleton/js/skel-layers.min.js"></script>
 		<script src="/Skeleton/js/init.js"></script>
+		<!-- 
 		<noscript>
 			<link rel="stylesheet" href="/Skeleton/css/skel.css" />
 			<link rel="stylesheet" href="/Skeleton/css/style.css" />
 			<link rel="stylesheet" href="/Skeleton/css/style-desktop.css" />
 			<link rel="stylesheet" href="/Skeleton/css/main.css" />
 		</noscript>
+		--!>
 		<!--[if lte IE 8]><link rel="stylesheet" href="/Skeleton/css/ie/v8.css" /><![endif]-->
 	</head>
 	<body class="no-sidebar">
@@ -29,11 +31,12 @@
 		
 			<div id="header-wrapper">
 				<header id="header" class="container">
-				<h5><% out.println(request.getSession().getAttribute("username") ); %></h5>
+				<h3><% out.println(request.getSession().getAttribute("username") ); %></h3>
 
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
+								<li><a href="/Skeleton/help">Help</a></li>
 								<li><a href="/Skeleton/search">Search</a></li>
 								<li>
 									<a href="/Skeleton/requests">Requests</a>
