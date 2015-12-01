@@ -15,16 +15,6 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<link rel="stylesheet" href="/Skeleton/css/style.css" />
-<style>
-th, td {
-	border:1px solid grey;
-	text-align:center;
-}
-#noBox {
-	border: none;
-}
-</style>
 </head>
 <body>
 
@@ -35,9 +25,9 @@ th, td {
 <h1>Search results for <br> course: ${searchedCourse}, subject: ${searchedSubject}, university: ${searchedUniversity} </h1>
 <div align="left">
 	<form:form method="post" action="profile" modelAttribute="searchForm" id="results"  autocomplete="off">
-    	<table  style="width:70%;" >
-				<thead align="left">
-                	<tr style="font-weight: bold">
+    	<table  style="width:70%;" class="withBox">
+				<thead align="left" class="tableHeader">
+                	<tr >
                     	<th>Tutor</th>
                         <th>Course</th>
                         <th>Subject</th>

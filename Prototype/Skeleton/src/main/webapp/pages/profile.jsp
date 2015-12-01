@@ -8,6 +8,13 @@
 
 <c:import url="template/header.jsp" />
 
+<head>
+<title>Profile</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+</head>
+
 <div class="profile-page" >
 
 	<h2>Profile</h2>

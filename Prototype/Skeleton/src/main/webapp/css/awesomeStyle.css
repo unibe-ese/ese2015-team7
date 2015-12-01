@@ -5,3 +5,20 @@ button {
 	color:	#000000;
 }
 
+
+th, td {
+	font-weight: 600;
+}
+
+.tableHeader th, .tableHeader td {
+	font-weight: 900;
+}
+
+.withBox th, .withBox td{
+	border:1px solid grey;
+	text-align:center;
+}
+
+#noBox {
+	border: none;
+}
