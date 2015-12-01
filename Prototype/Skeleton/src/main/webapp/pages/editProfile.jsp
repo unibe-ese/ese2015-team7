@@ -66,6 +66,7 @@
 	                <form:errors path="biography" cssClass="help-inline" element="span"/>
 	            </div>
 	        </div>
+	        <p style="text-align: center">Write a short bio about you and your skills that to students choose you as a tutor.</p>
 	        
 			<br>
 			
@@ -161,6 +162,8 @@
                 </tbody>
 			</table>
 			
+			<p style="text-align: center">Please select the <strong>Teaching</strong>-box for every course you want to tutor.</p>
+			
 			<br>
 			
 			<table>
@@ -182,23 +185,23 @@
 							<td>
 								<form:select path="timeSlots[${j.index}].semesterOrSemesterBreak" tabindex="1">
 						    		<form:option value='None' label="Select Time Period"/>
-				           			<form:option value="Herbstsemester 2015"/>
-				           			<form:option value="Semesterferien im Winter"/>
-				           			<form:option value="Frühjahrssemester 2016"/>
-				           			<form:option value="Semesterferien im Sommer"/>
+				           			<form:option value="Autumn semester 2015"/>
+				           			<form:option value="Winter vacation"/>
+				           			<form:option value="Spring semester 2016"/>
+				           			<form:option value="Summer vacation"/>
 						    	</form:select>
 						    	<form:errors path="timeSlots[${j.index}].semesterOrSemesterBreak" style="color:red;"/>
 							</td>
 							<td>
 						   		<form:select path="timeSlots[${j.index}].day" tabindex="1">
 						    		<form:option value='None' label="Select Day"/>
-				           			<form:option value="Montag"/>
-				           			<form:option value="Dienstag"/>
-				           			<form:option value="Mittwoch"/>
-				           			<form:option value="Donnerstag"/>
-				           			<form:option value="Freitag"/>
-				           			<form:option value="Samstag"/>
-				           			<form:option value="Sonntag"/>
+				           			<form:option value="Monday"/>
+				           			<form:option value="Tuesday"/>
+				           			<form:option value="Wednesday"/>
+				           			<form:option value="Thursday"/>
+				           			<form:option value="Friday"/>
+				           			<form:option value="Saturday"/>
+				           			<form:option value="Sunday"/>
 						   		</form:select>
 						   		<form:errors path="timeSlots[${j.index}].day" style="color:red;"/>
 						   	</td>
@@ -258,22 +261,22 @@
                            <td>
                            	<form:select path="timeSlots[0].semesterOrSemesterBreak" tabindex="1">
 				           		<form:option value='None' label="Select Time Period"/>
-				           		<form:option value="Herbstsemester 2015"/>
-				           		<form:option value="Semesterferien im Winter"/>
-				           		<form:option value="Frühjahrssemester 2016"/>
-				           		<form:option value="Semesterferien im Sommer"/>
+				           		<form:option value="Autumn semester 2015"/>
+				           		<form:option value="Winter vacation"/>
+				           		<form:option value="Spring semester 2016"/>
+				           		<form:option value="Summer vacation"/>
 		            		</form:select>
 		            	</td>
 		            	<td>
 		            		<form:select path="timeSlots[0].day" tabindex="1">
 				           		<form:option value='None' label="Select Day"/>
-				           		<form:option value="Montag"/>
-				           		<form:option value="Dienstag"/>
-				           		<form:option value="Mittwoch"/>
-				           		<form:option value="Donnerstag"/>
-				           		<form:option value="Freitag"/>
-				           		<form:option value="Samstag"/>
-				           		<form:option value="Sonntag"/>
+				           		<form:option value="Monday"/>
+				           		<form:option value="Tuesday"/>
+				           		<form:option value="Wednesday"/>
+				           		<form:option value="Thursday"/>
+				          		<form:option value="Friday"/>
+				         		<form:option value="Saturday"/>
+				           		<form:option value="Sunday"/>
 		            		</form:select>
 		            	</td>
 		            	<td>
@@ -326,6 +329,8 @@
 					<tr id="submitRowTimeSlots" /> <!-- Here a new row gets attached -->
                 </tbody>
 			</table>
+			
+			<p style="text-align: center">Add some time slots that the students know when you are available for tutoring.</p>
 			
 			<button type="submit" class="btn btn-primary">Update</button>
 			
