@@ -29,7 +29,7 @@
     	
     	<div class="help" id="help-search">
     		<h4>How to search for a tutor ?</h4>
-    		<p>Click on "<strong>Search</strong>" in the header and search a tutor.</p>
+    		<p>Click on <strong>Search</strong> in the header and search a tutor.</p>
     		<p>You can filter the search by indicating an university, a subject and a course.</p>
     		<p>You can even search for tutors which had a specific grade by clicking on "More-criteria".</p>
         	<p>Hint: You don't got to specify anything if you want to search for all the available courses</p>
@@ -41,6 +41,7 @@
     		<p>You can then compare the different tutors. Just click on "visit profile" and take a closer look.</p>
     		<p>If you have chosen one you can send him a request by clicking the lowest button on his profile page.</p>
     		<p>The tutor will then get your request and can accept or decline the request. If he accepts the request you will both get the contact information (email and phone number) of the other and you can arrange a learning session.</p>
+    		<p>Please notice that you only can send a request for the course selected in the results page.</p>
     	</div>
     	
     	
