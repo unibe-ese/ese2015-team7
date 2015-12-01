@@ -12,7 +12,7 @@
 <html>
 <head>
 <title>A little help</title>
-<link rel="stylesheet" type="text/css" href="mystyle.css">
+<link rel="stylesheet" type="text/css" href="/Skeleton/css/helpPageStyle.css">
 </head>
 
 	<h2>A little help</h2>
