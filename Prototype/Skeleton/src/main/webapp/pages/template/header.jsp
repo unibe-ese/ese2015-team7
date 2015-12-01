@@ -22,6 +22,7 @@
 			<link rel="stylesheet" href="/Skeleton/css/main.css" />
 		</noscript>
 		--!>
+		<link rel="stylesheet" href="/Skeleton/css/awesomeStyle.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="/Skeleton/css/ie/v8.css" /><![endif]-->
 	</head>
 	<body class="no-sidebar">

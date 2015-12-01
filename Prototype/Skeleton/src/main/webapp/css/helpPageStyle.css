@@ -31,3 +31,10 @@
 #help-costs{
     background-color:#FFBF00;
 }
+
+button {
+	border-radius: 10px;
+	background-color: #11ff11;
+	color:	#000000;
+}
+
