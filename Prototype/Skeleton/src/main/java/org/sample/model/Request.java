@@ -41,7 +41,7 @@ public class Request {
 	
 	
 	@NotNull
-	@ManyToOne(targetEntity=UserCourse.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity=UserCourse.class)
 	private UserCourse userCourse;
 	
 	private long userCourseId;
