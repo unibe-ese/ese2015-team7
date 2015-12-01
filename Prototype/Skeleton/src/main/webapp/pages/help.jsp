@@ -22,15 +22,15 @@
     	</div>
     	<div class="help" id="help-about">
     		<h4>What is it about ?</h4>
-    		<p>Basically, we want to bring student together, so that one gets help concerning a <strong>specific course</strong> and the other gets a little something for helping out.</p>
+    		<p>Basically, we want to bring students together, so that one gets help concerning a <strong>specific course</strong> and the other gets a little something for helping out.</p>
        		<p>As you see you can either learn something as a student or you can earn a bit money by teaching as a tutor.</p>
     	</div>
     	
     	
     	<div class="help" id="help-search">
     		<h4>How to search for a tutor ?</h4>
-    		<p>Click on "<strong>search</strong>" in the header and search a tutor.</p>
-    		<p>You can filter the search by indicating a university, a subject and a course.</p>
+    		<p>Click on "<strong>Search</strong>" in the header and search a tutor.</p>
+    		<p>You can filter the search by indicating an university, a subject and a course.</p>
     		<p>You can even search for tutors which had a specific grade by clicking on "More-criteria".</p>
         	<p>Hint: You don't got to specify anything if you want to search for all the available courses</p>
     	</div>
@@ -47,11 +47,11 @@
     	<div class="help" id="help-become-tutor">
     		<h4>How to become a tutor ?</h4>
     		<p>${user.firstName} welcome to the teaching team!</p> 
-    		<p>If you want to become a tutor, just go to your profile page by clicking profile in the header. Then click edit and add some courses to your profile. The minute you indicate, that you want to teach a course you become a tutor and the students can send you a request.</p>
+    		<p>If you want to become a tutor, just go to your profile page by clicking <strong>Profile</strong> in the header. Then click <strong>edit</strong> and add some courses to your profile. The minute you indicate, that you want to teach a course you become a tutor and the students can send you a request.</p>
     	</div>
     	
     	<div class="help" id="help-costs">
     		<h4>What about the costs ?</h4>
-    		<p>If a tutor accepts a request he got to pay us a little something and will get a e-bill by mail.</p>
+    		<p>If a tutor accepts a request he got to pay us a little something and will get an e-bill by mail.</p>
     	</div>
 <c:import url="template/footer.jsp" />
