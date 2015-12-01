@@ -154,13 +154,11 @@ public class SearchServiceTest {
     	assertEquals(courses, testCourses);    	
     }
     
-
-    // needs to be udpated
 	@Test
     public void testCourseNotSelected(){
 		searchForm.setCourse("Select Course");
-		searchService.getTutorsFromSearchForm(searchForm);
-		assertTrue(false);
+		ArrayList<UserCourse> userCoursesWithNoCourse = searchService.getTutorsFromSearchForm(searchForm);
+		assertTrue( userCoursesWithNoCourse.isEmpty() );
 	}
 	
 	// needs to be updated
