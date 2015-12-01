@@ -1,5 +1,6 @@
 package org.sample.controller.pojos;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -28,9 +29,9 @@ public class SignupForm {
     @Pattern(regexp="\\w\\w+", message = "Your last name must be a Word with more then two letters containing \"a-zA-Z0-9_\"")
     private String lastName;
     private String biography;
-    // @Valid
+    @Valid
     private AutoPopulatingList<UserCourseFormAttribute> userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
-    // @Valid
+    @Valid
     private AutoPopulatingList<TimeSlot> timeSlots = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
     
     @Pattern(groups= {SignupValidatorGroup.class}, regexp = "^$|^[0-9_a-zA-Z]{6,20}$", message="Your Password has to match 6 to 20 characters, please try again!")

@@ -20,12 +20,11 @@
    	<td>
    		<form:select path="signupForm.userCourseList[${gradeNumber}].grade" tabindex="1">
     		<form:option value='0' label="Select Grade"/>
-    		<form:option value="1"/>
-    		<form:option value="2"/>
-    		<form:option value="3"/>
-    		<form:option value="4"/>
-    		<form:option value="5"/>
-    		<form:option value="6"/>
+        	<form:option value="4"/>
+        	<form:option value="4.5"/>
+        	<form:option value="5"/>
+        	<form:option value="5.5"/>
+        	<form:option value="6"/>
    		</form:select>
    	</td>
    	<td>

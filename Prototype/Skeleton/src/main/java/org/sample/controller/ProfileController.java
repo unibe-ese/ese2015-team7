@@ -278,7 +278,7 @@ public class ProfileController {
 		} else {
 		    model = new ModelAndView("editProfile");
 		    model.addObject("infoMessage", result.toString());
-		    // System.out.println("Form has errors:\n" + result.toString());
+		    System.out.println("Form has errors:\n" + result.toString());
 		}
 		return model;
 	}

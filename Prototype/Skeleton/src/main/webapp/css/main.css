@@ -5526,38 +5526,6 @@ a.label:hover, a.badge:hover {
     position: fixed
 }
 
-/*Colores are form: http://html-color-codes.info/webfarben_hexcodes*/
-
-.help{
-	border-radius: 5px;
-	border-style: solid;
-	padding: 2px 4px 2px 6px;
-	margin-top: 5px;
-}
-
-#help-starter{
-    background-color: #F5ECCE;
-}
-
-#help-about{
-    background-color: #F3E2A9;   
-}
-
-#help-search{
-    background-color: #F5DA81;   
-}
-
-#help-request{
-    background-color:#F7D358;
-}
-
-#help-become-tutor{
-    background-color:#FACC2E;
-}
-
-#help-costs{
-    background-color:#FFBF00;
-}
 
 
 

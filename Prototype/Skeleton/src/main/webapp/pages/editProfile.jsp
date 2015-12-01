@@ -43,7 +43,7 @@
 		            <label class="control-label" for="field-password">Password</label>
 		            <div class="controls">
 		                <form:password path="password" id="field-password" tabindex="1" maxlength="35" placeholder="Password"/>
-		                <form:errors path="password" cssClass="help-inline" element="span"/>
+		                <form:errors path="password" style="color:red;"/>
 		            </div>
 		        </div>
 		        <c:set var="passwordVerifyErrors"><form:errors path="passwordVerify"/></c:set>
@@ -187,6 +187,7 @@
 				           			<form:option value="Frühjahrssemester 2016"/>
 				           			<form:option value="Semesterferien im Sommer"/>
 						    	</form:select>
+						    	<form:errors path="timeSlots[${j.index}].semesterOrSemesterBreak" style="color:red;"/>
 							</td>
 							<td>
 						   		<form:select path="timeSlots[${j.index}].day" tabindex="1">
@@ -199,6 +200,7 @@
 				           			<form:option value="Samstag"/>
 				           			<form:option value="Sonntag"/>
 						   		</form:select>
+						   		<form:errors path="timeSlots[${j.index}].day" style="color:red;"/>
 						   	</td>
 						   	<td>
 						   		<form:select path="timeSlots[${j.index}].startTime" tabindex="1">
@@ -220,9 +222,11 @@
 					           		<form:option value="21:00"/>
 					           		<form:option value="22:00"/>
 						   		</form:select>
+						   		<form:errors path="timeSlots[${j.index}].startTime" style="color:red;"/>
 						   	</td>
 						   	<td>
 						   		<form:select path="timeSlots[${j.index}].endTime" tabindex="1">
+						   			<form:option value='None' label="Select End Time"/>
 						    		<form:option value="08:00"/>
 					           		<form:option value="09:00"/>
 					           		<form:option value="10:00"/>
@@ -240,6 +244,7 @@
 					           		<form:option value="22:00"/>
 					           		<form:option value="22:00"/>
 						   		</form:select>
+						   		<form:errors path="timeSlots[${j.index}].endTime" style="color:red;"/>
 						   	</td>
 						   	<td>
 						    	<button type="button" onclick="removeTSRow(${j.index})">Remove</button>

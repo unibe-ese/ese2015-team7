@@ -24,16 +24,16 @@ public class TimeSlot implements Serializable{
     @GeneratedValue
     private Long id;
     
-	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle einen Zeitperiode.")
+	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Please choose a period.")
 	private String semesterOrSemesterBreak;
 	
-	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle einen Wochentag.")
+	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Please choose a day.")
     private String day;
     
-	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle eine Startzeit.")
+	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Please choose a start time.")
     private String startTime;
     
-	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Bitte wähle eine Endzeit.")
+	@Pattern(groups= {SignupValidatorGroup.class}, regexp = "^(?!None$).*", message = "Please choose an end time.")
     private String endTime;
     
     private boolean remove = false;

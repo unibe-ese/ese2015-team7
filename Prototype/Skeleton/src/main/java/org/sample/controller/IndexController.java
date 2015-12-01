@@ -34,7 +34,7 @@ public class IndexController {
     IRequestService requestService;
     
     /**
-     * loads Login Page named index
+     * loads Login Page named index if not logged in else goes to loginningIn Page
      * 
      * @return ModelView of login Page
      */
