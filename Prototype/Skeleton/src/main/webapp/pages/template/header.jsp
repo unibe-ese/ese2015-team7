@@ -29,11 +29,12 @@
 		
 			<div id="header-wrapper">
 				<header id="header" class="container">
-				<h5><% out.println(request.getSession().getAttribute("username") ); %></h5>
+				<h3><% out.println(request.getSession().getAttribute("username") ); %></h3>
 
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
+								<li><a href="/Skeleton/help">Help</a></li>
 								<li><a href="/Skeleton/search">Search</a></li>
 								<li>
 									<a href="/Skeleton/requests">Requests</a>
