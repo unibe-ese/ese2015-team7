@@ -74,7 +74,7 @@ public class SearchService implements ISearchService {
     	String universityName = searchForm.getUniversity();
     	String subjectName = searchForm.getSubject();    	
     	String courseName = searchForm.getCourse();
-        int grade = searchForm.getGrade();
+        float grade = searchForm.getGrade();
     	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
 
         if(!StringUtils.isEmpty(courseName) && !"Select Course".equalsIgnoreCase(courseName)) {

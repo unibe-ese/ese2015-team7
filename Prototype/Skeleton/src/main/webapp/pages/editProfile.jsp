@@ -104,9 +104,11 @@
 						   	<td>
 						   		<form:select path="userCourseList[${i.index}].grade" tabindex="1">
 						    		<form:option value='0' label="Select Grade"/>
-						    		<form:option value="4"/>
-						    		<form:option value="5"/>
-						    		<form:option value="6"/>
+					           		<form:option value="4"/>
+					           		<form:option value="4.5"/>
+					           		<form:option value="5"/>
+					           		<form:option value="5.5"/>
+					           		<form:option value="6"/>
 						   		</form:select>
 						   	</td>
 						   	<td>
@@ -141,7 +143,9 @@
 		            		<form:select path="userCourseList[0].grade" tabindex="1">
 				           		<form:option value='0' label="Select Grade"/>
 				           		<form:option value="4"/>
+				           		<form:option value="4.5"/>
 				           		<form:option value="5"/>
+				           		<form:option value="5.5"/>
 				           		<form:option value="6"/>
 		            		</form:select>
 		            	</td>

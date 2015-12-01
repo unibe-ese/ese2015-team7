@@ -18,7 +18,7 @@ public class SearchForm
     //@NotNull
     private String course;
     
-    private int grade;
+    private float grade;
 
 	public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class SearchForm
         this.id = id;
     }
 	
-    public int getGrade() {
+    public float getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	public void setGrade(float grade) {
 		this.grade = grade;
 	}
 }

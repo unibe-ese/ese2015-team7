@@ -16,6 +16,15 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <link rel="stylesheet" href="/Skeleton/css/style.css" />
+<style>
+th, td {
+	border:1px solid grey;
+	text-align:center;
+}
+#noBox {
+	border: none;
+}
+</style>
 </head>
 <body>
 
@@ -25,13 +34,34 @@
 <div align="left" >
 <h1>Search results for <br> course: ${searchedCourse}, subject: ${searchedSubject}, university: ${searchedUniversity} </h1>
 <div align="left">
-<form:form method="post" action="profile" modelAttribute="searchForm" id="results"  autocomplete="off">
-    <c:forEach items="${userCourses}" var="item">
-	    <p>${fn:substring(item.user.firstName, 0, 2)}${fn:substring(item.user.lastName, 0, 2)}, course: ${item.course}, subject: ${item.course.subject}, university: ${item.course.subject.university} 
-	    <button type=submit name=userCourseId value="${item.userCourseId}">Visit Profile</button>
-    </p>
-    </c:forEach>
-</form:form>
+	<form:form method="post" action="profile" modelAttribute="searchForm" id="results"  autocomplete="off">
+    	<table  style="width:70%;" >
+				<thead align="left">
+                	<tr style="font-weight: bold">
+                    	<th>Tutor</th>
+                        <th>Course</th>
+                        <th>Subject</th>
+                        <th>University</th>
+                        <th>Grade</th>
+                        <th id="noBox"></th>
+                    </tr>
+                </thead>
+                <tbody align="left">
+                	<c:forEach items="${userCourses}" var="item">
+                		<tr id="tr${i.index}">
+							<td><c:out value="${fn:substring(item.user.firstName, 0, 2)}${fn:substring(item.user.lastName, 0, 2)}" /></td>
+							<td><c:out value="${item.course}" /></td>
+							<td><c:out value="${item.subject}" /></td>
+							<td><c:out value="${item.university}" /></td>
+							<td><c:out value="${item.grade}" /></td>
+						    <td id="noBox">
+						    	<button type=submit name=userCourseId value="${item.userCourseId}">Visit Profile</button>
+						    </td>
+						</tr>
+    				</c:forEach>
+    	</table>
+	</form:form>
+
 
 
 	<c:if test="${page_error != null }">

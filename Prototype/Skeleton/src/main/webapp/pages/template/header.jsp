@@ -18,6 +18,7 @@
 			<link rel="stylesheet" href="/Skeleton/css/skel.css" />
 			<link rel="stylesheet" href="/Skeleton/css/style.css" />
 			<link rel="stylesheet" href="/Skeleton/css/style-desktop.css" />
+			<link rel="stylesheet" href="/Skeleton/css/main.css" />
 		</noscript>
 		<!--[if lte IE 8]><link rel="stylesheet" href="/Skeleton/css/ie/v8.css" /><![endif]-->
 	</head>
