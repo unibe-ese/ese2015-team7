@@ -66,6 +66,7 @@
 	                <form:errors path="biography" cssClass="help-inline" element="span"/>
 	            </div>
 	        </div>
+	        <p style="text-align: center">Write a short bio about you and your skills that to students choose you as a tutor.</p>
 	        
 			<br>
 			
@@ -120,46 +121,11 @@
 						</tr>
 					</c:forEach>
 					</c:if>
-					<c:if test="${fn:length(signupForm.userCourseList) == 0}" >
-					<form:hidden path="userCourseList[0].remove" />
-					<tr id="tr0">
-                        <td>
-                        	<form:select path="userCourseList[0].university" id="field-University0" tabindex="1">
-				           		<form:option value='None' label="Select University"/>
-				           		<form:options items="${universities}" itemValue="universityName"/>
-		            		</form:select>
-		            	</td>
-		            	<td>
-		            		<form:select path="userCourseList[0].subject" id="field-Subject0" tabindex="1">
-				           		<form:option value='None' label="Select Subject"/>
-		            		</form:select>
-		            	</td>
-		            	<td>
-		            		<form:select path="userCourseList[0].course" id="field-Course0" tabindex="1">
-				           		<form:option value='None' label="Select Course"/>
-		            		</form:select>
-		            	</td>
-		            	<td>
-		            		<form:select path="userCourseList[0].grade" tabindex="1">
-				           		<form:option value='0' label="Select Grade"/>
-				           		<form:option value="4"/>
-				           		<form:option value="4.5"/>
-				           		<form:option value="5"/>
-				           		<form:option value="5.5"/>
-				           		<form:option value="6"/>
-		            		</form:select>
-		            	</td>
-		            	<td>
-					   		<form:checkbox path="userCourseList[0].teaching" tabindex="1" />
-					   	</td>
-		            	<td>
-					    	<button type="button" onclick="removeGradeRow(0)">Remove</button>
-					    </td>
-					</tr>
-                	</c:if>
 					<tr id="submitRowGrades" /> <!-- Here a new row gets attached -->
                 </tbody>
 			</table>
+			
+			<p style="text-align: center">Please select the <strong>Teaching</strong>-box for every course you want to tutor.</p>
 			
 			<br>
 			
@@ -182,23 +148,23 @@
 							<td>
 								<form:select path="timeSlots[${j.index}].semesterOrSemesterBreak" tabindex="1">
 						    		<form:option value='None' label="Select Time Period"/>
-				           			<form:option value="Herbstsemester 2015"/>
-				           			<form:option value="Semesterferien im Winter"/>
-				           			<form:option value="Frühjahrssemester 2016"/>
-				           			<form:option value="Semesterferien im Sommer"/>
+				           			<form:option value="Autumn semester 2015"/>
+				           			<form:option value="Winter vacation"/>
+				           			<form:option value="Spring semester 2016"/>
+				           			<form:option value="Summer vacation"/>
 						    	</form:select>
 						    	<form:errors path="timeSlots[${j.index}].semesterOrSemesterBreak" style="color:red;"/>
 							</td>
 							<td>
 						   		<form:select path="timeSlots[${j.index}].day" tabindex="1">
 						    		<form:option value='None' label="Select Day"/>
-				           			<form:option value="Montag"/>
-				           			<form:option value="Dienstag"/>
-				           			<form:option value="Mittwoch"/>
-				           			<form:option value="Donnerstag"/>
-				           			<form:option value="Freitag"/>
-				           			<form:option value="Samstag"/>
-				           			<form:option value="Sonntag"/>
+				           			<form:option value="Monday"/>
+				           			<form:option value="Tuesday"/>
+				           			<form:option value="Wednesday"/>
+				           			<form:option value="Thursday"/>
+				           			<form:option value="Friday"/>
+				           			<form:option value="Saturday"/>
+				           			<form:option value="Sunday"/>
 						   		</form:select>
 						   		<form:errors path="timeSlots[${j.index}].day" style="color:red;"/>
 						   	</td>
@@ -252,80 +218,11 @@
 						</tr>
 					</c:forEach>
 					</c:if>
-					<c:if test="${fn:length(signupForm.timeSlots) == 0}" >
-						<form:hidden path="timeSlots[0].remove" />
-						<tr id="trTS0">
-                           <td>
-                           	<form:select path="timeSlots[0].semesterOrSemesterBreak" tabindex="1">
-				           		<form:option value='None' label="Select Time Period"/>
-				           		<form:option value="Herbstsemester 2015"/>
-				           		<form:option value="Semesterferien im Winter"/>
-				           		<form:option value="Frühjahrssemester 2016"/>
-				           		<form:option value="Semesterferien im Sommer"/>
-		            		</form:select>
-		            	</td>
-		            	<td>
-		            		<form:select path="timeSlots[0].day" tabindex="1">
-				           		<form:option value='None' label="Select Day"/>
-				           		<form:option value="Montag"/>
-				           		<form:option value="Dienstag"/>
-				           		<form:option value="Mittwoch"/>
-				           		<form:option value="Donnerstag"/>
-				           		<form:option value="Freitag"/>
-				           		<form:option value="Samstag"/>
-				           		<form:option value="Sonntag"/>
-		            		</form:select>
-		            	</td>
-		            	<td>
-		            		<form:select path="timeSlots[0].startTime" tabindex="1">
-				           		<form:option value='None' label="Select Start Time"/>
-				           		<form:option value="07:00"/>
-				           		<form:option value="08:00"/>
-				           		<form:option value="09:00"/>
-				           		<form:option value="10:00"/>
-				           		<form:option value="11:00"/>
-				           		<form:option value="12:00"/>
-				           		<form:option value="13:00"/>
-				           		<form:option value="14:00"/>
-				           		<form:option value="15:00"/>
-				           		<form:option value="16:00"/>
-				           		<form:option value="17:00"/>
-				           		<form:option value="18:00"/>
-				           		<form:option value="19:00"/>
-				           		<form:option value="20:00"/>
-				           		<form:option value="21:00"/>
-				           		<form:option value="22:00"/>
-		            		</form:select>
-		            	</td>
-		            	<td>
-		            		<form:select path="timeSlots[0].endTime" tabindex="1">
-				           		<form:option value='None' label="Select End Time"/>
-				           		<form:option value="08:00"/>
-				           		<form:option value="09:00"/>
-				           		<form:option value="10:00"/>
-				           		<form:option value="11:00"/>
-				           		<form:option value="12:00"/>
-				           		<form:option value="13:00"/>
-				           		<form:option value="14:00"/>
-				           		<form:option value="15:00"/>
-				           		<form:option value="16:00"/>
-				           		<form:option value="17:00"/>
-				           		<form:option value="18:00"/>
-				           		<form:option value="19:00"/>
-				           		<form:option value="20:00"/>
-				           		<form:option value="21:00"/>
-				           		<form:option value="22:00"/>
-				           		<form:option value="22:00"/>
-		            		</form:select>
-		            	</td>
-		            	<td>
-					    	<button type="button" onclick="removeTSRow(0)">Remove</button>
-					    </td>
-					</tr>
-                	</c:if>
 					<tr id="submitRowTimeSlots" /> <!-- Here a new row gets attached -->
                 </tbody>
 			</table>
+			
+			<p style="text-align: center">Add some time slots that the students know when you are available for tutoring.</p>
 			
 			<button type="submit" class="btn btn-primary">Update</button>
 			
