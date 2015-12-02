@@ -14,14 +14,6 @@
 		<script src="/Skeleton/js/skel.min.js"></script>
 		<script src="/Skeleton/js/skel-layers.min.js"></script>
 		<script src="/Skeleton/js/init.js"></script>
-		<!-- 
-		<noscript>
-			<link rel="stylesheet" href="/Skeleton/css/skel.css" />
-			<link rel="stylesheet" href="/Skeleton/css/style.css" />
-			<link rel="stylesheet" href="/Skeleton/css/style-desktop.css" />
-			<link rel="stylesheet" href="/Skeleton/css/main.css" />
-		</noscript>
-		--!>
 		<link rel="stylesheet" href="/Skeleton/css/awesomeStyle.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="/Skeleton/css/ie/v8.css" /><![endif]-->
 	</head>
