@@ -6,7 +6,8 @@
 
 <html>
 <head>
-<title>Awesome Website</title>
+<link rel="shortcut icon" type="image/x-icon" href="/Skeleton/img/favicon.ico">
+<title>StudentConnector</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
