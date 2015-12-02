@@ -103,7 +103,10 @@
 						   		</form:form>
 						   	</td>
 						   	<td>
-						   		<form:select path="userCourseList[${i.index}].grade" tabindex="1">
+						   		<form:select path="userCourseList[${i.index}].grade" tabindex="2">
+						   		<c:if test="${userCourseList[i.index].grade>0}">
+						   			<form:option value="${userCourseList[i.index].grade}"/>
+						   		</c:if>
 						    		<form:option value='0' label="Select Grade"/>
 					           		<form:option value="4"/>
 					           		<form:option value="4.5"/>
