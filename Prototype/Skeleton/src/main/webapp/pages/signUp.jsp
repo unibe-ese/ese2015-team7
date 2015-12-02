@@ -11,6 +11,7 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <link rel="stylesheet" href="/Skeleton/css/style.css" />
+<link rel="stylesheet" href="/Skeleton/css/awesomeStyle.css" />
 </head>
 <body>
 <div class="outer">
