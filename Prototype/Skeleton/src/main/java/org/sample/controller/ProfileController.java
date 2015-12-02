@@ -257,6 +257,7 @@ public class ProfileController {
 	
 		try {
 		    if (!userService.validatePassword(signupForm.getPassword(), signupForm.getPasswordVerify())) {
+			    redirectAttributes.addFlashAttribute("passwordVerifyError", "Your passwords do not match!");
 			    redirectAttributes.addFlashAttribute("infoMessage", "Your passwords do not match!");
 			    return new ModelAndView("redirect:/editProfile");
 			}

@@ -36,14 +36,18 @@
 	            </div>
 	        </div>
 	        
+	        
+	        <div style="color:red;">
 	        <button type="button" id="moreButton" class="btn btn-primary">Change password</button>
+	        <form:errors path="password"/>
+	        <c:out value="${ passwordVerifyError }">
+	        </c:out></div>
 	        <div id="changePassword">
 		        <c:set var="passwordErrors"><form:errors path="password"/></c:set>
 		        <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
 		            <label class="control-label" for="field-password">Password</label>
 		            <div class="controls">
 		                <form:password path="password" id="field-password" tabindex="1" maxlength="35" placeholder="Password"/>
-		                <form:errors path="password" style="color:red;"/>
 		            </div>
 		        </div>
 		        <c:set var="passwordVerifyErrors"><form:errors path="passwordVerify"/></c:set>
@@ -51,7 +55,6 @@
 		            <label class="control-label" for="field-passwordVerify">confirm Password</label>
 		            <div class="controls">
 		                <form:password path="passwordVerify" id="field-passwordVerify" tabindex="1" maxlength="35" placeholder="Password"/>
-		                <form:errors path="passwordVerify" cssClass="help-inline" element="span"/>
 		            </div>
 		        </div>
 	        </div>
@@ -66,7 +69,7 @@
 	                <form:errors path="biography" cssClass="help-inline" element="span"/>
 	            </div>
 	        </div>
-	        <p style="text-align: center">Write a short bio about you and your skills that to students choose you as a tutor.</p>
+	        <p style="text-align: center">Write a short bio about you and your skills that other students choose you as a tutor.</p>
 	        
 			<br>
 			
