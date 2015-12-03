@@ -25,14 +25,15 @@
     </c:if>
     
     <fieldset>
-    	
+    	<c:import url="requests/myOutgoingRequestsAccepted.jsp" />
+    	<c:if test="${not empty message}">
+       		 <div>${message}</div>
+    	</c:if>
 		<c:import url="requests/myOutgoingRequestsUnanwsered.jsp" />
-		<c:import url="requests/myOutgoingRequestsAccepted.jsp" />
+		
 		
    	 </fieldset>
-   	 <c:if test="${not empty infoMessage}">
-        <div>${message}</div>
-    </c:if>
+
 </div>
 </body>
 </html>
