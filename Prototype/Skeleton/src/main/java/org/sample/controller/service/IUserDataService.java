@@ -45,7 +45,7 @@ public interface IUserDataService {
 	/**
 	 * returns the principal user using the getUserByEmail method.
 	 * 
-	 * @return the principal user
+	 * @return the principal user.
 	 */
 	public User getPrincipalUser();
 	

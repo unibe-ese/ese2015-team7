@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * handles all requests concerning the editing and displaying of the profileData.
+ * This controller handles all requests concerning the editing and displaying of the profileData.
  * 
  * @author Team7
  *
@@ -61,9 +61,9 @@ public class ProfileController {
 	ISelectService selectService;
 	
 	/**
-	 * displays the profile data of the Principal if no User is entered
-	 * @param theUser
-	 * @return
+	 * displays the profile data of the principal if no user is entered.
+	 * @param theUser used to determine whether theUser is visiting his profile or an other profile.
+	 * @return the profile page.
 	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView profile(@RequestParam(required=false,name="user") User theUser){
@@ -86,9 +86,10 @@ public class ProfileController {
     }
 	
 	/**
-	 * shows profile of entered tutorEmailaddress
-	 * @param tutorEmail of Tutor to be displayed 
-	 * @return ModelView profile of the entered Tutor.
+	 * shows profile of the user belonging to tutorEmailaddress.
+	 * @param userCourseId to determine which request has to be sent when visiting an other student's profile.
+	 * @param studentsEmail of Tutor to be displayed 
+	 * @return ModelView profile of the entered student that is teaching the course belonging to userCourseId.
 	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
     public ModelAndView postProfile(@RequestParam(required=false, defaultValue="0", name="userCourseId") long userCourseId, @RequestParam(required=false, name="studentsEmail") String studentsEmail){
@@ -138,7 +139,7 @@ public class ProfileController {
 	/**
 	 * Serve model with signupForm.
 	 * @param principal the logged in principal.
-	 * @return the a signupForm with filled name and biography fields.
+	 * @return a signupForm with filled name and biography fields.
 	 */
 	@ModelAttribute("signupForm")
 	public SignupForm getSignupForm(Principal principal)
@@ -181,7 +182,7 @@ public class ProfileController {
 	
 	/**
 	 * Serve model with universities.
-	 * @return the universities from the database.
+	 * @return universities from the database.
 	 */
 	@ModelAttribute("universities")
 	public ArrayList<University> getUniversities()
@@ -207,7 +208,7 @@ public class ProfileController {
 	
 	
 	/**
-	 * <p>Called when the form is initially displayed</p>
+	 * <p>Loads the editProfile.jsp page</p>
 	 * @param principal the logged in principal.
 	 * @return the editProfile page.
 	 */
@@ -233,13 +234,25 @@ public class ProfileController {
         return model;
     }
 	
+	/**
+	 * Appends a new row to courses in editProfile.
+	 * @param fieldId the id number of the next courses row.
+	 * @param model the current model.
+	 * @return the editProfile page with one more courses row.
+	 */
 	@RequestMapping(value="/editProfileAppend", method = RequestMethod.GET)
 	protected String appendGradeField(@RequestParam Integer fieldId, ModelMap model)
 	{
 		model.addAttribute("gradeNumber", fieldId);
-		return "template/gradeRow";
+		return "template/coursesRow";
 	}
 	
+	/**
+	 * Appends a new row to the timeSlots in editProfile.
+	 * @param fieldId the id number of the next timeSlot row.
+	 * @param model the current model.
+	 * @return the editProfile page with one more timeSlot row.
+	 */
 	@RequestMapping(value="/editProfileAttach", method = RequestMethod.GET)
 	protected String attachTimeSlotField(@RequestParam Integer fieldId, ModelMap model)
 	{	
@@ -247,6 +260,14 @@ public class ProfileController {
 		return "template/timeSlotRow";
 	}
 	
+	/**
+	 * Validates all changes and tries to save them to the database.
+	 * @param principal the user that edited his profile.
+	 * @param signupForm the form which contains all information about the principal.
+	 * @param result contains error messages.
+	 * @param redirectAttributes used to add some attributes to the model.
+	 * @return the profile page if validations succeeded else returns the editProfile page with attached errors.
+	 */
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
     public ModelAndView postProfile(Principal principal, @Validated(SignupForm.SignupValidatorGroup.class) SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
 		

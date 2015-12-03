@@ -13,9 +13,9 @@ public class SearchForm
     private Long id;
     @NotNull
     private String university;
-    //@NotNull
+    
     private String subject;
-    //@NotNull
+    
     private String course;
     
     private float grade;

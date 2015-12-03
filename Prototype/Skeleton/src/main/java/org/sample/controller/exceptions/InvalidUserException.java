@@ -1,7 +1,7 @@
 package org.sample.controller.exceptions;
 
 /**
- * 
+ * This class defines an exception for user errors.
  * @author Team7
  *
  */

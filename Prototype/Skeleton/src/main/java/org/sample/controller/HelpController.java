@@ -1,19 +1,20 @@
 package org.sample.controller;
 
-import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.IUserDataService;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * This Controller maps the URI "/help" and loads the help.jsp page.
+ * 
+ * @author Team7
+ *
+ */
 @SessionAttributes({"username"})
 @Controller
 public class HelpController {
@@ -21,8 +22,12 @@ public class HelpController {
 @Autowired
 IUserDataService userService;
 	
+	/**
+	 * This method attachs the logged in user to the model and loads the help page.
+	 * @return the help page.
+	 */
 	@RequestMapping(value = "/help", method = RequestMethod.GET)
-	public ModelAndView help(@RequestParam(required=false,name="user") User theUser) {
+	public ModelAndView help() {
 		ModelAndView model = new ModelAndView("help");
     	User principal = userService.getPrincipalUser();
 		User user = principal;

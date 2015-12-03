@@ -15,7 +15,6 @@ public class RequestForm {
     private Long id;
 	private User student;
 	private User tutor;
-	//Date date;
 	Boolean isActiv;
 	Boolean isAccepted;
 	Boolean isDeclined;

@@ -73,12 +73,12 @@ public class RequestService implements IRequestService{
 		requestDao.save(request);
 	}
 
-	public ArrayList<Request> getAllMyRequests(User principal) {
+	public ArrayList<Request> getAllOutgoingRequests(User principal) {
         ArrayList<Request> myRequestList = requestDao.findByStudent(principal);
 		return myRequestList;
 	}
 
-	public ArrayList<Request> getAllRequests(User principal) {
+	public ArrayList<Request> getAllIncomingRequests(User principal) {
 		ArrayList<Request> requestList = new ArrayList<Request>();
         Iterator<Request> requestIter	= requestDao.findAll().iterator();
         while(requestIter.hasNext())

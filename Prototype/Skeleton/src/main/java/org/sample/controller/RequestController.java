@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * handels all requests which belong to request of a tutor action.
+ * Handles all requests which belong to a user.
  * 
  * @author Team7
  *
@@ -48,12 +48,11 @@ public class RequestController {
 
 	
 	/**
-	 * gets searchedCourse from Session and saves the Request to the Database and deletes searchedCourse
+	 * Gets searchedCourse from Session, saves the Request to the Database and deletes searchedCourse.
 	 * 
-	 * 
-	 * @param tutorEmail Email of Tutor which was requested
-	 * @param session holds the current searchedCourse
-	 * @return ModelView to new myRequestPage
+	 * @param tutorEmail Email of Tutor which was requested.
+	 * @param session holds the current searchedCourse.
+	 * @return the ModelAndView to new myRequestPage.
 	 */
 	@RequestMapping(value = "/myRequests", method = RequestMethod.POST)
     public ModelAndView myRequestPost( @RequestParam("userCourseId") long userCourseId){
@@ -63,7 +62,7 @@ public class RequestController {
     	
     	iRequestService.saveRequest(userCourseId, principalEmail);
     	
-    	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
+    	ArrayList<Request> myRequests = iRequestService.getAllOutgoingRequests(principal);
     	model.addObject("myRequests",myRequests);
     	model.addObject("message",iRequestService.getStateMessage(myRequests));
  
@@ -74,16 +73,16 @@ public class RequestController {
 	
 	
 	/**
-	 * gets all myRequests (outgoing Requests) 
+	 * Gets all myRequests (outgoing Requests).
 	 * @param session  --if available
-	 * @return ModelView with all outgoing requests
+	 * @return the ModelAndView with all outgoing requests.
 	 */
 	@RequestMapping(value = "/myRequests", method = RequestMethod.GET)
     public ModelAndView myRequestGet( HttpSession session){
     	ModelAndView model = new ModelAndView("myRequests");
     	User principal = userService.getPrincipalUser();    	
     	
-    	ArrayList<Request> myRequests = iRequestService.getAllMyRequests(principal);
+    	ArrayList<Request> myRequests = iRequestService.getAllOutgoingRequests(principal);
     	model.addObject("myRequests", myRequests);
     	model.addObject("message",iRequestService.getStateMessage(myRequests));
     	
@@ -95,16 +94,16 @@ public class RequestController {
     }
 	
 	/**
-	 * gets all requests ( Incoming Requests)
-	 * @param session --if available searchedCourse 
-	 * @return MOdelView with all incoming Requests
+	 * Gets all requests ( Incoming Requests).
+	 * @param session --if available searchedCourse.
+	 * @return the ModelAndView with all incoming Requests.
 	 */
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
     public ModelAndView requestGet(HttpSession session){
     	ModelAndView model = new ModelAndView("requests");
     	User principal = userService.getPrincipalUser();
     	
-    	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
+    	ArrayList<Request> requests = iRequestService.getAllIncomingRequests(principal);
     	model.addObject("requests", requests);
     	model.addObject("message",iRequestService.getStateMessage(requests));
     	String username = principal.getWholeName();
@@ -114,9 +113,9 @@ public class RequestController {
     }
 	
 	/**
-	 * handles action on outgoing requests
-	 * @param tutorEmail the Email of the Tutor which should be deleted
-	 * @return ModelView with updated list of outgoing requests
+	 * Handles action on outgoing requests.
+	 * @param tutorEmail the Email of the Tutor which should be deleted.
+	 * @return the ModelAndView with updated list of outgoing requests.
 	 */
 	@RequestMapping(value = "/myRequests/action", method = RequestMethod.POST)
     public ModelAndView myRequestAction(@RequestParam("deleteRequest") long id,RedirectAttributes redirect){
@@ -127,7 +126,7 @@ public class RequestController {
     	iRequestService.deleteRequest(id);
     	redirect.addFlashAttribute("infoMessage", "You successfully deleted the Request!");
     	
-    	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
+    	ArrayList<Request> requests = iRequestService.getAllIncomingRequests(principal);
     	redirect.addFlashAttribute("myRequests", requests);
     	redirect.addFlashAttribute("message",iRequestService.getStateMessage(requests));
     	
@@ -138,12 +137,12 @@ public class RequestController {
     }
 	
 	/**
-	 * handles action of requestsPage depended of the user action:
-	 * @param studentEmail if not empty visit Profile of Email
-	 * @param acceptStudentEmail if not empty accept Student and store to Database
-	 * @param declineStudentEmail if not empty decline Student and store to Database
+	 * Handles action of requestsPage depended of the user action.
+	 * @param studentEmail if not empty visit Profile of Email.
+	 * @param acceptStudentEmail if not empty accept Student and store to Database.
+	 * @param declineStudentEmail if not empty decline Student and store to Database.
 	 * @param redirectAttrs 
-	 * @return ModelView with updated requestPage
+	 * @return the ModelAndView with updated requestPage.
 	 */
 	@RequestMapping(value = "/requests/action", method = RequestMethod.POST)
     public ModelAndView requestAction(@RequestParam(required=false, defaultValue="0",name="acceptRequest") long acceptedId,@RequestParam(required=false, defaultValue="0", name="declineRequest") long declinedId,RedirectAttributes redirect){
@@ -162,7 +161,7 @@ public class RequestController {
     	}
     	
 
-    	ArrayList<Request> requests = iRequestService.getAllRequests(principal);
+    	ArrayList<Request> requests = iRequestService.getAllIncomingRequests(principal);
     	redirect.addFlashAttribute("requests", requests);
     	redirect.addFlashAttribute("message",iRequestService.getStateMessage(requests));
     	

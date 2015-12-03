@@ -34,9 +34,9 @@ public class IndexController {
     IRequestService requestService;
     
     /**
-     * loads Login Page named index if not logged in else goes to loginningIn Page
+     * loads login page named index.jsp if not logged in else goes to loginningIn Page
      * 
-     * @return ModelView of login Page
+     * @return the ModelView of login Page
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
@@ -58,9 +58,9 @@ public class IndexController {
 
 
     /**
-     * catches security errors and redirects them to login page
-     * @param redirectAttributes 
-     * @return loginPage
+     * catches security errors and redirects them to the login page
+     * @param redirectAttributes holds all the redirected attributes.
+     * @return the loginPage
      */
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)
     public String securityError(RedirectAttributes redirectAttributes) {
@@ -72,7 +72,7 @@ public class IndexController {
     public String loginningIn(HttpSession session) {
     	User principal = userService.getPrincipalUser();
     	session.setAttribute("username", principal.getWholeName());
-    	ArrayList<Request> requests = requestService.getAllRequests(principal);
+    	ArrayList<Request> requests = requestService.getAllIncomingRequests(principal);
     	for (Request request:requests){
     		if (request.getIsActiv())
     			return "redirect:/requests";

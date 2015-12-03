@@ -39,10 +39,10 @@ public class UserController {
 	@Autowired @Qualifier("authMgr") private AuthenticationManager authMgr;
 	
 	/**
-	 * loads signupPage to enter Personal Information.
+	 * Loads signupPage to enter Personal Information.
 	 * 
-	 * @param message informs User about mistakes he did (not equal passwords)
-	 * @return ModelView signupPage
+	 * @param message informs user about mistakes he did.
+	 * @return the signUp page.
 	 */
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
     public ModelAndView register(@ModelAttribute("infoMessage") String message) {
@@ -53,13 +53,12 @@ public class UserController {
     }
 	
 	/**
-	 * checks if all parameters are valid and 
-	 * creates then a user accout on the specific parameters and does a autologin for the user.
+	 * Checks if all parameters are valid and creates then a user account on the specific parameters and does an autologin for the user.
 	 * 
-	 * @param signupForm hold the Input of the User to create the new Account
-	 * @param result 
-	 * @param redirectAttributes 
-	 * @return ModelView if invalid input is entered it loads new signupPage with infoMessage else goes to LoginPage
+	 * @param signupForm holds the Input of the User to create the new Account
+	 * @param result contains all errors.
+	 * @param redirectAttributes contains the attributes to redirect.
+	 * @return the signUp page with the infoMessage if invalid input is entered, else loads the login page.
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, HttpServletRequest request, RedirectAttributes redirectAttributes) {
@@ -79,10 +78,11 @@ public class UserController {
     }
 
 	/**
-	 * @param signupForm
-	 * @param redirectAttributes
-	 * @param model
-	 * @return
+	 * Checks the validity of the signupForm and registers a new user.
+	 * @param signupForm holds the information of the new user.
+	 * @param redirectAttributes contains the attributes to redirect.
+	 * @param model contains all information of the page.
+	 * @return the signUp page if there are errors in the form else returns the model.
 	 */
 	private ModelAndView checkValidityAndRegistersNewUser(SignupForm signupForm, RedirectAttributes redirectAttributes,
 			ModelAndView model) {
@@ -109,14 +109,15 @@ public class UserController {
 	}
 
 	/**
-	 * @param signupForm
-	 * @param request
-	 * @param model
-	 * @return
+	 * Authenticates an user and sets up a new session.
+	 * @param signupForm holds the information of a newly registering user.
+	 * @param request contains and the session.
+	 * @param model contains all information of the page.
+	 * @return the help page if the authentication was successful else returns the msignUp page.
 	 */
 	private ModelAndView authenticateUserAndSetSession(SignupForm signupForm, HttpServletRequest request,RedirectAttributes redirectAttributes,
 			ModelAndView model) {
-		// perform login authentication
+			// perform login authentication
 		
 		    User principal = userService.getUserByEmail(signupForm.getEmail());
 		    String password = signupForm.getPassword();
@@ -129,7 +130,7 @@ public class UserController {
 		      auth.setDetails(new WebAuthenticationDetails(request));
 		      Authentication authenticatedUser = authMgr.authenticate(auth);
 		 
-		      // redirect into secured main page if authentication successful
+		      // redirect to secured main page if authentication successful
 		      if(authenticatedUser.isAuthenticated()) {
 		    	 model =  new ModelAndView("redirect:/help");
 		    	 model.addObject("username", principal.getWholeName());

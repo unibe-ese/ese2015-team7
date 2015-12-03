@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 /**
- * The SearchController handles all requests in relationship with a search action. 
+ * This controller handles all requests related to a search action.
  * 
  * @author Team7
  *
@@ -40,10 +40,9 @@ public class SearchController {
 
 
     /**
-     * Loads searchPage and all possible Universities/Subjects and Courses and 
-     * adds the Searchform for user input
+     * Loads the searchPage and all possible Universities/Subjects and Courses and adds the Searchform for user input.
      * 
-     * @return ModelView of searchPage
+     * @return the ModelAndView of the searchPage.
      */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView searchUniversitiesSubjectsAndCourses() {
@@ -69,11 +68,11 @@ public class SearchController {
         
 
     /**
-     * shows all Results for the specified SearchRequest in Searchform.
-     * adds all Tutors to the model and specifies the searched Course in SessionAttribut
+     * <p>Shows all Results for the specified SearchRequest in searchForm.</p>
+     * Adds all Tutors to the model and specifies the searched Course in SessionAttribut.
      * 
      * @param searchForm holds the University, Subject and Course of the SearchRequest.
-     * @return MOdelView with all possible Tutors.
+     * @return the ModelAndView with all possible Tutors.
      */
     @RequestMapping(value = "/results", method = RequestMethod.POST)
     public ModelAndView results(@Valid SearchForm searchForm) {
@@ -133,52 +132,6 @@ public class SearchController {
 
     	model = new ModelAndView("redirect:/results");
     	redirect.addFlashAttribute("searchForm", searchForm);
-    	/*
-            try {
-            	model = new ModelAndView("results");
-            	ArrayList<UserCourse> userCourses = searchService.getTutorsFromSearchForm(searchForm); 	
-            	model.addObject("userCourses", userCourses);
-            	
-            	University searchedUniversity = searchService.getUniversity(searchForm);
-            	if(searchedUniversity==null){
-            		searchedUniversity = new University();
-            		searchedUniversity.setUniversityName("All");
-            	}
-            	model.addObject("searchedUniversity", searchedUniversity);
-            	
-            	Subject searchedSubject = searchService.getSubject(searchForm);
-            	if(searchedSubject==null){
-            		searchedSubject = new Subject();
-            		searchedSubject.setSubjectName("All");
-            	}
-            	model.addObject("searchedSubject", searchedSubject);
-
-            	Course searchedCourse = searchService.getCourse(searchForm);
-            	if(searchedCourse==null){
-            		searchedCourse = new Course();
-            		searchedCourse.setCourseName("All");
-            	}
-            	model.addObject("searchedCourse", searchedCourse);
-            	
-            } catch (InvalidUserException e) {
-            	e.printStackTrace();
-            }
-
-        ArrayList<University> universities = searchService.getUniversities();
-    	model.addObject("universities", universities);
-
-    	ArrayList<Subject> subjects = searchService.getSubjects();
-    	model.addObject("subjects", subjects);
-
-    	ArrayList<Course> courses = searchService.getCourses();
-    	model.addObject("courses", courses);
-    	
-    	User principal=userService.getPrincipalUser();
-    	String username = principal.getWholeName();
-    	model.addObject("username", username);
-    	
-    	model.addObject("searchForm", new SearchForm());
-    	*/
     	return model;
     }
 }

@@ -9,14 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
+ * <p>This is the interface between the database and the services concerning UserCourses.</p>
+ * It provides basic methods as storing, deleting, updating and getting entries in the database.
  * 
  * @author Team7
  *
  */
 public interface UserCourseDao extends CrudRepository<UserCourse,Long> {
-	//List<UserCourse> findByUser(User user);
-	//ArrayList<UserCourse> findByCourse(Course course);
-	//UserCourse findByUserCourseId(long userCourseId);
 	
 	UserCourse findByUserCourseId(long userCourseId);
 	
