@@ -24,7 +24,7 @@
 	            <label class="control-label" for="field-name">First Name</label>
 	            <div class="controls">
 	                <form:input path="firstName" id="field-fistName" tabindex="1" maxlength="35"/>
-	                <form:errors path="firstName" cssClass="help-inline" element="span"/>
+	                <form:errors path="firstName" style="color:red;"/>
 	            </div>
 	        </div>
 	        <c:set var="nameErrors"><form:errors path="lastName"/></c:set>
@@ -32,7 +32,7 @@
 	            <label class="control-label" for="field-lastName">Last Name</label>
 	            <div class="controls">
 	                <form:input path="lastName" id="field-lastName" tabindex="1" maxlength="35"/>
-	                <form:errors path="lastName" cssClass="help-inline" element="span"/>
+	                <form:errors path="lastName" style="color:red;"/>
 	            </div>
 	        </div>
 	        

@@ -23,10 +23,10 @@ public class SignupForm {
 
     private Long id;
     @NotNull
-    @Pattern(regexp="\\w\\w+", message = "Your first name must be a word with more then two letters containing \"a-zA-Z0-9_\"")
+    @Pattern(groups = {Default.class, SignupValidatorGroup.class}, regexp="\\w\\w+", message = "Your first name must be a word with more than or equals to two letters containing \"a-zA-Z0-9_\"")
     private String firstName;
     @NotNull
-    @Pattern(regexp="\\w\\w+", message = "Your last name must be a Word with more then two letters containing \"a-zA-Z0-9_\"")
+    @Pattern(groups = {Default.class, SignupValidatorGroup.class}, regexp="\\w\\w+", message = "Your last name must be a Word with more than or equals to two letters containing \"a-zA-Z0-9_\"")
     private String lastName;
     private String biography;
     @Valid
@@ -34,7 +34,7 @@ public class SignupForm {
     @Valid
     private AutoPopulatingList<TimeSlot> timeSlots = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
     
-    @Pattern(groups= {SignupValidatorGroup.class}, regexp = "^$|^[0-9_a-zA-Z]{6,20}$", message="Your Password has to match 6 to 20 characters, please try again!")
+    @Pattern(groups = {SignupValidatorGroup.class}, regexp = "^$|^[0-9_a-zA-Z]{6,20}$", message="Your Password has to match 6 to 20 characters, please try again!")
     @Size(groups= {Default.class}, min = 6, max = 20, message = "Your Password has to match 6 to 20 characters, please try again!")
     private String password;
     

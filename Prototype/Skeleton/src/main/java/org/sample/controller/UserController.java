@@ -19,7 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,7 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Team7
  *
  */
-@SessionAttributes({"username"})
+
 @Controller
 public class UserController {
 	
@@ -87,7 +86,7 @@ public class UserController {
 	private ModelAndView checkValidityAndRegistersNewUser(SignupForm signupForm, RedirectAttributes redirectAttributes,
 			ModelAndView model) {
 		try {
-	    	if (!userService.validatePassword(signupForm.getPassword(), signupForm.getPasswordVerify())) {
+	    	if ( !signupForm.getPassword().equals(signupForm.getPasswordVerify()) ) {
 			    redirectAttributes.addFlashAttribute("infoMessage", "Your passwords do not match");
 			    return new ModelAndView("redirect:/signUp");
 			}
@@ -151,9 +150,4 @@ public class UserController {
 				return model;
 		    }
 	}
-	
-	
-
-	
-	
 }

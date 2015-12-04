@@ -15,9 +15,9 @@ public interface IUserDataService {
 	/**
 	 * Creates a new user in the database based on the information of the signupForm.
 	 * @param signupForm The completed form of which to take the information.
-	 * @return the completed SignupForm.
+	 * @return the updated user.
 	 */
-	public SignupForm saveFrom(SignupForm signupForm);
+	public User saveFrom(SignupForm signupForm);
 	
 	/**
 	 * Updates or creates a new user in the database based on the information of the signupForm.
@@ -25,9 +25,9 @@ public interface IUserDataService {
 	 * 
 	 * @param signupForm The completed form of which to take the information.
 	 * @param userToUpdate The user to update or null if a new one should be created.
-	 * @return the completed SignupForm.
+	 * @return the updated user.
 	 */
-	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate);
+	public User saveFrom(SignupForm signupForm, User userToUpdate);
 	
 	/**
 	 * Creates tutorLinks from the given information of the signupForm and saves them to database.
@@ -36,7 +36,7 @@ public interface IUserDataService {
 	 * @param signupForm all information about the user.
 	 * @param user the user to whom the signupForm belongs.
 	 */
-	public void createAndSaveUserCourseFromForm(SignupForm signupForm, User user);
+	public void createAndSaveUserCoursesFromForm(SignupForm signupForm, User user);
 	
 	public User getUserById(Long userId);
 
@@ -48,14 +48,5 @@ public interface IUserDataService {
 	 * @return the principal user.
 	 */
 	public User getPrincipalUser();
-	
-	/**
-	 * Compares the two params and return true if they are literally equal.
-	 * @param password The password of the user.
-	 * @param passwordVerify The password of the user again.
-	 * @return true if password is literally equal to passwordVerify.
-	 */
-	public boolean validatePassword(String password, String passwordVerify);
-
 
 }

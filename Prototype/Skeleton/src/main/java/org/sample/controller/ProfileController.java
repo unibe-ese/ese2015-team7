@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import javax.servlet.http.HttpSession;
+
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.service.IUserDataService;
@@ -33,7 +35,6 @@ import org.springframework.util.AutoPopulatingList;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -42,7 +43,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Team7
  *
  */
-@SessionAttributes("username")
+
 @Controller
 public class ProfileController {
 	
@@ -123,8 +124,6 @@ public class ProfileController {
     	
     	model.addObject("userCourseId", userCourseId);
     	model.addObject(user);
-    	String username = principal.getWholeName(); //gets principal and loads user from Database and gets his name
-    	model.addObject("username", username);
     	
     	String principalEmail=principal.getEmail();
     	model.addObject("principalEmail", principalEmail);
@@ -266,10 +265,12 @@ public class ProfileController {
 	 * @param signupForm the form which contains all information about the principal.
 	 * @param result contains error messages.
 	 * @param redirectAttributes used to add some attributes to the model.
+	 * @param session the current session especially containing the username.
 	 * @return the profile page if validations succeeded else returns the editProfile page with attached errors.
 	 */
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
-    public ModelAndView postProfile(Principal principal, @Validated(SignupForm.SignupValidatorGroup.class) SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
+    public ModelAndView postProfile(Principal principal, @Validated(SignupForm.SignupValidatorGroup.class) SignupForm signupForm,
+    		BindingResult result, RedirectAttributes redirectAttributes, HttpSession session) {
 		
 		User user = userService.getPrincipalUser();
 		signupForm.setEmail(user.getEmail());
@@ -277,7 +278,7 @@ public class ProfileController {
 		ModelAndView model;
 	
 		try {
-		    if (!userService.validatePassword(signupForm.getPassword(), signupForm.getPasswordVerify())) {
+		    if ( !signupForm.getPassword().equals(signupForm.getPasswordVerify()) ) {
 			    redirectAttributes.addFlashAttribute("passwordVerifyError", "Your passwords do not match!");
 			    redirectAttributes.addFlashAttribute("infoMessage", "Your passwords do not match!");
 			    return new ModelAndView("redirect:/editProfile");
@@ -288,9 +289,10 @@ public class ProfileController {
 		if (!result.hasErrors()) {
 		    try {
 		
-			userService.saveFrom(signupForm, user);
-			userService.createAndSaveUserCourseFromForm(signupForm, user);
+			User updatedUser = userService.saveFrom(signupForm, user);
+			userService.createAndSaveUserCoursesFromForm(signupForm, user);
 			redirectAttributes.addFlashAttribute("infoMessage", "You successfully edited your profile!");
+			session.setAttribute("username", updatedUser.getWholeName());
 	
 			model = new ModelAndView("redirect:/profile");
 		    } catch (InvalidUserException e) {

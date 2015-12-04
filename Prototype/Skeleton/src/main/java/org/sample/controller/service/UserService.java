@@ -33,7 +33,7 @@ public class UserService implements IUserDataService{
 	@Autowired	CourseDao courseDao;
 	@Autowired	RequestDao requestDao;
 
-	public SignupForm saveFrom(SignupForm signupForm, User userToUpdate) {
+	public User saveFrom(SignupForm signupForm, User userToUpdate) {
 		String firstName = signupForm.getFirstName();
 		String lastName = signupForm.getLastName();
 		
@@ -82,16 +82,14 @@ public class UserService implements IUserDataService{
 
 		user = userDao.save(user); // save object to DB
 
-		signupForm.setId(user.getId());
-
-		return signupForm;
+		return user;
 	}
 	
-	public SignupForm saveFrom(SignupForm signupForm){
+	public User saveFrom(SignupForm signupForm){
 		return saveFrom(signupForm, null);
 	}
 	
-	public void createAndSaveUserCourseFromForm(SignupForm signupForm, User user) {		
+	public void createAndSaveUserCoursesFromForm(SignupForm signupForm, User user) {		
 		for( UserCourseFormAttribute userCourseFormAttribute : signupForm.getUserCourseList() ) {
 			if(userCourseFormAttribute.getCourse() == null || userCourseFormAttribute.getCourse().equals("None"))
 				continue;
@@ -99,7 +97,7 @@ public class UserService implements IUserDataService{
 			Course course =  courseDao.findByCourseName(userCourseFormAttribute.getCourse());
 			if(course==null)
 			{
-				break;
+				continue;
 			}
 			UserCourse givenUserCourse = userCourseDao.findByUserAndCourse(user, course);
 			boolean givenUserCourseExists = (givenUserCourse!=null);
@@ -125,7 +123,6 @@ public class UserService implements IUserDataService{
 		}
 	}
 	
-
 	public User getUserById(Long userId) {
 		return userDao.findOne(userId);
 	    }
@@ -141,14 +138,5 @@ public class UserService implements IUserDataService{
     public float getGradeFromString(String grade){
     	return Float.parseFloat(grade);
     }
-
-	public boolean validatePassword(String password, String passwordVerify) {
-		if (password.equals(passwordVerify))
-			return true;
-		else
-		return false;
-	}
-
-
     
 }

@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,7 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Team7
  *
  */
-@SessionAttributes({"username"})
+
 @Controller
 public class RequestController {
 	
@@ -65,9 +64,7 @@ public class RequestController {
     	ArrayList<Request> myRequests = iRequestService.getAllOutgoingRequests(principal);
     	model.addObject("myRequests",myRequests);
     	model.addObject("message",iRequestService.getStateMessage(myRequests));
- 
-    	String username = principal.getWholeName();
-    	model.addObject("username", username); 
+    	
         return model;
     }
 	
@@ -87,8 +84,6 @@ public class RequestController {
     	model.addObject("message",iRequestService.getStateMessage(myRequests));
     	
     	model.addObject("searchForm", new SearchForm());
-    	String username = principal.getWholeName();
-    	session.setAttribute("username", username);
     	
         return model;
     }
@@ -106,8 +101,6 @@ public class RequestController {
     	ArrayList<Request> requests = iRequestService.getAllIncomingRequests(principal);
     	model.addObject("requests", requests);
     	model.addObject("message",iRequestService.getStateMessage(requests));
-    	String username = principal.getWholeName();
-    	session.setAttribute("username", username);
     	
         return model;
     }
@@ -129,9 +122,6 @@ public class RequestController {
     	ArrayList<Request> requests = iRequestService.getAllIncomingRequests(principal);
     	redirect.addFlashAttribute("myRequests", requests);
     	redirect.addFlashAttribute("message",iRequestService.getStateMessage(requests));
-    	
-    	String username = principal.getWholeName();
-    	redirect.addFlashAttribute("username", username);
     	
         return model;
     }
@@ -168,13 +158,7 @@ public class RequestController {
 	} catch (InvalidUserException e) {
     	e.printStackTrace();
     }
-    
-		String username = principal.getWholeName();
-    	redirect.addFlashAttribute("username", username);
     	
         return model;
     }
-
-
-
 }
