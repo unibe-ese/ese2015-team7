@@ -140,7 +140,7 @@ public class UserController {
 		      }
 		      else{
 		    	  model = new ModelAndView("signUp");
-		    	  model.addObject("page_error", "...uups there is a bug in the Autologin, please contact an administator of the site: jack.norris@gmail.com");
+		    	  model.addObject("page_error", "...uups there is a bug in the Autologin, please contact an administator of the site: chuck.norris@gmail.com");
 		    	  return model;
 		      }
 		    } catch (Exception e) {

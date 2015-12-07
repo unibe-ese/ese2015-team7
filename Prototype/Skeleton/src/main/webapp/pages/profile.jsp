@@ -29,7 +29,7 @@
 			<h3><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></h3>
 		</c:when>
 		<c:otherwise>
-			<h3><c:out value="${fn:substring(user.firstName, 0, 2)}${fn:substring(user.lastName, 0, 2)}"/></h3>
+			<h3><c:out value="${fn:substring(user.firstName, 0, 1)}.${fn:substring(user.lastName, 0, 1)}."/></h3>
 		</c:otherwise>
 	</c:choose>
 	<c:if test="${user.email == principalEmail}">

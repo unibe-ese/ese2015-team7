@@ -22,8 +22,8 @@
 <div class="login-page" >
 
 
-
-<h1>Login</h1>
+<h1>Welcome to Student Connector!</h1>
+<h2>Login</h2>
 
 <form:form name='loginForm' action="j_spring_security_check" method='POST'>
     <fieldset>

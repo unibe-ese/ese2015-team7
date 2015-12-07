@@ -20,11 +20,16 @@
 <div class="inner">
 <div class="login-page" >
 
+
+<h1>Welcome to Student Connector!</h1>
+<h2>You can Sign Up here:</h2>
+<h5>Tip: Password has to match 6 to 20 characters</h5>
+
 <form:form method="post" modelAttribute="signupForm" action="create" id="signupForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     
        <c:if test="${not empty infoMessage}">
-                <div>${infoMessage}</div>
+                <div >${infoMessage}</div>
             </c:if>
 
 

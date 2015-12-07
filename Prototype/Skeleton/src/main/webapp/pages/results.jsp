@@ -39,7 +39,7 @@
                 <tbody align="left">
                 	<c:forEach items="${userCourses}" var="item">
                 		<tr id="tr${i.index}">
-							<td><c:out value="${fn:substring(item.user.firstName, 0, 2)}${fn:substring(item.user.lastName, 0, 2)}" /></td>
+							<td><c:out value="${fn:substring(item.user.firstName, 0, 1)}.${fn:substring(item.user.lastName, 0, 1)}." /></td>
 							<td><c:out value="${item.course}" /></td>
 							<td><c:out value="${item.subject}" /></td>
 							<td><c:out value="${item.university}" /></td>
