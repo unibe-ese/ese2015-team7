@@ -66,8 +66,7 @@ public class UserController {
 	
 	if (!result.hasErrors()) {
 		
-	    model = checkValidityAndRegistersNewUser(signupForm, redirectAttributes, model);
-	    model = authenticateUserAndSetSession(signupForm, request, redirectAttributes, model);
+	    model = checkValidityAndRegistersNewUser(signupForm, request, redirectAttributes, model);
 	    
 	} else {
 	    model = new ModelAndView("signUp");
@@ -84,7 +83,7 @@ public class UserController {
 	 * @param model contains all information of the page.
 	 * @return the signUp page if there are errors in the form else returns the model.
 	 */
-	private ModelAndView checkValidityAndRegistersNewUser(SignupForm signupForm, RedirectAttributes redirectAttributes,
+	private ModelAndView checkValidityAndRegistersNewUser(SignupForm signupForm, HttpServletRequest request, RedirectAttributes redirectAttributes,
 			ModelAndView model) {
 		try {
 	    	if ( !signupForm.getPassword().equals(signupForm.getPasswordVerify()) ) {
@@ -99,6 +98,7 @@ public class UserController {
 	
 		userService.saveFrom(signupForm);
 		redirectAttributes.addFlashAttribute("infoMessage", "You have successfuly registerd. Welcome!");
+	    model = authenticateUserAndSetSession(signupForm, request, redirectAttributes, model);
 		return model;
 		
 	    } catch (InvalidUserException e) {
