@@ -13,12 +13,6 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<style>
-	#buttonBox {
-		display: inline-block;
-		border: 1px ridge #429c23;
-	}
-</style>
 </head>
 
 <div class="profile-page" >

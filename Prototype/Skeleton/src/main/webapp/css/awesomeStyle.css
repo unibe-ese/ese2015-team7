@@ -37,3 +37,8 @@ input, select, textarea {
 #noBox {
 	border: none;
 }
+
+#buttonBox {
+	display: inline-block;
+	border: 1px ridge #429c23;
+}
