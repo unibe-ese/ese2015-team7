@@ -35,14 +35,14 @@
         <c:set var="firstNameErrors"><form:errors path="firstName"/></c:set>
         <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
             <label class="control-label" for="field-firstName">First Name</label>
-            <div class="controls">
+            <div class="controls errorMessage">
                 <form:input path="firstName" id="field-firstName" tabindex="1" maxlength="35" placeholder="firstName"/>
                 <form:errors path="firstName" cssClass="help-inline" element="span"/>
             </div>
         </div><c:set var="lastNameErrors"><form:errors path="lastName"/></c:set>
         <div class="control-group<c:if test="${not empty lastNameErrors}"> error</c:if>">
             <label class="control-label" for="field-lastName">Last Name</label>
-            <div class="controls">
+            <div class="controls errorMessage">
                 <form:input path="lastName" id="field-lastName" tabindex="1" maxlength="35" placeholder="lastName"/>
                 <form:errors path="lastName" cssClass="help-inline" element="span"/>
             </div>
@@ -51,7 +51,7 @@
         <div class="control-group<c:if test="${not empty emailErrors}"> error</c:if>">
             <label class="control-label" for="field-email">Email</label>
 
-            <div class="controls">
+            <div class="controls errorMessage">
                 <form:input path="email" id="field-email" tabindex="1" maxlength="45" placeholder="Email"/>
                 <form:errors path="email" cssClass="help-inline" element="span"/>
             </div>
@@ -59,7 +59,7 @@
         <c:set var="passwordErrors"><form:errors path="password"/></c:set>
         <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
             <label class="control-label" for="field-password">Password</label>
-            <div class="controls">
+            <div class="controls errorMessage">
                 <form:password path="password" id="field-password" tabindex="1" maxlength="35" placeholder="Password"/>
                 <form:errors path="password" cssClass="help-inline" element="span"/>
             </div>
@@ -69,7 +69,7 @@
         <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
         
             <label class="control-label" for="field-password">confirm Password</label>
-            <div class="controls">
+            <div class="controls errorMessage">
                 <form:password path="passwordVerify" id="field-passwordVerify" tabindex="1" maxlength="35" placeholder="Password"/>
                 <form:errors path="password" cssClass="help-inline" element="span"/>
             </div>

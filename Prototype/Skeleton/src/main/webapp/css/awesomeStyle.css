@@ -19,6 +19,12 @@ input, select, textarea {
 	color:#707070;
 }
 
+.errorMessage {
+	font-size: 18px;
+	font-weight: 600;
+	color:#903000;
+}
+
 #nav ul li a {
 	font-weight:700;
 	color:#575757;				

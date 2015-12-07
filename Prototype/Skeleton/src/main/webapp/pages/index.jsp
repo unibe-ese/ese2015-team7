@@ -45,7 +45,7 @@
         
         <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
             <label for="field-username">E-mail:</label>
-            <div class="controls">
+            <div class="controls errorMessage">
             	<input name="j_username" id="field-username" type="email"/>
                 
                 <form:errors path="name" cssClass="help-inline" element="span"/>
@@ -55,7 +55,7 @@
         <c:set var="passwordErrors"><form:errors path="password"/></c:set>
         <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
             <label for="field-password">Passwort:</label> 
-            <div class="controls">
+            <div class="controls errorMessage">
            		<input name="j_password" id="field-password" type="password"/>
              
                 <form:errors path="password" cssClass="help-inline" element="span"/>

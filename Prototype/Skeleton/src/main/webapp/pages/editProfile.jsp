@@ -5,16 +5,13 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
-
 <c:import url="template/header.jsp" />
 
 <h2>Edit Profile</h2>
 	<form:form method="POST" modelAttribute="signupForm" action="editProfile" id="editProfileForm" cssClass="form-horizontal"  autocomplete="off">
 	    <fieldset>
 	       <c:if test="${not empty infoMessage}">
-	                <!-- <div>${infoMessage}</div> -->
-	                <p style="color:red">
+	                <p class="errorMessage">
 	                	Please take a look at your entries.
 	                </p>
 	            </c:if>
@@ -22,22 +19,22 @@
 	        <c:set var="nameErrors"><form:errors path="firstName"/></c:set>
 	        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
 	            <label class="control-label" for="field-name">First Name</label>
-	            <div class="controls">
+	            <div class="controls errorMessage">
 	                <form:input path="firstName" id="field-fistName" tabindex="1" maxlength="35"/>
-	                <form:errors path="firstName" style="color:red;"/>
+	                <form:errors path="firstName"/>
 	            </div>
 	        </div>
 	        <c:set var="nameErrors"><form:errors path="lastName"/></c:set>
 	        <div class="control-group<c:if test="${not empty nameErrors}"> error</c:if>">
 	            <label class="control-label" for="field-lastName">Last Name</label>
-	            <div class="controls">
+	            <div class="controls errorMessage">
 	                <form:input path="lastName" id="field-lastName" tabindex="1" maxlength="35"/>
-	                <form:errors path="lastName" style="color:red;"/>
+	                <form:errors path="lastName"/>
 	            </div>
 	        </div>
 	        
 	        
-	        <div style="color:red;">
+	        <div  class="errorMessage">
 	        <button type="button" id="moreButton" class="btn btn-primary">Change password</button>
 	        <form:errors path="password"/>
 	        <c:out value="${ passwordVerifyError }">
@@ -46,7 +43,7 @@
 		        <c:set var="passwordErrors"><form:errors path="password"/></c:set>
 		        <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
 		            <label class="control-label" for="field-password">Password</label>
-		            <div class="controls">
+		            <div class="controls errorMessage">
 		                <form:password path="password" id="field-password" tabindex="1" maxlength="35" placeholder="Password"/>
 		            </div>
 		        </div>
@@ -64,7 +61,7 @@
 	        <div class="control-group<c:if test="${not empty biographyErrors}"> error</c:if>">
 	        
 	            <label class="control-label" for="field-biography">Biography</label>
-	            <div class="controls">
+	            <div class="controls errorMessage">
 	                <form:textarea path="biography" id="field-biography" tabindex="1" maxlength="250"/>
 	                <form:errors path="biography" cssClass="help-inline" element="span"/>
 	            </div>
@@ -85,7 +82,7 @@
                     </tr>
                 </thead>
                 <tbody align="left">
-                	<tr><input type="button" id="addGradeButton" value="Add Course" /></tr>
+                	<tr><input type="button" id="addGradeButton" value="Add Course"/></tr>
                 	<c:if test="${fn:length(signupForm.userCourseList) > 0}" >
                 	<c:forEach items="${signupForm.userCourseList}" var="element" varStatus="i" begin="0">
                 		<form:hidden path="userCourseList[${i.index}].remove" />
