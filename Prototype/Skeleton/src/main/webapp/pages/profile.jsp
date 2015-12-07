@@ -37,8 +37,8 @@
 	</c:if>
 	
 	<p>
-		<button type="button" class="btn" onclick="switchDisplay('profile-frontpage', 'profile-timeslots')">Front Page</button>
-		<button type="button" class="btn" onclick="switchDisplay('profile-timeslots', 'profile-frontpage')">Time slots</button>
+		<button type="button" id="frontButton" class="btn">Front Page</button>
+		<button type="button" id="timeslotsButton" class="btn">Time slots</button>
 	</p>
 	
 	<div id="profile-frontpage">
@@ -104,10 +104,24 @@
 <c:import url="template/footer.jsp" />
 
 <script type="text/javascript">
-	function switchDisplay(id1,id2)
+$(document).ready(function(){
+	$("#profile-timeslots").hide();	
+	$("#frontButton").hide();
+
+	$("#timeslotsButton").click(function(){
+		toggleChangePasswordElements();
+	});
+	
+	$("#frontButton").click(function(){
+		toggleChangePasswordElements();
+	});
+	
+	function toggleChangePasswordElements()
 	{
-		document.getElementById(id1).style.display = 'none';
-		document.getElementById(id2).style.display = 'none';
-		document.getElementById(id1).style.display = 'block';
+		$("#profile-timeslots").toggle();
+		$("#profile-frontpage").toggle();
+		$("#frontButton").toggle();
+		$("#timeslotsButton").toggle();
 	}
+});
 </script>
