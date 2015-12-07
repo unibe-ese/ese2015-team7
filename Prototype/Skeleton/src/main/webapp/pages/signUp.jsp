@@ -20,7 +20,6 @@
 <div class="inner">
 <div class="login-page" >
 
-
 <h1>Welcome to Student Connector!</h1>
 <h2>You can Sign Up here:</h2>
 <h5>Tip: Password has to match 6 to 20 characters</h5>
@@ -29,7 +28,7 @@
     <fieldset>
     
        <c:if test="${not empty infoMessage}">
-                <div >${infoMessage}</div>
+                <div>${infoMessage}</div>
             </c:if>
 
 

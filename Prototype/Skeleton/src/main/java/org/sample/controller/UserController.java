@@ -1,6 +1,7 @@
 package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
@@ -125,15 +126,14 @@ public class UserController {
 		      
 		      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(principal.getEmail(), password);
 		      
-		      request.getSession();
+		      HttpSession session = request.getSession();
 		      auth.setDetails(new WebAuthenticationDetails(request));
 		      Authentication authenticatedUser = authMgr.authenticate(auth);
 		 
 		      // redirect to secured main page if authentication successful
 		      if(authenticatedUser.isAuthenticated()) {
 		    	 model =  new ModelAndView("redirect:/help");
-		    	 model.addObject("username", principal.getWholeName());
-		    	 redirectAttributes.addFlashAttribute("username", principal.getWholeName());
+		     	session.setAttribute("username", principal.getWholeName());
 		        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 		        
 		        return model;
