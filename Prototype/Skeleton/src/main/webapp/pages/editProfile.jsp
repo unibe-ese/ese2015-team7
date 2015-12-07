@@ -156,7 +156,7 @@
 				           			<form:option value="Spring semester 2016"/>
 				           			<form:option value="Summer vacation"/>
 						    	</form:select>
-						    	<form:errors path="timeSlots[${j.index}].semesterOrSemesterBreak" style="color:red;"/>
+						    	<form:errors path="timeSlots[${j.index}].semesterOrSemesterBreak" class="errorMessage"/>
 							</td>
 							<td>
 						   		<form:select path="timeSlots[${j.index}].day" tabindex="1">
@@ -169,7 +169,7 @@
 				           			<form:option value="Saturday"/>
 				           			<form:option value="Sunday"/>
 						   		</form:select>
-						   		<form:errors path="timeSlots[${j.index}].day" style="color:red;"/>
+						   		<form:errors path="timeSlots[${j.index}].day" class="errorMessage"/>
 						   	</td>
 						   	<td>
 						   		<form:select path="timeSlots[${j.index}].startTime" tabindex="1">
@@ -191,7 +191,7 @@
 					           		<form:option value="21:00"/>
 					           		<form:option value="22:00"/>
 						   		</form:select>
-						   		<form:errors path="timeSlots[${j.index}].startTime" style="color:red;"/>
+						   		<form:errors path="timeSlots[${j.index}].startTime" class="errorMessage"/>
 						   	</td>
 						   	<td>
 						   		<form:select path="timeSlots[${j.index}].endTime" tabindex="1">
@@ -213,7 +213,7 @@
 					           		<form:option value="22:00"/>
 					           		<form:option value="22:00"/>
 						   		</form:select>
-						   		<form:errors path="timeSlots[${j.index}].endTime" style="color:red;"/>
+						   		<form:errors path="timeSlots[${j.index}].endTime" class="errorMessage"/>
 						   	</td>
 						   	<td>
 						    	<button type="button" onclick="removeTSRow(${j.index})">Remove</button>
