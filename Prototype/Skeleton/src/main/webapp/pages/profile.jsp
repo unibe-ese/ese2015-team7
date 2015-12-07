@@ -13,6 +13,12 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
+<style>
+	#buttonBox {
+		display: inline-block;
+		border: 1px ridge #429c23;
+	}
+</style>
 </head>
 
 <div class="profile-page" >
@@ -94,9 +100,18 @@
 	
 	<p><button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>
 	<c:if test="${user.email!=principalEmail && userCourseId!=0}">
-		<form:form method="post" action="myRequests" modelAttribute="searchForm" id="profile" cssClass="form-horizontal"  autocomplete="off">
-   		 	<p><button type=submit name=userCourseId value="${userCourseId}" class="btn btn-primary">Send Request for course: ${selectedCourse}, subject: ${selectedSubject}, university: ${selectedUniversity}</button></p>    
-		</form:form>
+	<div id="buttonBox">
+		<div id="buttonText">
+			Selected Course is: <br>
+			${selectedCourse}, of subject: ${selectedSubject}, at university: ${selectedUniversity}
+		</div>
+		<div id="button">
+			<form:form method="post" action="myRequests" modelAttribute="searchForm" id="profile" cssClass="form-horizontal"  autocomplete="off">
+   		 		<p><button type=submit name=userCourseId value="${userCourseId}" class="btn btn-primary">Send Request for selected course</button></p>    
+			</form:form>
+		</div>
+	</div>
+		
 	</c:if>
     
 </div>

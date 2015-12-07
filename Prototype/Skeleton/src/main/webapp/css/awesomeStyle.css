@@ -1,14 +1,27 @@
+body {
+	font-weight:700!important;
+	color: #4A4A4A!important;
+}
 
 button {
 	border-radius: 10px;
 	background-color: #429c23;
-	box-shadow: 1px 1px 3px 2px rgba(235,252,0,0.69);
+	box-shadow: 1px 1px 3px 2px rgba(42,45,0,0.69);
 	color:	#000000;
 }
 
-
 th, td {
 	font-weight: 600;
+}
+
+input, select, textarea {
+	font-weight:600;
+	color:#707070;
+}
+
+#nav ul li a {
+	font-weight:700;
+	color:#575757;				
 }
 
 .tableHeader th, .tableHeader td {
@@ -16,7 +29,8 @@ th, td {
 }
 
 .withBox th, .withBox td{
-	border:1px solid grey;
+	border:none;
+	border-bottom:1px solid #707070;
 	text-align:center;
 }
 

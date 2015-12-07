@@ -131,7 +131,7 @@
                 </tbody>
 			</table>
 			
-			<p style="text-align: center">Please select the <strong>Teaching</strong>-box for every course you want to tutor.</p>
+			<p style="text-align: center">Please select the <em>Teaching</em>-box for every course you want to tutor.</p>
 			
 			<br>
 			
