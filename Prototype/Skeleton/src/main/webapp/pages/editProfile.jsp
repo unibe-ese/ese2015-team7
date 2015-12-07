@@ -85,7 +85,7 @@
                     </tr>
                 </thead>
                 <tbody align="left">
-                	<tr><input type="button" id="addGradeButton" value="Add Courses Row" /></tr>
+                	<tr><input type="button" id="addGradeButton" value="Add Course" /></tr>
                 	<c:if test="${fn:length(signupForm.userCourseList) > 0}" >
                 	<c:forEach items="${signupForm.userCourseList}" var="element" varStatus="i" begin="0">
                 		<form:hidden path="userCourseList[${i.index}].remove" />
@@ -146,7 +146,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                	<tr><input type="button" id="addTimeSlotButton" value="Add Time Slot Row" /></tr>
+                	<tr><input type="button" id="addTimeSlotButton" value="Add Time Slot" /></tr>
               		<c:if test="${fn:length(signupForm.timeSlots) > 0}" >
                 	<c:forEach items="${signupForm.timeSlots}" var="element" varStatus="j" begin="0">
                 		<form:hidden path="timeSlots[${j.index}].remove" />
