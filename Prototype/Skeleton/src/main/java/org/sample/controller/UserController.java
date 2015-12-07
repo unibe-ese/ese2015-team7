@@ -92,7 +92,7 @@ public class UserController {
 			}
 	    
 	    	if ( userService.getUserByEmail(signupForm.getEmail()) != null) {
-	    		redirectAttributes.addFlashAttribute("infoMessage", "A user with this email exists already!");
+	    		redirectAttributes.addFlashAttribute("infoMessage", "A user with this email already exists!");
 	    		return new ModelAndView("redirect:/signUp");
 		}
 	
