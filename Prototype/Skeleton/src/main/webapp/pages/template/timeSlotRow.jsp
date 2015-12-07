@@ -3,22 +3,22 @@
 <tr id="trTS${timeSlotNumber}">
 	<td>
 		<form:select path="signupForm.timeSlots[${timeSlotNumber}].semesterOrSemesterBreak" tabindex="1">						           	<form:option value='None' label="Select Time Period"/>
-				<form:option value="Herbstsemester 2015"/>
-				<form:option value="Semesterferien im Winter"/>
-				<form:option value="Frühjahrssemester 2016"/>
-				<form:option value="Semesterferien im Sommer"/>
+				<form:option value="Autumn semester 2015"/>
+				<form:option value="Winter vacation"/>
+				<form:option value="Spring semester 2016"/>
+				<form:option value="Summer vacation"/>
 		</form:select>
 	</td>
 	<td>
    		<form:select path="signupForm.timeSlots[${timeSlotNumber}].day" tabindex="1">
 				<form:option value='None' label="Select Day"/>
-				<form:option value="Montag"/>
-				<form:option value="Dienstag"/>
-				<form:option value="Mittwoch"/>
-				<form:option value="Donnerstag"/>
-				<form:option value="Freitag"/>
-				<form:option value="Samstag"/>
-				<form:option value="Sonntag"/>
+				<form:option value="Monday"/>
+				<form:option value="Tuesday"/>
+				<form:option value="Wednesday"/>
+	 			<form:option value="Thursday"/>
+				<form:option value="Friday"/>
+				<form:option value="Saturday"/>
+     			<form:option value="Sunday"/>
 		</form:select>
    	</td>
    	<td>
