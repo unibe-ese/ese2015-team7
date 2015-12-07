@@ -79,13 +79,13 @@ public class SearchService implements ISearchService {
 
         if(!StringUtils.isEmpty(courseName) && !"Select Course".equalsIgnoreCase(courseName)) {
         	Course course = getCourse(searchForm);
-            userCourseList = userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, grade, true);
+            userCourseList = userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, true, grade);
         }
         else if(!StringUtils.isEmpty(subjectName) && !"Select Subject".equalsIgnoreCase(subjectName)){
         	Subject subject = getSubject(searchForm);
         	ArrayList<Course> coursesList = courseDao.findBySubject(subject);
             for(Course course : coursesList){
-                userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, grade, true));
+                userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, true, grade));
             }
         }
         else if(!StringUtils.isEmpty(universityName) && !"Select University".equalsIgnoreCase(universityName)){
@@ -94,12 +94,12 @@ public class SearchService implements ISearchService {
         	for(Subject subject : subjectsList){
 	        	ArrayList<Course> coursesList = courseDao.findBySubject(subject);
 	            for(Course course : coursesList){
-	                userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, grade, true));
+	                userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, true, grade));
 	            }
         	}
         }  
         else{
-        	userCourseList = userCourseDao.findByTeachingAndMinimumGrade(grade, true);
+        	userCourseList = userCourseDao.findByTeachingAndMinimumGrade(true, grade);
         }
         return userCourseList;
     }

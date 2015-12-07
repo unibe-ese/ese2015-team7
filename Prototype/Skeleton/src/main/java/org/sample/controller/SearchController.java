@@ -12,13 +12,11 @@ import org.sample.model.Course;
 import org.sample.model.Subject;
 import org.sample.model.UserCourse;
 import org.sample.model.University;
-import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 /**
@@ -111,22 +109,9 @@ public class SearchController {
 
     	ArrayList<Course> courses = searchService.getCourses();
     	model.addObject("courses", courses);
-    	
-    	User principal=userService.getPrincipalUser();
-    	String username = principal.getWholeName();
-    	model.addObject("username", username);
-    	
     	model.addObject("searchForm", new SearchForm());
     	
     	return model;
     }
     
-    @RequestMapping(value = "/results", method = RequestMethod.GET)
-    public ModelAndView resultsGet(@Valid SearchForm searchForm, RedirectAttributes redirect) {
-    	ModelAndView model = new ModelAndView();
-
-    	model = new ModelAndView("redirect:/results");
-    	redirect.addFlashAttribute("searchForm", searchForm);
-    	return model;
-    }
 }

@@ -46,7 +46,7 @@ public class SearchControllerTest {
     private Subject sub, sub2, sub3;
     private Course course, course2, course3;
     private UserCourse userCourse, userCourse2, userCourse3;
-    private User user, user2, user3;
+    private User user, user2, user3, principal;
     @Autowired SearchController searchController;
     @Autowired SearchService searchService;
     
@@ -112,6 +112,11 @@ public class SearchControllerTest {
     	userCourse3.setUser(user3);
     	userCourse3.setCourse(course);
     	
+    	principal = new User();
+    	principal.setFirstName("Hans");
+    	principal.setLastName("Solo");
+    	when(userService.getPrincipalUser()).thenReturn(principal);
+    	
     	when(userDao.save(any(User.class))).then(returnsFirstArg());
     	
     	when(universityDao.findByUniversityName(any(String.class))).thenReturn(uni);
@@ -142,18 +147,12 @@ public class SearchControllerTest {
 
     	when(searchService.getCourses()).thenReturn(courses);
     	
-    	User user = new User();
-    	user.setFirstName("Hans");
-    	user.setLastName("Solo");
-    	when(userService.getPrincipalUser()).thenReturn(user);
-    	
     	ModelAndView testModel = searchController.searchUniversitiesSubjectsAndCourses();
     	
     	assertEquals("search", testModel.getViewName());
     	assertEquals(unis, testModel.getModel().get("universities"));
     	assertEquals(subs, testModel.getModel().get("subjects"));
     	assertEquals(courses, testModel.getModel().get("courses"));
-    	assertEquals(user.getWholeName(), testModel.getModel().get("username"));
     }
     
     @Test

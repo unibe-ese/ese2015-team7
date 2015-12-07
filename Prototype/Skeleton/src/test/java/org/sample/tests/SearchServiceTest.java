@@ -1,7 +1,6 @@
 package org.sample.tests;
 
 import org.junit.runner.RunWith;
-import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.service.ISearchService;
 import org.sample.model.Course;
@@ -156,9 +155,15 @@ public class SearchServiceTest {
     
 	@Test
     public void testCourseNotSelected(){
+		ArrayList<UserCourse> allUserCourses = new ArrayList<UserCourse>();
+		allUserCourses.add(userCourse);
+		allUserCourses.add(userCourse2);
+		when(userCourseDao.findByTeachingAndMinimumGrade(true, 0)).thenReturn(allUserCourses);
 		searchForm.setCourse("Select Course");
+		searchForm.setSubject("Select Subject");
+		searchForm.setUniversity("Select University");
 		ArrayList<UserCourse> userCoursesWithNoCourse = searchService.getTutorsFromSearchForm(searchForm);
-		assertTrue( userCoursesWithNoCourse.isEmpty() );
+		assertEquals(allUserCourses, userCoursesWithNoCourse);;
 	}
 	
 	// needs to be updated
@@ -172,7 +177,7 @@ public class SearchServiceTest {
     	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
     	userCourseList.add(userCourse);
     	
-    	//when(userCourseDao.findByCourseAndTeaching(course, true)).thenReturn(userCourseList);
+    	when(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, true, 0)).thenReturn(userCourseList);
     	when(courseDao.findByCourseName("ESE")).thenReturn(course);
     	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
     	
