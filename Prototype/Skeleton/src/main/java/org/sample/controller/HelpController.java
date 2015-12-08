@@ -26,7 +26,8 @@ IUserService userService;
 	 * @return the help page.
 	 */
 	@RequestMapping(value = "/help", method = RequestMethod.GET)
-	public ModelAndView help() {
+	public ModelAndView help() 
+	{
 		ModelAndView model = new ModelAndView("help");
     	User principal = userService.getPrincipalUser();
 		User user = principal;

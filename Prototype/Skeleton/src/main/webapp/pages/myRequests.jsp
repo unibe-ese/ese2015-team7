@@ -6,7 +6,6 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -16,7 +15,6 @@
 <body>
 <c:import url="template/header.jsp" />
 <div class="myRequest-page" >
-
 
 <h2>Outgoing Requests</h2>
 
@@ -30,10 +28,7 @@
        		 <div>${message}</div>
     	</c:if>
 		<c:import url="requests/myOutgoingRequestsUnanwsered.jsp" />
-		
-		
-   	 </fieldset>
-
+ 	</fieldset>
 </div>
 </body>
 </html>

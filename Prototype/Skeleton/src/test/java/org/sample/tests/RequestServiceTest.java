@@ -3,7 +3,6 @@ package org.sample.tests;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.sample.controller.service.IRequestService;
 import org.sample.controller.service.UserService;
 import org.sample.model.Course;
@@ -25,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/test/java/org/sample/tests/test/test.xml"})
 public class RequestServiceTest {
@@ -37,16 +34,14 @@ public class RequestServiceTest {
 	@Autowired	IRequestService requestService;
 	String tutorEmail, studentEmail;
 	Course course;
-	User tutor, student, otherUser, otherTutor, principal;
+	User tutor, student, otherUser, otherTutor;
 	Request expectedRequest;
 	UserCourse userCourse, otherUserCourse;
 	ArrayList<Request> expectedRequestList;
 
-
-	
-	
 	@Before
-    public void setUp(){    		
+    public void setUp()
+	{    		
     	student = new User();
     	student.setId(1l);
     	student.setFirstName("first");
@@ -72,7 +67,6 @@ public class RequestServiceTest {
     	userCourse.setUserCourseId(1l);
     	when(userCourseDao.findByUserCourseId(1l)).thenReturn(userCourse);
     	
-
     	expectedRequest = new Request();
     	expectedRequest.setStudent(student);
     	expectedRequest.setUserCourse(userCourse);
@@ -88,15 +82,11 @@ public class RequestServiceTest {
     	//when(requestDao.findAll().iterator()).thenReturn(testRequestList.iterator());
     }
 	
-	
-	
 	@Test
 	public void saveNewRequestTest(){    
-
     	when(requestDao.findByUserCourseIdAndStudent(1l, student)).thenReturn(null);
-		
+    	
 		Request testRequest = requestService.saveRequest(1l, studentEmail);
-		
 		assertEquals(expectedRequest, testRequest);
 	}
 	
@@ -106,11 +96,9 @@ public class RequestServiceTest {
 		oldRequest.setStudent(student);
 		oldRequest.setUserCourse(userCourse);
 		oldRequest.setIsDeleted(true);
-		
     	when(requestDao.findByUserCourseIdAndStudent(1l, student)).thenReturn(oldRequest);
-		
+    	
 		Request testRequest = requestService.saveRequest(1l, studentEmail);
-		
 		assertEquals(expectedRequest, testRequest);
 	}
 	
@@ -120,11 +108,9 @@ public class RequestServiceTest {
 		oldRequest.setStudent(student);
 		oldRequest.setUserCourse(userCourse);
 		oldRequest.setIsDeclined(true);
-		
     	when(requestDao.findByUserCourseIdAndStudent(1l, student)).thenReturn(oldRequest);
-		
+    	
 		Request testRequest = requestService.saveRequest(1l, studentEmail);
-		
 		assertEquals(expectedRequest, testRequest);
 	}
 	
@@ -133,7 +119,6 @@ public class RequestServiceTest {
 		when(requestDao.findByStudent(student)).thenReturn(expectedRequestList);
 		
 		ArrayList<Request> testRequestList = requestService.getAllOutgoingRequests(student);
-		
 		assertEquals(expectedRequestList, testRequestList);
 	}
 	
@@ -165,8 +150,6 @@ public class RequestServiceTest {
 		when(requestDao.findAll()).thenReturn(givenRequestList);
 		
 		ArrayList<Request> testRequestList = requestService.getAllIncomingRequests(tutor);
-		
 		assertEquals(expectedRequestList, testRequestList);		
 	}
-	
 }

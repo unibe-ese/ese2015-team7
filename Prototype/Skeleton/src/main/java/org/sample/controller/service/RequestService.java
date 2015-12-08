@@ -27,22 +27,21 @@ public class RequestService implements IRequestService{
 	@Autowired CourseDao courseDao;
 	@Autowired UserCourseDao userCourseDao;
 
-	
-
-	
 	@Transactional
-	public Request saveRequest(long userCourseId, String studentEmail) {
-		
+	public Request saveRequest(long userCourseId, String studentEmail) 
+	{
 		User student = userDao.findByEmail(studentEmail);
 		
 		Request oldRequest;
 		try{
 			oldRequest= requestDao.findByUserCourseIdAndStudent(userCourseId, student);
-		}catch (Exception e){
+		}
+		catch (Exception e){
 			oldRequest=null;
 		}
 		Request request;
-		if (oldRequest != null){
+		if (oldRequest != null)
+		{
 			request=oldRequest;
 			if (request.getIsDeleted()){
 				request.setIsDeleted(false);
@@ -52,31 +51,28 @@ public class RequestService implements IRequestService{
 				request.setIsDeclined(false);
 				request.setIsActiv(true);
 			}
-				
-			
-		}else {
+		}
+		else {
 				request= new Request();
-				
 				UserCourse userCourse = userCourseDao.findByUserCourseId(userCourseId);
 				request.setUserCourse(userCourse);
 				request.setStudent(student);
-			}
+		}
 				
 		request.setIsActiv(true);
-		
 		request.setNewRequest(true);
-		
 		request = requestDao.save(request);
-		
 		return request;
 	}
 
-	public ArrayList<Request> getAllOutgoingRequests(User principal) {
+	public ArrayList<Request> getAllOutgoingRequests(User principal) 
+	{
         ArrayList<Request> myRequestList = requestDao.findByStudent(principal);
 		return myRequestList;
 	}
 
-	public ArrayList<Request> getAllIncomingRequests(User principal) {
+	public ArrayList<Request> getAllIncomingRequests(User principal) 
+	{
 		ArrayList<Request> requestList = new ArrayList<Request>();
         Iterator<Request> requestIter	= requestDao.findAll().iterator();
         while(requestIter.hasNext())
@@ -89,36 +85,38 @@ public class RequestService implements IRequestService{
 		return requestList;
 	}
 
-	public void deleteRequest(long id) {
-		
+	public void deleteRequest(long id) 
+	{
 		Request request=requestDao.findById(id);
 		request.setIsDeleted(true);
 		request.setIsActiv(false);
 		requestDao.delete(request);
 	}
 
-	public void acceptRequest(long id) {
+	public void acceptRequest(long id) 
+	{
 		Request request=requestDao.findById(id);
 		request.setIsAccepted(true);
 		request.setIsActiv(false);
 		requestDao.save(request);
-		
 	}
 
-	public void declineRequest(long id) {
+	public void declineRequest(long id) 
+	{
 		Request request=requestDao.findById(id);
 		request.setIsDeclined(true);
 		request.setIsActiv(false);
 		requestDao.delete(request);
-		
 	}
 
 	@Override
-	public String getStateMessage(ArrayList<Request> requests) {
+	public String getStateMessage(ArrayList<Request> requests) 
+	{
 		Boolean acceptedNotExists=true;
 		Boolean unanwserNotExists=true;
 		String message=null;
-    	for (Request request:requests){
+    	for (Request request:requests)
+    	{
     		if (request.getIsAccepted())
     			acceptedNotExists=false;
     		if (request.getIsActiv())

@@ -22,7 +22,6 @@
 
 		<!-- Header -->
 
-		
 			<div id="header-wrapper">
 				<header id="header" class="container">
 				<h3><% out.println(request.getSession().getAttribute("username") ); %></h3>

@@ -26,7 +26,7 @@
 				<c:if test="${item.isActiv}">       
                 		<tr>
 							<td>
-							${fn:substring(item.tutor.firstName, 0, 1)}.${fn:substring(item.tutor.lastName, 0, 1)}. 
+								${fn:substring(item.tutor.firstName, 0, 1)}.${fn:substring(item.tutor.lastName, 0, 1)}. 
 							</td>
 							<td>
 						   		<c:out value="${item.course.courseName}" />

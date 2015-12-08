@@ -13,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SelectService implements ISelectService {
 	
-	@Autowired
-	UserCourseDao userCourseDao;
+	@Autowired UserCourseDao userCourseDao;
 
 	@Override
 	@Transactional

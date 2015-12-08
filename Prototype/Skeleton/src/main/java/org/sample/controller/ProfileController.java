@@ -47,19 +47,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ProfileController {
 	
-	@Autowired
-    IUserService userService;
-	
-	@Autowired
-    ISearchService searchService;
-	
-	@Autowired
-	UserCourseDao userCourseDao;
-	@Autowired
-	RequestDao requestDao;
-	
-	@Autowired
-	ISelectService selectService;
+	@Autowired IUserService userService;
+	@Autowired ISearchService searchService;
+	@Autowired UserCourseDao userCourseDao;
+	@Autowired RequestDao requestDao;
+	@Autowired ISelectService selectService;
 	
 	/**
 	 * displays the profile data of the principal if no user is entered.
@@ -67,7 +59,8 @@ public class ProfileController {
 	 * @return the profile page.
 	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile(@RequestParam(required=false,name="user") User theUser){
+    public ModelAndView profile(@RequestParam(required=false,name="user") User theUser)
+	{
     	ModelAndView model = new ModelAndView("profile");
     	User principal = userService.getPrincipalUser();
     	String principalEmail = principal.getEmail();
@@ -93,7 +86,9 @@ public class ProfileController {
 	 * @return ModelView profile of the entered student that is teaching the course belonging to userCourseId.
 	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public ModelAndView postProfile(@RequestParam(required=false, defaultValue="0", name="userCourseId") long userCourseId, @RequestParam(required=false, name="studentsEmail") String studentsEmail){
+    public ModelAndView postProfile(@RequestParam(required=false, defaultValue="0", name="userCourseId") long userCourseId, 
+    		@RequestParam(required=false, name="studentsEmail") String studentsEmail)
+	{
     	ModelAndView model = new ModelAndView("profile");
     	User principal=userService.getPrincipalUser();
     	User user = new User();
@@ -150,31 +145,34 @@ public class ProfileController {
     	form.setLastName(user.getLastName());
     	form.setBiography(user.getBiography());
     	
-    	
     	try{
-    	AutoPopulatingList<UserCourseFormAttribute> userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
-    	Iterator<UserCourse> itr = userCourseDao.findByUser(user).iterator();
-    	while(itr.hasNext())
-    	{
-    		UserCourse tmpUserCourse = itr.next();
-    		UserCourseFormAttribute formAttr = new UserCourseFormAttribute();
-    		formAttr.setUniversity(tmpUserCourse.getCourse().getSubject().getUniversity().toString());
-    		formAttr.setSubject(tmpUserCourse.getCourse().getSubject().toString());
-    		formAttr.setCourse(tmpUserCourse.getCourse().toString());
-    		formAttr.setGrade( String.valueOf(tmpUserCourse.getGrade()) );
-    		formAttr.setTeaching( tmpUserCourse.isTeaching() );
-    		userCourseList.add(formAttr);
-    	}
-		form.setUserCourseList(userCourseList);} catch (Exception e){}
+	    	AutoPopulatingList<UserCourseFormAttribute> userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
+	    	Iterator<UserCourse> itr = userCourseDao.findByUser(user).iterator();
+	    	while(itr.hasNext())
+	    	{
+	    		UserCourse tmpUserCourse = itr.next();
+	    		UserCourseFormAttribute formAttr = new UserCourseFormAttribute();
+	    		formAttr.setUniversity(tmpUserCourse.getCourse().getSubject().getUniversity().toString());
+	    		formAttr.setSubject(tmpUserCourse.getCourse().getSubject().toString());
+	    		formAttr.setCourse(tmpUserCourse.getCourse().toString());
+	    		formAttr.setGrade( String.valueOf(tmpUserCourse.getGrade()) );
+	    		formAttr.setTeaching( tmpUserCourse.isTeaching() );
+	    		userCourseList.add(formAttr);
+	    	}
+			form.setUserCourseList(userCourseList);
+		} 
+    	catch(Exception e){}
 		
     	try{
-		AutoPopulatingList<TimeSlot> timeSlotList = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
-    	ListIterator<TimeSlot> iter = user.getTimeSlots().listIterator();
-    	while(iter.hasNext())
-    	{
-    		timeSlotList.add(iter.next());
-    	}
-		form.setTimeSlots(timeSlotList);} catch (Exception e){}
+			AutoPopulatingList<TimeSlot> timeSlotList = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
+	    	ListIterator<TimeSlot> iter = user.getTimeSlots().listIterator();
+	    	while(iter.hasNext())
+	    	{
+	    		timeSlotList.add(iter.next());
+	    	}
+			form.setTimeSlots(timeSlotList);
+		} 
+    	catch(Exception e){}
 		
 		return form;
 	}
@@ -186,7 +184,6 @@ public class ProfileController {
 	@ModelAttribute("universities")
 	public ArrayList<University> getUniversities()
 	{
-    	
 		ArrayList<University> universities = new ArrayList<University>(); 
         universities =  searchService.getUniversities();
 		return universities;
@@ -199,7 +196,6 @@ public class ProfileController {
 	@ModelAttribute("subjects")
 	public ArrayList<Subject> getSubjects()
 	{
-    	
 		ArrayList<Subject> subjects = new ArrayList<Subject>();
     	subjects = searchService.getSubjects();
 		return subjects;
@@ -212,7 +208,8 @@ public class ProfileController {
 	 * @return the editProfile page.
 	 */
 	@RequestMapping(value = "/editProfile", method = RequestMethod.GET)
-    public ModelAndView editProfile(Principal principal){
+    public ModelAndView editProfile(Principal principal)
+	{
     	ModelAndView model = new ModelAndView("editProfile");
     	
     	User user = userService.getPrincipalUser();
@@ -270,11 +267,10 @@ public class ProfileController {
 	 */
 	@RequestMapping(value = "/editProfile", method = RequestMethod.POST)
     public ModelAndView postProfile(Principal principal, @Validated(SignupForm.SignupValidatorGroup.class) SignupForm signupForm,
-    		BindingResult result, RedirectAttributes redirectAttributes, HttpSession session) {
-		
+    		BindingResult result, RedirectAttributes redirectAttributes, HttpSession session) 
+	{
 		User user = userService.getPrincipalUser();
 		signupForm.setEmail(user.getEmail());
-		
 		ModelAndView model;
 	
 		try {
@@ -283,23 +279,27 @@ public class ProfileController {
 			    redirectAttributes.addFlashAttribute("infoMessage", "Your passwords do not match!");
 			    return new ModelAndView("redirect:/editProfile");
 			}
-		} catch (Exception d) {}
+		} 
+		catch (Exception d) {}
 			
 	
-		if (!result.hasErrors()) {
+		if (!result.hasErrors()) 
+		{
 		    try {
+				User updatedUser = userService.saveFrom(signupForm, user);
+				userService.createAndSaveUserCoursesFromForm(signupForm, user);
+				redirectAttributes.addFlashAttribute("infoMessage", "You successfully edited your profile!");
+				session.setAttribute("username", updatedUser.getWholeName());
 		
-			User updatedUser = userService.saveFrom(signupForm, user);
-			userService.createAndSaveUserCoursesFromForm(signupForm, user);
-			redirectAttributes.addFlashAttribute("infoMessage", "You successfully edited your profile!");
-			session.setAttribute("username", updatedUser.getWholeName());
-	
-			model = new ModelAndView("redirect:/profile");
-		    } catch (InvalidUserException e) {
-			model = new ModelAndView("editProfile");
-			model.addObject("page_error", e.getMessage());
+				model = new ModelAndView("redirect:/profile");
+			    } 
+		    catch(InvalidUserException e) 
+		    {
+				model = new ModelAndView("editProfile");
+				model.addObject("page_error", e.getMessage());
 		    }
-		} else {
+		} 
+		else {
 		    model = new ModelAndView("editProfile");
 		    model.addObject("infoMessage", result.toString());
 		    System.out.println("Form has errors:\n" + result.toString());

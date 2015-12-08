@@ -33,7 +33,6 @@
 	            </div>
 	        </div>
 	        
-	        
 	        <div  class="errorMessage">
 	        <button type="button" id="moreButton" class="btn btn-primary">Change password</button>
 	        <form:errors path="password"/>

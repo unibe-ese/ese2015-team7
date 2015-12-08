@@ -23,7 +23,6 @@
 		<button type="button" class="btn-edit" onclick="location.href='/Skeleton/editProfile'">Edit</button>
 	</c:if>
 	
-	<!-- <img src="image/1212" height="75px" width="75px" align="left" /> -->
 	<c:choose>
 		<c:when test="${user.email == principalEmail}">
 			<h3><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></h3>

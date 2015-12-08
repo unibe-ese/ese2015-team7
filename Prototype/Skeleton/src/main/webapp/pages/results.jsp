@@ -6,7 +6,6 @@
 <%@page import="org.sample.model.University" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
 <c:import url="template/header.jsp" />
 
 <html>
@@ -51,8 +50,6 @@
     				</c:forEach>
     	</table>
 	</form:form>
-
-
 
 	<c:if test="${page_error != null }">
         <div class="alert alert-error">

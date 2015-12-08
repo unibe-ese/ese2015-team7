@@ -39,10 +39,12 @@ public class IndexController {
      * @return the ModelView of login Page
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView index() 
+    {
     	ModelAndView model;
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	if ((authentication instanceof AnonymousAuthenticationToken)) {
+    	if ((authentication instanceof AnonymousAuthenticationToken)) 
+    	{
     		model = new ModelAndView("index");
     		model.addObject("loginForm", new LoginForm());
     		return model;
@@ -52,7 +54,6 @@ public class IndexController {
     		model = new ModelAndView("redirect:/loginningIn");
     		return model;
         }
-    	
     }
     
 
@@ -63,7 +64,8 @@ public class IndexController {
      * @return the loginPage
      */
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)
-    public String securityError(RedirectAttributes redirectAttributes) {
+    public String securityError(RedirectAttributes redirectAttributes) 
+    {
         redirectAttributes.addFlashAttribute("infoMessage", "You do have no permission to do that!");
         return "redirect:/";
     }

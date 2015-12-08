@@ -32,20 +32,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RequestController {
 	
-	
-	@Autowired 
-	UserService userService;
-	
-	@Autowired
-	IRequestService iRequestService;
-	
-	@Autowired
-	ISelectService selectService;
-	
-	@Autowired
-	UserDao userDao;
+	@Autowired UserService userService;
+	@Autowired IRequestService iRequestService;
+	@Autowired ISelectService selectService;
+	@Autowired UserDao userDao;
 
-	
 	/**
 	 * Gets searchedCourse from Session, saves the Request to the Database and deletes searchedCourse.
 	 * 
@@ -54,7 +45,8 @@ public class RequestController {
 	 * @return the ModelAndView to new myRequestPage.
 	 */
 	@RequestMapping(value = "/myRequests", method = RequestMethod.POST)
-    public ModelAndView myRequestPost( @RequestParam("userCourseId") long userCourseId){
+    public ModelAndView myRequestPost( @RequestParam("userCourseId") long userCourseId)
+	{
     	ModelAndView model = new ModelAndView("myRequests");
     	User principal = userService.getPrincipalUser();
     	String principalEmail = principal.getEmail();
@@ -74,7 +66,8 @@ public class RequestController {
 	 * @return the ModelAndView with all outgoing requests.
 	 */
 	@RequestMapping(value = "/myRequests", method = RequestMethod.GET)
-    public ModelAndView myRequestGet( HttpSession session){
+    public ModelAndView myRequestGet( HttpSession session)
+	{
     	ModelAndView model = new ModelAndView("myRequests");
     	User principal = userService.getPrincipalUser();    	
     	
@@ -93,7 +86,8 @@ public class RequestController {
 	 * @return the ModelAndView with all incoming Requests.
 	 */
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
-    public ModelAndView requestGet(HttpSession session){
+    public ModelAndView requestGet(HttpSession session)
+	{
     	ModelAndView model = new ModelAndView("requests");
     	User principal = userService.getPrincipalUser();
     	
@@ -110,7 +104,8 @@ public class RequestController {
 	 * @return the ModelAndView with updated list of outgoing requests.
 	 */
 	@RequestMapping(value = "/myRequests/action", method = RequestMethod.POST)
-    public ModelAndView myRequestAction(@RequestParam("deleteRequest") long id,RedirectAttributes redirect){
+    public ModelAndView myRequestAction(@RequestParam("deleteRequest") long id,RedirectAttributes redirect)
+	{
     	ModelAndView model = new ModelAndView("redirect:/myRequests");
     	
     	User principal = userService.getPrincipalUser();
@@ -134,30 +129,30 @@ public class RequestController {
 	 * @return the ModelAndView with updated requestPage.
 	 */
 	@RequestMapping(value = "/requests/action", method = RequestMethod.POST)
-    public ModelAndView requestAction(@RequestParam(required=false, defaultValue="0",name="acceptRequest") long acceptedId,@RequestParam(required=false, defaultValue="0", name="declineRequest") long declinedId,RedirectAttributes redirect){
+    public ModelAndView requestAction(@RequestParam(required=false, defaultValue="0",name="acceptRequest") long acceptedId,
+    		@RequestParam(required=false, defaultValue="0", name="declineRequest") long declinedId,RedirectAttributes redirect)
+	{
     	ModelAndView model = new ModelAndView("redirect:/requests");
     	User principal = userService.getPrincipalUser();
     	
-    try{  	
-   
-    	if (acceptedId!=0){
-    		iRequestService.acceptRequest(acceptedId);
-    		redirect.addFlashAttribute("infoMessage", "You successfully accepted the Request!");
-    	}
-    	else if (declinedId!=0){
-    		iRequestService.declineRequest(declinedId);
-    		redirect.addFlashAttribute("infoMessage", "You successfully declined the Request!");
-    	}
-    	
-
-    	ArrayList<Request> requests = iRequestService.getAllIncomingRequests(principal);
-    	redirect.addFlashAttribute("requests", requests);
-    	redirect.addFlashAttribute("message",iRequestService.getStateMessage(requests));
-    	
-	} catch (InvalidUserException e) {
-    	e.printStackTrace();
-    }
-    	
-        return model;
+	    try{  	
+	    	if (acceptedId!=0){
+	    		iRequestService.acceptRequest(acceptedId);
+	    		redirect.addFlashAttribute("infoMessage", "You successfully accepted the Request!");
+	    	}
+	    	else if (declinedId!=0){
+	    		iRequestService.declineRequest(declinedId);
+	    		redirect.addFlashAttribute("infoMessage", "You successfully declined the Request!");
+	    	}
+	    	
+	    	ArrayList<Request> requests = iRequestService.getAllIncomingRequests(principal);
+	    	redirect.addFlashAttribute("requests", requests);
+	    	redirect.addFlashAttribute("message",iRequestService.getStateMessage(requests));
+		} 
+	    catch (InvalidUserException e) {
+	    	e.printStackTrace();
+	    }
+	    
+	    return model;
     }
 }

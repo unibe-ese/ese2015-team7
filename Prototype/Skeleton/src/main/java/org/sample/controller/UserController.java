@@ -45,11 +45,12 @@ public class UserController {
 	 * @return the signUp page.
 	 */
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-    public ModelAndView register(@ModelAttribute("infoMessage") String message) {
-	ModelAndView model = new ModelAndView("signUp");
-	model.addObject("signupForm", new SignupForm());
-	model.addObject("infoMessage", message);
-	return model;
+    public ModelAndView register(@ModelAttribute("infoMessage") String message) 
+	{
+		ModelAndView model = new ModelAndView("signUp");
+		model.addObject("signupForm", new SignupForm());
+		model.addObject("infoMessage", message);
+		return model;
     }
 	
 	/**
@@ -61,19 +62,19 @@ public class UserController {
 	 * @return the signUp page with the infoMessage if invalid input is entered, else loads the login page.
 	 */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-	ModelAndView model= new ModelAndView("signUp");
-	
-	if (!result.hasErrors()) {
+    public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, HttpServletRequest request, RedirectAttributes redirectAttributes) 
+	{
+		ModelAndView model= new ModelAndView("signUp");
 		
-	    model = checkValidityAndRegistersNewUser(signupForm, request, redirectAttributes, model);
-	    
-	} else {
-	    model = new ModelAndView("signUp");
-	}
-	
-	return model;
-
+		if (!result.hasErrors()) {
+			
+		    model = checkValidityAndRegistersNewUser(signupForm, request, redirectAttributes, model);
+		    
+		} else {
+		    model = new ModelAndView("signUp");
+		}
+		
+		return model;
     }
 
 	/**
@@ -84,7 +85,8 @@ public class UserController {
 	 * @return the signUp page if there are errors in the form else returns the model.
 	 */
 	private ModelAndView checkValidityAndRegistersNewUser(SignupForm signupForm, HttpServletRequest request, RedirectAttributes redirectAttributes,
-			ModelAndView model) {
+			ModelAndView model) 
+	{
 		try {
 	    	if ( !signupForm.getPassword().equals(signupForm.getPasswordVerify()) ) {
 			    redirectAttributes.addFlashAttribute("infoMessage", "Your passwords do not match");
@@ -116,38 +118,39 @@ public class UserController {
 	 * @return the help page if the authentication was successful else returns the msignUp page.
 	 */
 	private ModelAndView authenticateUserAndSetSession(SignupForm signupForm, HttpServletRequest request,RedirectAttributes redirectAttributes,
-			ModelAndView model) {
-			// perform login authentication
-		
-		    User principal = userService.getUserByEmail(signupForm.getEmail());
-		    String password = signupForm.getPassword();
-		    
-		    try {
-		      
-		      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(principal.getEmail(), password);
-		      
-		      HttpSession session = request.getSession();
-		      auth.setDetails(new WebAuthenticationDetails(request));
-		      Authentication authenticatedUser = authMgr.authenticate(auth);
-		 
-		      // redirect to secured main page if authentication successful
-		      if(authenticatedUser.isAuthenticated()) {
-		    	 model =  new ModelAndView("redirect:/help");
-		     	session.setAttribute("username", principal.getWholeName());
-		        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-		        
-		        return model;
-		      }
-		      else{
-		    	  model = new ModelAndView("signUp");
-		    	  model.addObject("page_error", "...uups there is a bug in the Autologin, please contact an administator of the site: chuck.norris@gmail.com");
-		    	  return model;
-		      }
-		    } catch (Exception e) {
-		    	model = new ModelAndView("signUp");
-				model.addObject("page_error", e.getMessage());
-				model.addObject("page_error",e.getStackTrace());
-				return model;
-		    }
+			ModelAndView model) 
+	{
+		// perform login authentication
+	
+	    User principal = userService.getUserByEmail(signupForm.getEmail());
+	    String password = signupForm.getPassword();
+	    
+	    try {
+	      
+	      UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(principal.getEmail(), password);
+	      
+	      HttpSession session = request.getSession();
+	      auth.setDetails(new WebAuthenticationDetails(request));
+	      Authentication authenticatedUser = authMgr.authenticate(auth);
+	 
+	      // redirect to secured main page if authentication successful
+	      if(authenticatedUser.isAuthenticated()) {
+	    	 model =  new ModelAndView("redirect:/help");
+	     	session.setAttribute("username", principal.getWholeName());
+	        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+	        
+	        return model;
+	      }
+	      else{
+	    	  model = new ModelAndView("signUp");
+	    	  model.addObject("page_error", "...uups there is a bug in the Autologin, please contact an administator of the site: chuck.norris@gmail.com");
+	    	  return model;
+	      }
+	    } catch (Exception e) {
+	    	model = new ModelAndView("signUp");
+			model.addObject("page_error", e.getMessage());
+			model.addObject("page_error",e.getStackTrace());
+			return model;
+	    }
 	}
 }

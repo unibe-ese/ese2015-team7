@@ -44,7 +44,8 @@ public class UserServiceTest {
 	private BCryptPasswordEncoder passwordEncoder  = new BCryptPasswordEncoder();
 	
 	@Before
-	public void setupSignup() {		
+	public void setupSignup() 
+	{		
 		signupForm = new SignupForm();
 		signupForm.setId((long) 1500);
 		signupForm.setFirstName("Capitain");
@@ -57,7 +58,8 @@ public class UserServiceTest {
 	}
 	
 	@Before
-	public void setupUser() {
+	public void setupUser() 
+	{
 		user = new User();
 		user.setId((long)1);
 		user.setFirstName("Maria");
@@ -66,7 +68,6 @@ public class UserServiceTest {
 		user.setBiography("Oh why, oh why. My biography is gonna change..");
 		user.setPassword("654321");
 		user.setEnabled(false);
-		
 		when(userDao.save(any(User.class))).then(returnsFirstArg());
 	}
 	
@@ -83,7 +84,8 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void testTheBasicUserServiceUserSaving(){
+	public void testTheBasicUserServiceUserSaving()
+	{
 		updatedUser = userService.saveFrom(signupForm);
 		Iterator<UserRole> roleItr = updatedUser.getUserRole().iterator();
 		
@@ -103,7 +105,8 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void testTheBasicUserServiceUserUpdating(){
+	public void testTheBasicUserServiceUserUpdating()
+	{
 		updatedUser = userService.saveFrom(signupForm, user);
 		Iterator<UserRole> roleItr = updatedUser.getUserRole().iterator();
 		
@@ -123,15 +126,6 @@ public class UserServiceTest {
 		assertEquals(expectedTimeSlotArrayList.toString(), updatedUser.getTimeSlots().toString()); // don't compare references but string representation
 	}
 	
-	/*
-	 * How can we test the method userService.createAndSaveUserCoursesFromForm(...) best?
-	@Test
-	public void testTheSavingOfCourses(){
-		updatedUser = userService.saveFrom(signupForm);
-		userService.createAndSaveUserCoursesFromForm(signupForm, updatedUser);
-	}
-	*/
-	
 	@Test(expected = InvalidUserException.class)
 	public void testEmptyName(){
 		signupForm.setFirstName("a");
@@ -143,7 +137,8 @@ public class UserServiceTest {
 	 // Helper methods //
 	////////////////////
 	
-	private AutoPopulatingList<TimeSlot> getNewTimeSlotList() {
+	private AutoPopulatingList<TimeSlot> getNewTimeSlotList() 
+	{
 		AutoPopulatingList<TimeSlot> timeSlotList = new AutoPopulatingList<TimeSlot>(new TimeSlotFactory());
 		TimeSlot expectedtimeSlot = new TimeSlot();
 		expectedtimeSlot.setSemesterOrSemesterBreak("Autumn semester 2015");
@@ -155,7 +150,8 @@ public class UserServiceTest {
 		return timeSlotList;
 	}
 	
-	private AutoPopulatingList<UserCourseFormAttribute> getNewUserCourseFormAttributeList() {
+	private AutoPopulatingList<UserCourseFormAttribute> getNewUserCourseFormAttributeList() 
+	{
 		AutoPopulatingList<UserCourseFormAttribute> userCourseList = new AutoPopulatingList<UserCourseFormAttribute>(new UserCourseFormAttributeFactory());
 		UserCourseFormAttribute userCourseOne = new UserCourseFormAttribute();
 		userCourseOne.setUniversity("University of Bern");
@@ -165,6 +161,5 @@ public class UserServiceTest {
 		userCourseOne.setTeaching(true);
 		userCourseList.add(userCourseOne);
 		return userCourseList;
-	}
-	
+	}	
 }

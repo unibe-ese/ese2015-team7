@@ -4,17 +4,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
 <c:import url="template/header.jsp" />
-
-
 
 </head>
 <body>
 
 <c:import url="template/searchTemplate.jsp" />
-
-
 
 	<c:if test="${page_error != null }">
         <div class="alert alert-error">
@@ -23,6 +18,5 @@
                 ${page_error}
         </div>
     </c:if>
-
 
 <c:import url="template/footer.jsp" />

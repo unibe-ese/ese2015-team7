@@ -106,7 +106,6 @@ public class SearchServiceTest {
     	searchForm.setUniversity("Uni Bern");
     	
     	when(userDao.save(any(User.class))).then(returnsFirstArg());
-    	
     	when(universityDao.findByUniversityName(any(String.class))).thenReturn(uni);
     	when(subjectDao.findBySubjectNameAndUniversity(any(String.class),any(University.class))).thenReturn(sub);
 		when(courseDao.findByCourseNameAndSubject(any(String.class),any(Subject.class))).thenReturn(course);
@@ -115,46 +114,46 @@ public class SearchServiceTest {
     
     
     @Test
-    public void testGetUniversities(){
-    	
+    public void testGetUniversities()
+    {    	
     	ArrayList<University> unis = new ArrayList<University>();
     	unis.add(uni2);
     	unis.add(uni3);
-    	
     	when(universityDao.findAll()).thenReturn(unis);
-    	ArrayList<University> testUnis = searchService.getUniversities();
     	
+    	ArrayList<University> testUnis = searchService.getUniversities();
     	assertEquals(unis, testUnis);    	
     }
     
 
     @Test
-    public void testGetSubjects(){
+    public void testGetSubjects()
+    {
     	ArrayList<Subject> subs = new ArrayList<Subject>();
     	subs.add(sub2);
     	subs.add(sub3);
-    	
     	when(subjectDao.findAll()).thenReturn(subs);
-    	ArrayList<Subject> testSubs = searchService.getSubjects();
     	
+    	ArrayList<Subject> testSubs = searchService.getSubjects();
     	assertEquals(subs, testSubs);    	
     }
     
 
     @Test
-    public void testGetCourses(){
+    public void testGetCourses()
+    {
     	ArrayList<Course> courses = new ArrayList<Course>();
     	courses.add(course2);
     	courses.add(course3);
-    	
     	when(courseDao.findAll()).thenReturn(courses);
-    	ArrayList<Course> testCourses = searchService.getCourses();
     	
+    	ArrayList<Course> testCourses = searchService.getCourses();
     	assertEquals(courses, testCourses);    	
     }
     
 	@Test
-    public void testCourseNotSelected(){
+    public void testCourseNotSelected()
+	{
 		ArrayList<UserCourse> allUserCourses = new ArrayList<UserCourse>();
 		allUserCourses.add(userCourse);
 		allUserCourses.add(userCourse2);
@@ -162,21 +161,21 @@ public class SearchServiceTest {
 		searchForm.setCourse("Select Course");
 		searchForm.setSubject("Select Subject");
 		searchForm.setUniversity("Select University");
+		
 		ArrayList<UserCourse> userCoursesWithNoCourse = searchService.getTutorsFromSearchForm(searchForm);
 		assertEquals(allUserCourses, userCoursesWithNoCourse);;
 	}
 	
 	// needs to be updated
 	@Test
-    public void testGetTutorsFromSearchForm(){
+    public void testGetTutorsFromSearchForm()
+	{
     	Course otherCourse = new Course();
     	otherCourse.setCourseName("Flying");
     	otherCourse.setSubject(new Subject());
     	
-    	
     	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
     	userCourseList.add(userCourse);
-    	
     	when(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, true, 0)).thenReturn(userCourseList);
     	when(courseDao.findByCourseName("ESE")).thenReturn(course);
     	when(courseDao.findByCourseName("Flying")).thenReturn(otherCourse);
@@ -195,7 +194,6 @@ public class SearchServiceTest {
     	testCourse = searchService.getCourse(searchForm);
     	
     	assertEquals(course, testCourse);
-    	
     }
 
 }

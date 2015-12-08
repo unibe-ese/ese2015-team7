@@ -21,14 +21,12 @@
 <div class="inner">
 <div class="login-page" >
 
-
 <h1>Welcome to Student Connector!</h1>
 <h2>Login</h2>
 
 <form:form name='loginForm' action="j_spring_security_check" method='POST'>
     <fieldset>
-
-
+    
 			<c:if test="${not empty param.err}">
                 <div><c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/></div>
             </c:if>
@@ -38,8 +36,6 @@
             <c:if test="${not empty param.time}">
                 <div>You've been logged out due to inactivity.</div>
             </c:if>
-            
-            
             
         <c:set var="nameErrors"><form:errors path="name"/></c:set>
         
@@ -68,8 +64,6 @@
         </div>
     </fieldset>
 </form:form>
-
-
 
 </div>
 </div>

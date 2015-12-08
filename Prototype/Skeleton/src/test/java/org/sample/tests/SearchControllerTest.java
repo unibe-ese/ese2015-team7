@@ -41,17 +41,18 @@ public class SearchControllerTest {
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
     @Autowired	UserCourseDao userCourseDao;
-    @Autowired  UserService	userService;	
+    @Autowired  UserService	userService;
+    @Autowired SearchController searchController;
+    @Autowired SearchService searchService;	
     private University uni, uni2, uni3;
     private Subject sub, sub2, sub3;
     private Course course, course2, course3;
     private UserCourse userCourse, userCourse2, userCourse3;
     private User user, user2, user3, principal;
-    @Autowired SearchController searchController;
-    @Autowired SearchService searchService;
     
     @Before
-    public void setUp(){    	
+    public void setUp()
+    {    	
     	uni = new University();
     	uni.setUniversityName("Uni Bern");
     	
@@ -124,27 +125,22 @@ public class SearchControllerTest {
 		when(courseDao.findByCourseNameAndSubject(any(String.class),any(Subject.class))).thenReturn(course);
     }
     
-    
-    
     @Test
-    public void testSearchUniversitiesSubjectsAndCourses(){
-    	
+    public void testSearchUniversitiesSubjectsAndCourses()
+    {
     	ArrayList<University> unis = new ArrayList<University>();
     	unis.add(uni2);
     	unis.add(uni3);
-    	
     	when(searchService.getUniversities()).thenReturn(unis);
 
     	ArrayList<Subject> subs = new ArrayList<Subject>();
     	subs.add(sub2);
     	subs.add(sub3);
-    	
     	when(searchService.getSubjects()).thenReturn(subs);
     	
     	ArrayList<Course> courses = new ArrayList<Course>();
     	courses.add(course2);
     	courses.add(course3);
-
     	when(searchService.getCourses()).thenReturn(courses);
     	
     	ModelAndView testModel = searchController.searchUniversitiesSubjectsAndCourses();
@@ -156,8 +152,8 @@ public class SearchControllerTest {
     }
     
     @Test
-    public void testResults(){
-    	
+    public void testResults()
+    {	
     	ArrayList<UserCourse> userCourses = new ArrayList<UserCourse>();
     	userCourses.add(userCourse);
     	userCourses.add(userCourse3);
@@ -166,7 +162,6 @@ public class SearchControllerTest {
     	    	
     	SearchForm searchForm = new SearchForm();
     	searchForm.setCourse(searchedCourse.getCourseName());
-
     	when(searchService.getTutorsFromSearchForm(searchForm)).thenReturn(userCourses);
     	when(searchService.getCourse(searchForm)).thenReturn(searchedCourse);
     	
@@ -175,8 +170,5 @@ public class SearchControllerTest {
     	assertEquals("results", testModel.getViewName());
     	assertEquals(userCourses, testModel.getModel().get("userCourses"));
     	assertEquals(searchedCourse, testModel.getModel().get("searchedCourse"));
-    	
-    	
     }
-
 }

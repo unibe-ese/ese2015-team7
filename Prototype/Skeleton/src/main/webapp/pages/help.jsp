@@ -6,7 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@page import="org.sample.model.User" %>
 
-
 <c:import url="template/header.jsp" />
 
 <html>
@@ -26,7 +25,6 @@
        		<p>As you see you can either learn something as a student or you can earn a bit money by teaching as a tutor.</p>
     	</div>
     	
-    	
     	<div class="help" id="help-search">
     		<h4>How to search for a tutor ?</h4>
     		<p>Click on <strong>Search</strong> in the header and search a tutor.</p>
@@ -43,7 +41,6 @@
     		<p>The tutor will then get your request and can accept or decline the request. If he accepts the request you will both get the contact information (email and phone number) of the other and you can arrange a learning session.</p>
     		<p>Please notice that you only can send a request for the course selected in the results page.</p>
     	</div>
-    	
     	
     	<div class="help" id="help-become-tutor">
     		<h4>How to become a tutor ?</h4>

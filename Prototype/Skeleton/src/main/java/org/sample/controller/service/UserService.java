@@ -33,7 +33,8 @@ public class UserService implements IUserService{
 	@Autowired	CourseDao courseDao;
 	@Autowired	RequestDao requestDao;
 
-	public User saveFrom(SignupForm signupForm, User userToUpdate) {
+	public User saveFrom(SignupForm signupForm, User userToUpdate) 
+	{
 		String firstName = signupForm.getFirstName();
 		String lastName = signupForm.getLastName();
 		
@@ -42,8 +43,7 @@ public class UserService implements IUserService{
 		}
 		else if (firstName.length()<2|| lastName.length()<2) {
 		    throw new InvalidUserException("Sorry, please enter names with more than 2 letters"); // throw exception
-		}
-		
+		}		
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -89,20 +89,22 @@ public class UserService implements IUserService{
 		return saveFrom(signupForm, null);
 	}
 	
-	public void createAndSaveUserCoursesFromForm(SignupForm signupForm, User user) {		
-		for( UserCourseFormAttribute userCourseFormAttribute : signupForm.getUserCourseList() ) {
+	public void createAndSaveUserCoursesFromForm(SignupForm signupForm, User user) 
+	{		
+		for( UserCourseFormAttribute userCourseFormAttribute : signupForm.getUserCourseList() ) 
+		{
 			if(userCourseFormAttribute.getCourse() == null || userCourseFormAttribute.getCourse().equals("None"))
 				continue;
 			
 			Course course =  courseDao.findByCourseName(userCourseFormAttribute.getCourse());
 			if(course==null)
-			{
 				continue;
-			}
+			
 			UserCourse givenUserCourse = userCourseDao.findByUserAndCourse(user, course);
 			boolean givenUserCourseExists = (givenUserCourse!=null);
 			
-			if(!userCourseFormAttribute.isRemove()&&!givenUserCourseExists){
+			if(!userCourseFormAttribute.isRemove()&&!givenUserCourseExists)
+			{
 				givenUserCourse = new UserCourse();
 				givenUserCourse.setUser(user);
 				givenUserCourse.setCourse(course);
@@ -110,12 +112,14 @@ public class UserService implements IUserService{
 				givenUserCourse.setTeaching(userCourseFormAttribute.isTeaching());
 				userCourseDao.save(givenUserCourse); // save object to DB
 			}
-			else if(!userCourseFormAttribute.isRemove()&&givenUserCourseExists){
+			else if(!userCourseFormAttribute.isRemove()&&givenUserCourseExists)
+			{
 				givenUserCourse.setGrade( getGradeFromString(userCourseFormAttribute.getGrade()));
 				givenUserCourse.setTeaching(userCourseFormAttribute.isTeaching());
 				userCourseDao.save(givenUserCourse); // save object to DB
 			}
-			else if(userCourseFormAttribute.isRemove()&&givenUserCourseExists) {
+			else if(userCourseFormAttribute.isRemove()&&givenUserCourseExists) 
+			{
 				ArrayList<Request> relatedRequests = requestDao.findByUserCourseId(givenUserCourse.getUserCourseId());
 				requestDao.delete(relatedRequests);
 				userCourseDao.delete(givenUserCourse);
@@ -138,5 +142,4 @@ public class UserService implements IUserService{
     public float getGradeFromString(String grade){
     	return Float.parseFloat(grade);
     }
-    
 }

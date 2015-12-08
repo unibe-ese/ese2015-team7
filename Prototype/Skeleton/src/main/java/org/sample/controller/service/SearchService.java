@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-
 @Service
 public class SearchService implements ISearchService {
 
@@ -30,7 +29,6 @@ public class SearchService implements ISearchService {
     @Autowired	SubjectDao subjectDao;
     @Autowired	CourseDao courseDao;
     @Autowired	UserCourseDao userCourseDao;
- 
     
     @Transactional
     public ArrayList<University> getUniversities()
@@ -77,21 +75,25 @@ public class SearchService implements ISearchService {
         float grade = searchForm.getGrade();
     	ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
 
-        if(!StringUtils.isEmpty(courseName) && !"Select Course".equalsIgnoreCase(courseName)) {
+        if(!StringUtils.isEmpty(courseName) && !"Select Course".equalsIgnoreCase(courseName)) 
+        {
         	Course course = getCourse(searchForm);
             userCourseList = userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, true, grade);
         }
-        else if(!StringUtils.isEmpty(subjectName) && !"Select Subject".equalsIgnoreCase(subjectName)){
+        else if(!StringUtils.isEmpty(subjectName) && !"Select Subject".equalsIgnoreCase(subjectName))
+        {
         	Subject subject = getSubject(searchForm);
         	ArrayList<Course> coursesList = courseDao.findBySubject(subject);
             for(Course course : coursesList){
                 userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, true, grade));
             }
         }
-        else if(!StringUtils.isEmpty(universityName) && !"Select University".equalsIgnoreCase(universityName)){
+        else if(!StringUtils.isEmpty(universityName) && !"Select University".equalsIgnoreCase(universityName))
+        {
         	University university = getUniversity(searchForm);
         	ArrayList<Subject> subjectsList = subjectDao.findByUniversity(university);
-        	for(Subject subject : subjectsList){
+        	for(Subject subject : subjectsList)
+        	{
 	        	ArrayList<Course> coursesList = courseDao.findBySubject(subject);
 	            for(Course course : coursesList){
 	                userCourseList.addAll(userCourseDao.findByCourseAndTeachingAndMinimumGrade(course, true, grade));
@@ -104,18 +106,21 @@ public class SearchService implements ISearchService {
         return userCourseList;
     }
 
-	public University getUniversity(SearchForm searchForm) {
+	public University getUniversity(SearchForm searchForm) 
+	{
     	University university = universityDao.findByUniversityName(searchForm.getUniversity());		
     	return university;
 	}
 	
-	public Subject getSubject(SearchForm searchForm) {
+	public Subject getSubject(SearchForm searchForm) 
+	{
     	University university = getUniversity(searchForm);
 		Subject subject = subjectDao.findBySubjectNameAndUniversity(searchForm.getSubject(),university);
 		return subject;
 	}
 	
-	public Course getCourse(SearchForm searchForm) {
+	public Course getCourse(SearchForm searchForm) 
+	{
     	Subject subject  = getSubject(searchForm);
 		Course course = courseDao.findByCourseNameAndSubject(searchForm.getCourse(),subject);
 		return course;

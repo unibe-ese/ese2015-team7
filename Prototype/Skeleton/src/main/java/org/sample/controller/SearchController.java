@@ -35,14 +35,14 @@ public class SearchController {
     @Autowired
     UserService	userService;	
 
-
     /**
      * Loads the searchPage and all possible Universities/Subjects and Courses and adds the Searchform for user input.
      * 
      * @return the ModelAndView of the searchPage.
      */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView searchUniversitiesSubjectsAndCourses() {
+    public ModelAndView searchUniversitiesSubjectsAndCourses() 
+    {
     	
     	ModelAndView model = new ModelAndView("search");
         ArrayList<University> universities = searchService.getUniversities();
@@ -58,7 +58,6 @@ public class SearchController {
     	
         return model;
     }
-        
 
     /**
      * <p>Shows all Results for the specified SearchRequest in searchForm.</p>
@@ -68,7 +67,8 @@ public class SearchController {
      * @return the ModelAndView with all possible Tutors.
      */
     @RequestMapping(value = "/results", method = RequestMethod.POST)
-    public ModelAndView results(@Valid SearchForm searchForm) {
+    public ModelAndView results(@Valid SearchForm searchForm) 
+    {
     	ModelAndView model = new ModelAndView();
     	
             try {
