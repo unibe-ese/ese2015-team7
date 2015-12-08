@@ -25,7 +25,6 @@ public class Request {
 		this.isDeclined = false;
 		this.isDeleted = false;
 		this.newRequest = false;
-		this.newAnwser = false;
 	}
 
 
@@ -56,8 +55,6 @@ public class Request {
 	Boolean isDeleted;
 	@NotNull
 	Boolean newRequest;
-	@NotNull
-	Boolean newAnwser;
 
 	public Long getId() {
 		return id;
@@ -157,15 +154,7 @@ public class Request {
 	public void setNewRequest(Boolean newRequest) {
 		this.newRequest = newRequest;
 	}
-
-	public Boolean getNewAnwser() {
-		return newAnwser;
-	}
-
-	public void setNewAnwser(Boolean newAnwser) {
-		this.newAnwser = newAnwser;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -175,7 +164,6 @@ public class Request {
 		result = prime * result + ((isActiv == null) ? 0 : isActiv.hashCode());
 		result = prime * result + ((isDeclined == null) ? 0 : isDeclined.hashCode());
 		result = prime * result + ((isDeleted == null) ? 0 : isDeleted.hashCode());
-		result = prime * result + ((newAnwser == null) ? 0 : newAnwser.hashCode());
 		result = prime * result + ((newRequest == null) ? 0 : newRequest.hashCode());
 		result = prime * result + ((student == null) ? 0 : student.hashCode());
 		result = prime * result + ((userCourse == null) ? 0 : userCourse.hashCode());
@@ -216,11 +204,6 @@ public class Request {
 				return false;
 		} else if (!isDeleted.equals(other.isDeleted))
 			return false;
-		if (newAnwser == null) {
-			if (other.newAnwser != null)
-				return false;
-		} else if (!newAnwser.equals(other.newAnwser))
-			return false;
 		if (newRequest == null) {
 			if (other.newRequest != null)
 				return false;
@@ -243,11 +226,4 @@ public class Request {
 	public String toString() {
 		return "Request [id=" + id + ", student=" + student + ", tutor=" + userCourse.getUser() + ", course=" + userCourse.getCourse() + "]";
 	}
-
-
-	
-	
-	
-	
-
 }

@@ -8,7 +8,7 @@
 
  <c:set var="notVisited" value="true" />
 <c:forEach items="${requests}" var="item" varStatus="activIdx">
-	<c:if test="${item.isActiv &&notVisited}">    
+	<c:if test="${item.isActiv && notVisited}">    
 	 <c:set var="notVisited" value="false" />
 	 <c:set var="visitedHeader" value="true" />
 	<h3>Unanwsered Incoming Requests</h3>

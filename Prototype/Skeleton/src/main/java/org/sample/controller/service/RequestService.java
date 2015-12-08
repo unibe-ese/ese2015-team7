@@ -31,7 +31,7 @@ public class RequestService implements IRequestService{
 
 	
 	@Transactional
-	public void saveRequest(long userCourseId, String studentEmail) {
+	public Request saveRequest(long userCourseId, String studentEmail) {
 		
 		User student = userDao.findByEmail(studentEmail);
 		
@@ -62,15 +62,13 @@ public class RequestService implements IRequestService{
 				request.setStudent(student);
 			}
 				
-		
-		//Date date = new Date();
-		//request.setDate(date);
-		
 		request.setIsActiv(true);
 		
 		request.setNewRequest(true);
 		
-		requestDao.save(request);
+		request = requestDao.save(request);
+		
+		return request;
 	}
 
 	public ArrayList<Request> getAllOutgoingRequests(User principal) {
@@ -84,7 +82,8 @@ public class RequestService implements IRequestService{
         while(requestIter.hasNext())
         {
         	Request request = requestIter.next();
-        	if((request.getUserCourse().getUser().equals(principal)))
+        	User requestUser = request.getUserCourse().getUser();
+        	if((requestUser.equals(principal)))
         		requestList.add(request);
         }
 		return requestList;

@@ -68,7 +68,6 @@ public class RequestController {
         return model;
     }
 	
-	
 	/**
 	 * Gets all myRequests (outgoing Requests).
 	 * @param session  --if available

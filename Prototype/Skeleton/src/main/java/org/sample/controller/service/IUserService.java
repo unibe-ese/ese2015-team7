@@ -10,7 +10,7 @@ import org.sample.model.User;
  * @author Team7
  *
  */
-public interface IUserDataService {
+public interface IUserService {
 
 	/**
 	 * Creates a new user in the database based on the information of the signupForm.

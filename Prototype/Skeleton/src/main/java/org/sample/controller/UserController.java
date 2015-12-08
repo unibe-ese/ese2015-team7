@@ -6,7 +6,7 @@ import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
-import org.sample.controller.service.IUserDataService;
+import org.sample.controller.service.IUserService;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,7 +34,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 	
 	@Autowired
-	IUserDataService userService;
+	IUserService userService;
 	
 	@Autowired @Qualifier("authMgr") private AuthenticationManager authMgr;
 	

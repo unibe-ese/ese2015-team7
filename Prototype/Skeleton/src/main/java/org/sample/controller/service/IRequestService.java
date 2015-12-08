@@ -19,8 +19,9 @@ public interface IRequestService {
 	 * Checks if request already exists and if not creates a new one which will be saved in the database.
 	 * @param userCourseId the primary key of the userCourse to save.
 	 * @param studentEmail the email of the student to whom the request belongs.
+	 * @return 
 	 */
-	void saveRequest(long userCourseId, String studentEmail);
+	Request saveRequest(long userCourseId, String studentEmail);
 
 	/**
 	 * Gets all outgoing requests of entered principal.

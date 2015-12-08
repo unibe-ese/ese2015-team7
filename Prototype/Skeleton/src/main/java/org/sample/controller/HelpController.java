@@ -1,6 +1,6 @@
 package org.sample.controller;
 
-import org.sample.controller.service.IUserDataService;
+import org.sample.controller.service.IUserService;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HelpController {
 	
 @Autowired
-IUserDataService userService;
+IUserService userService;
 	
 	/**
 	 * This method attachs the logged in user to the model and loads the help page.

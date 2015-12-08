@@ -12,12 +12,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.sample.controller.service.RequestService;
+import org.sample.controller.service.IRequestService;
+import org.sample.controller.service.UserService;
 import org.sample.model.Course;
 import org.sample.model.Request;
 import org.sample.model.User;
 import org.sample.model.UserCourse;
 import org.sample.model.dao.RequestDao;
+import org.sample.model.dao.UserCourseDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,81 +32,141 @@ public class RequestServiceTest {
 
 	@Autowired 	RequestDao requestDao;
 	@Autowired 	UserDao userDao;
-	String tutorEmail;
-	String studentEmail;
+	@Autowired	UserCourseDao userCourseDao;
+	@Autowired	UserService userService;
+	@Autowired	IRequestService requestService;
+	String tutorEmail, studentEmail;
 	Course course;
-	User principal;
-	User tutor;
-	User student;
-	Request request;
-	User testUser;
-	ArrayList<Request> testRequestList;
-	RequestService requestService;
+	User tutor, student, otherUser, otherTutor, principal;
+	Request expectedRequest;
+	UserCourse userCourse, otherUserCourse;
+	ArrayList<Request> expectedRequestList;
 
 
 	
 	
 	@Before
-    public void setUp(){
-		requestService = new RequestService();
-    	tutorEmail = "test@test.test";
-    	studentEmail = "test@test.test";
-    	course = new Course();
-    	principal = new User();
-    	tutor = new User();
+    public void setUp(){    		
     	student = new User();
-    	testUser = new User();
-    	testRequestList = new ArrayList<Request>();
-    	request = new Request();
+    	student.setId(1l);
+    	student.setFirstName("first");
+    	student.setLastName("last");
+    	studentEmail = "test@test.test";
+    	student.setEmail(studentEmail);
+    	when(userDao.findByEmail(studentEmail)).thenReturn(student);
     	
-    	 
-    	testRequestList.add(request);
-    	testRequestList.add(new Request());
+    	tutor = new User();
+    	tutor.setId(2l);
+    	tutor.setFirstName("tutorFirst");
+    	tutor.setLastName("tutorLast");
+    	tutorEmail = "test@test.test";
+    	tutor.setEmail(tutorEmail);
+
+    	course = new Course();
     	course.setCourseName("ESE");
+    	course.setId(1l);
+    	
+    	userCourse = new UserCourse();
+    	userCourse.setUser(tutor);
+    	userCourse.setCourse(course);
+    	userCourse.setUserCourseId(1l);
+    	when(userCourseDao.findByUserCourseId(1l)).thenReturn(userCourse);
+    	
+
+    	expectedRequest = new Request();
+    	expectedRequest.setStudent(student);
+    	expectedRequest.setUserCourse(userCourse);
+		expectedRequest.setNewRequest(true);
+		expectedRequest.setIsActiv(true);
+		
+    	expectedRequestList = new ArrayList<Request>();
+    	expectedRequestList.add(expectedRequest);
+    	//expectedRequestList.add(new Request());
     	
     	when(userDao.save(any(User.class))).then(returnsFirstArg());
-    	
-    	when(requestDao.findByUserCourseIdAndStudent(any(int.class), any(User.class))).thenReturn(request);
-    	when(requestDao.findByUserCourseIdAndStudent(any(int.class), any(User.class))).thenReturn(request);
+		when(requestDao.save(any(Request.class))).then(returnsFirstArg());
     	//when(requestDao.findAll().iterator()).thenReturn(testRequestList.iterator());
     }
 	
 	
 	
 	@Test
-	public void saveRequestTest(){
-	}
-	@Test
-	public void getAllMyRequestsTest(){
-	}
-	@Test
-	public void getAllRequestsTest(){
-	}
-	@Test
-	public void deleteRequestTest(){
+	public void saveNewRequestTest(){    
+
+    	when(requestDao.findByUserCourseIdAndStudent(1l, student)).thenReturn(null);
+		
+		Request testRequest = requestService.saveRequest(1l, studentEmail);
+		
+		assertEquals(expectedRequest, testRequest);
 	}
 	
-	// needs to be updated
 	@Test
-	public void acceptRequestTest(){
-		//Request req=requestDao.findByUserCourseIdAndStudent(userCourseId, student);
-		//assertEquals(new Request(), req);
+	public void saveOldDeletedRequestTest(){
+		Request oldRequest = new Request();
+		oldRequest.setStudent(student);
+		oldRequest.setUserCourse(userCourse);
+		oldRequest.setIsDeleted(true);
+		
+    	when(requestDao.findByUserCourseIdAndStudent(1l, student)).thenReturn(oldRequest);
+		
+		Request testRequest = requestService.saveRequest(1l, studentEmail);
+		
+		assertEquals(expectedRequest, testRequest);
 	}
 	
-	// needs to be updated
 	@Test
-	public void declineRequestTest(){
+	public void saveOldDeclinedRequestTest(){
+		Request oldRequest = new Request();
+		oldRequest.setStudent(student);
+		oldRequest.setUserCourse(userCourse);
+		oldRequest.setIsDeclined(true);
 		
-		ArgumentCaptor<Request> argument = ArgumentCaptor.forClass(Request.class);
+    	when(requestDao.findByUserCourseIdAndStudent(1l, student)).thenReturn(oldRequest);
 		
+		Request testRequest = requestService.saveRequest(1l, studentEmail);
 		
-		//requestService.acceptRequest(tutor, student);
+		assertEquals(expectedRequest, testRequest);
+	}
+	
+	@Test
+	public void getAllOutgoingRequestsTest(){
+		when(requestDao.findByStudent(student)).thenReturn(expectedRequestList);
 		
+		ArrayList<Request> testRequestList = requestService.getAllOutgoingRequests(student);
 		
-		verify(requestDao).save(argument.capture());
+		assertEquals(expectedRequestList, testRequestList);
+	}
+	
+	@Test
+	public void getAllIncomingRequestsTest(){
+		otherUser = new User();
+		otherUser.setId(3l);
+		otherUser.setEmail("otherUserEmail");
+		otherUser.setFirstName("otherUserFirst");
+		otherUser.setLastName("otherUserLast");
 		
-		assertEquals(true, argument.getValue().getIsDeclined());
-		   
+		otherTutor = new User();
+		otherTutor.setId(4l);
+		otherTutor.setEmail("otherTutorEmail");
+		otherTutor.setFirstName("otherTutorFirst");
+		otherTutor.setLastName("otherTutorLast");
+		
+		otherUserCourse = new UserCourse();
+		otherUserCourse.setUserCourseId(2l);
+		otherUserCourse.setCourse(course);
+		otherUserCourse.setUser(otherTutor);
+		
+		Request otherRequest = new Request();
+		otherRequest.setStudent(otherUser);
+		otherRequest.setUserCourse(otherUserCourse);
+		
+		ArrayList<Request> givenRequestList = (ArrayList<Request>) expectedRequestList.clone();
+		givenRequestList.add(otherRequest);
+		when(requestDao.findAll()).thenReturn(givenRequestList);
+		
+		ArrayList<Request> testRequestList = requestService.getAllIncomingRequests(tutor);
+		
+		assertEquals(expectedRequestList, testRequestList);		
 	}
 	
 }

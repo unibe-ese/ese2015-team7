@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 @Service
-public class UserService implements IUserDataService{
+public class UserService implements IUserService{
 	
 	@Autowired	UserDao userDao;
 	@Autowired	UserCourseDao userCourseDao;

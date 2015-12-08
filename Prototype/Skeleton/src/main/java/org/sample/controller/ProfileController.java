@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.SignupForm;
-import org.sample.controller.service.IUserDataService;
+import org.sample.controller.service.IUserService;
 import org.sample.controller.service.ISearchService;
 import org.sample.controller.service.ISelectService;
 import org.sample.model.Course;
@@ -48,7 +48,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ProfileController {
 	
 	@Autowired
-    IUserDataService userService;
+    IUserService userService;
 	
 	@Autowired
     ISearchService searchService;

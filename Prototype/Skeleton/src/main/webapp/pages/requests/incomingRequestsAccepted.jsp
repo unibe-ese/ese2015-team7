@@ -8,7 +8,7 @@
 
 <c:set var="notVisited" value="true" />
 <c:forEach items="${requests}" var="item" varStatus="loopIdx">
-				<c:if test="${ item.isAccepted &&notVisited}">
+				<c:if test="${item.isAccepted && notVisited}">
 					<c:set var="notVisited" value="false" />
 					<c:set var="visitedHeader" value="true" />
 				    <h3>Accepted Incoming Requests</h3>
