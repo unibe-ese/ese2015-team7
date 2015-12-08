@@ -92,21 +92,24 @@
 		</table>
 	</div>
 	
-	<p><button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>
+	
 	<c:if test="${user.email!=principalEmail && userCourseId!=0}">
-	<div id="buttonBox">
-		<div id="buttonText">
-			Selected Course is: <br>
-			${selectedCourse}, of subject: ${selectedSubject}, at university: ${selectedUniversity}
+		<div id="buttonBox">
+			<div id="buttonText"  >
+				Selected Course is: <i>${selectedCourse}</i><br>
+				subject: <i>${selectedSubject}</i><br> 
+				university: <i>${selectedUniversity}</i>
+			</div>
+			<div id="button">
+				<form:form method="post" action="myRequests" modelAttribute="searchForm" id="profile" cssClass="form-horizontal"  autocomplete="off">
+   			 		<p><button type=submit name=userCourseId value="${userCourseId}" class="btn btn-primary">Send Request for selected course</button></p>    
+				</form:form>
+			</div>
 		</div>
-		<div id="button">
-			<form:form method="post" action="myRequests" modelAttribute="searchForm" id="profile" cssClass="form-horizontal"  autocomplete="off">
-   		 		<p><button type=submit name=userCourseId value="${userCourseId}" class="btn btn-primary">Send Request for selected course</button></p>    
-			</form:form>
-		</div>
-	</div>
-		
 	</c:if>
+	
+	<p><br>Not convinced? <br> 
+	<button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>
     
 </div>
 

@@ -27,9 +27,7 @@
 <form:form method="post" modelAttribute="signupForm" action="create" id="signupForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     
-       <c:if test="${not empty infoMessage}">
-                <div>${infoMessage}</div>
-            </c:if>
+       
 
 
         <c:set var="firstNameErrors"><form:errors path="firstName"/></c:set>
@@ -56,6 +54,11 @@
                 <form:errors path="email" cssClass="help-inline" element="span"/>
             </div>
         </div>
+        
+      	<c:if test="${not empty infoMessage}">
+                <font color="#903000">${infoMessage}</font>
+       	</c:if>
+       	
         <c:set var="passwordErrors"><form:errors path="password"/></c:set>
         <div class="control-group<c:if test="${not empty passwordErrors}"> error</c:if>">
             <label class="control-label" for="field-password">Password</label>
