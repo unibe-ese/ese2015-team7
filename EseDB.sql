@@ -78,6 +78,17 @@ INSERT INTO `usercourse` (`userCourseId`, `grade`, `teaching`, `course`, `user`)
 (11, 5, 1, 4, 11),
 (12, 5.5, 1, 1, 13);
 
+--
+-- Dumping data for table `request`
+--
+
+INSERT INTO `request` (`id`, `isAccepted`, `isActiv`, `isDeclined`, `isDeleted`, `newRequest`, `userCourseId`, `student_id`, `userCourse_userCourseId`) VALUES
+(3, 1, 0, 0, 0, 1, 12, 12, 12),
+(5, 1, 0, 0, 0, 1, 3, 5, 3),
+(6, 1, 0, 0, 0, 1, 5, 5, 5),
+(7, 1, 0, 0, 0, 1, 8, 5, 8),
+(8, 1, 0, 0, 0, 1, 1, 10, 1);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
