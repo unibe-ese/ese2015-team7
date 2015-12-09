@@ -58,8 +58,27 @@
 		    	<td><c:out value="${item.course.subject.university}" /></td>
 		    	<td><c:out value="${item.course.subject}" /></td>
 		    	<td><c:out value="${item.course}" /></td>
-		    	<td><c:out value="${item.grade}" /></td>
-		    	<td><c:out value="${item.teaching}" /></td>
+		    	<td>
+		    		<c:choose>
+		    			<c:when test="${item.grade != 0.0}">
+		    				<c:out value="${item.grade}" />
+		    			</c:when> 
+		    			<c:otherwise>
+       						 -
+   						</c:otherwise>
+		    		</c:choose>
+		    	</td>
+		    	<td>
+		    		<c:choose>
+		    			<c:when test="${item.teaching == true}">
+		    				yes
+		    			</c:when> 
+		    			<c:otherwise>
+       						no
+   						</c:otherwise>
+		    		</c:choose>
+		    	</td>
+		    	
 		  </tr>
 		  </c:forEach>
 		</table>
@@ -105,11 +124,11 @@
 				</form:form>
 			</div>
 		</div>
-	</c:if>
+	
 	
 	<p><br>Not convinced? <br> 
 	<button type="button" class="btn" onclick="location.href='/Skeleton/search'">Search Tutor</button></p>
-    
+    </c:if>
 </div>
 
 <c:import url="template/footer.jsp" />
