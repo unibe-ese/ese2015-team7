@@ -20,10 +20,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@Table(
-	    uniqueConstraints=
-	        @UniqueConstraint(columnNames={"user", "course"})
-	)
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"user", "course"}))
 public class UserCourse
 {
     @Id
