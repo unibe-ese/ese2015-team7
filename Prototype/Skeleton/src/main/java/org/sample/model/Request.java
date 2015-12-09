@@ -44,7 +44,7 @@ public class Request {
 	
 	private long userCourseId;
 
-	//Date date;
+	
 	@NotNull
 	Boolean isActiv;
 	@NotNull
