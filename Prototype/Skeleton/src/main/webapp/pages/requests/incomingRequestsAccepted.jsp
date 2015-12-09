@@ -34,7 +34,7 @@
 								${item.student.lastName}
 							</td>
 							<td>
-								<c:out value="${item.student.email}" />
+								<a href="mailto:<c:out value="${item.student.email}"/>?Subject=StudentConnector" target="_top">Send Mail</a>
 							</td>
 							<td>
 						   		<c:out value="${item.course.courseName}" />

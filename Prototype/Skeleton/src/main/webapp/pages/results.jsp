@@ -42,7 +42,16 @@
 							<td><c:out value="${item.course}" /></td>
 							<td><c:out value="${item.subject}" /></td>
 							<td><c:out value="${item.university}" /></td>
-							<td><c:out value="${item.grade}" /></td>
+							<td>
+		    		<c:choose>
+		    			<c:when test="${item.grade != 0.0}">
+		    				<c:out value="${item.grade}" />
+		    			</c:when> 
+		    			<c:otherwise>
+       						 -
+   						</c:otherwise>
+		    		</c:choose>
+		    	</td>
 						    <td id="noBox">
 						    	<button type=submit name=userCourseId value="${item.userCourseId}">Visit Profile</button>
 						    </td>
